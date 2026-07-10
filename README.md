@@ -76,6 +76,7 @@ This repository hosts the **official landing & download website** for the app �
 ```
 Cric-Scorer-Pro/
 ├── index.html         # Single-file bilingual (EN/BN) landing page
+├── privacy.html       # Bilingual (EN/BN) Privacy Policy page
 ├── cricket_pro.apk    # Release APK (v2.0.10, ~53 MB)
 ├── icon.png           # App icon
 ├── favicon.png        # Site favicon

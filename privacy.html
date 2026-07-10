@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Cric Scorer Pro</title>
+<meta name="description" content="Privacy Policy for Cric Scorer Pro — how we collect, use, store and protect your information.">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --accent:#E0567B; --accent-dark:#C23131; --grad-a:#FF9A76; --grad-b:#E0567B;
+  --bg:#FFF8F3; --bg-soft:#FFEFE6; --surface:#FFFFFF; --elev:#FFE3D0;
+  --text:#4A2C3A; --muted:#8A5F6E; --divider:#F3DCD2;
+  --navy:#241B4D; --navy-2:#37286E;
+  --shadow:0 10px 30px rgba(224,86,123,.14);
+  --radius:20px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit','Hind Siliguri',sans-serif;background:var(--bg);color:var(--text);line-height:1.65;overflow-x:hidden}
+body.bn{font-family:'Hind Siliguri','Outfit',sans-serif}
+body.en .lang-bn{display:none!important}
+body.bn .lang-en{display:none!important}
+.container{max-width:820px;margin:0 auto;padding:0 24px}
+a{color:inherit}
+a.link{color:var(--accent);text-decoration:underline}
+
+/* Nav (shared with site) */
+nav{position:sticky;top:0;z-index:50;background:rgba(255,248,243,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--divider)}
+.nav-inner{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:24px;height:68px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.1rem;text-decoration:none}
+.brand img{width:38px;height:38px;border-radius:10px}
+.nav-links{display:flex;gap:22px;margin-left:auto;font-weight:500;color:var(--muted)}
+.nav-links a{text-decoration:none}
+.nav-links a:hover{color:var(--accent)}
+.lang-toggle{display:flex;border:1.5px solid var(--divider);border-radius:99px;overflow:hidden;font-size:.82rem;font-weight:600;cursor:pointer}
+.lang-toggle button{border:0;background:transparent;padding:6px 13px;cursor:pointer;font:inherit;color:var(--muted)}
+.lang-toggle button.active{background:linear-gradient(135deg,var(--grad-a),var(--grad-b));color:#fff}
+.btn{display:inline-flex;align-items:center;gap:9px;background:linear-gradient(135deg,var(--grad-a),var(--grad-b));color:#fff;font-weight:600;padding:8px 18px;border-radius:99px;box-shadow:var(--shadow);font-size:.9rem;text-decoration:none}
+@media(max-width:820px){.nav-links{display:none}}
+
+/* Policy content */
+.policy-head{padding:56px 0 20px;text-align:center}
+.policy-head h1{font-size:clamp(1.9rem,4vw,2.6rem);font-weight:800;margin-bottom:10px}
+.policy-head .eff{color:var(--muted);font-size:.95rem}
+.policy{padding:20px 0 80px}
+.policy h2{font-size:1.25rem;font-weight:700;margin:38px 0 12px;color:var(--accent-dark)}
+.policy h2:first-child{margin-top:0}
+.policy p{margin-bottom:14px;color:var(--text)}
+.policy ul{margin:0 0 14px 22px}
+.policy li{margin-bottom:6px}
+.policy hr{border:0;border-top:1px solid var(--divider);margin:28px 0}
+.contact-box{background:var(--surface);border:1px solid var(--divider);border-radius:16px;padding:20px 24px;margin:14px 0}
+.contact-box p{margin-bottom:8px}
+.contact-box p:last-child{margin-bottom:0}
+
+footer{border-top:1px solid var(--divider);padding:34px 0;color:var(--muted);font-size:.9rem}
+.foot-inner{max-width:1120px;margin:0 auto;padding:0 24px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.foot-brand{display:flex;align-items:center;gap:9px;font-weight:700;color:var(--text)}
+.foot-brand img{width:28px;height:28px;border-radius:8px}
+.foot-links{display:flex;gap:16px}
+.foot-links a{text-decoration:none;color:var(--muted)}
+.foot-links a:hover{color:var(--accent)}
+</style>
+</head>
+<body class="en">
+
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><img src="icon.png" alt="Cric Scorer Pro icon">Cric Scorer Pro</a>
+    <div class="nav-links">
+      <a href="index.html#features"><span class="lang-en">Features</span><span class="lang-bn">ফিচার</span></a>
+      <a href="index.html#install"><span class="lang-en">Install</span><span class="lang-bn">ইনস্টল</span></a>
+      <a href="index.html#faq"><span class="lang-en">FAQ</span><span class="lang-bn">প্রশ্নোত্তর</span></a>
+      <a href="privacy.html"><span class="lang-en">Privacy</span><span class="lang-bn">প্রাইভেসি</span></a>
+    </div>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button id="btn-en" class="active" onclick="setLang('en')">EN</button>
+      <button id="btn-bn" onclick="setLang('bn')">বাং</button>
+    </div>
+    <a class="btn" href="cricket_pro.apk" download>⬇ <span class="lang-en">Download</span><span class="lang-bn">ডাউনলোড</span></a>
+  </div>
+</nav>
+
+<header class="policy-head">
+  <div class="container">
+    <h1><span class="lang-en">Privacy Policy</span><span class="lang-bn">গোপনীয়তা নীতি</span></h1>
+    <p class="eff">
+      <span class="lang-en"><strong>Effective Date:</strong> July 10, 2026 &nbsp;·&nbsp; <strong>Application:</strong> Cric Scorer Pro</span>
+      <span class="lang-bn"><strong>কার্যকর তারিখ:</strong> ১০ জুলাই, ২০২৬ &nbsp;·&nbsp; <strong>অ্যাপ্লিকেশন:</strong> Cric Scorer Pro</span>
+    </p>
+  </div>
+</header>
+
+<main class="container policy">
+
+<!-- ================= ENGLISH ================= -->
+<div class="lang-en">
+
+<h2>1. Introduction</h2>
+<p>Welcome to Cric Scorer Pro ("the App", "we", "our", or "us").</p>
+<p>We value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, store, and protect your information when you use our application.</p>
+<p>By accessing or using the App, you agree to the practices described in this Privacy Policy.</p>
+
+<hr>
+<h2>2. Information We Collect</h2>
+<p>Depending on how you use the application, we may collect the following information.</p>
+
+<h2 style="font-size:1.05rem;margin-top:20px">Personal Information</h2>
+<p>When you sign in using Firebase Authentication, we may collect:</p>
+<ul>
+  <li>Full Name</li>
+  <li>Email Address</li>
+  <li>Profile Picture (if available)</li>
+  <li>Firebase User ID</li>
+</ul>
+<p>We do not collect your password. Authentication is securely handled by Firebase Authentication.</p>
+
+<h2 style="font-size:1.05rem;margin-top:20px">Cricket Match Information</h2>
+<p>The application may store information such as:</p>
+<ul>
+  <li>Team Names</li>
+  <li>Player Names</li>
+  <li>Match Settings</li>
+  <li>Toss Information</li>
+  <li>Batting & Bowling Statistics</li>
+  <li>Ball-by-Ball Score</li>
+  <li>Innings Summary</li>
+  <li>Match Results</li>
+  <li>Chase Target Information</li>
+  <li>Match Configuration</li>
+</ul>
+
+<h2 style="font-size:1.05rem;margin-top:20px">Technical Information</h2>
+<p>We may automatically collect:</p>
+<ul>
+  <li>Browser Type</li>
+  <li>Device Information</li>
+  <li>Operating System</li>
+  <li>Screen Resolution</li>
+  <li>Language Preference</li>
+  <li>Date and Time of Access</li>
+  <li>IP Address (where required for security)</li>
+</ul>
+
+<hr>
+<h2>3. How We Use Your Information</h2>
+<p>We use your information to:</p>
+<ul>
+  <li>Provide cricket scoring services</li>
+  <li>Authenticate users securely</li>
+  <li>Save and restore match data</li>
+  <li>Synchronize scoring information</li>
+  <li>Improve application performance</li>
+  <li>Fix bugs and technical issues</li>
+  <li>Enhance security</li>
+  <li>Prevent unauthorized access</li>
+  <li>Maintain service reliability</li>
+</ul>
+
+<hr>
+<h2>4. Firebase Authentication</h2>
+<p>Our application uses Firebase Authentication to securely verify user identity.</p>
+<p>Authentication information is managed by Firebase according to Google's privacy and security standards.</p>
+<p>We do not store your login passwords on our own servers.</p>
+
+<hr>
+<h2>5. Google Sheets Integration</h2>
+<p>If enabled, the application may export selected match data to Google Sheets.</p>
+<p>Only the information necessary for exporting is shared with your connected Google account. We do not access files outside those explicitly authorized by you.</p>
+
+<hr>
+<h2>6. Data Storage</h2>
+<p>Your information may be stored using secure cloud services including Firebase and related infrastructure.</p>
+<p>Reasonable technical and organizational measures are used to protect stored information against unauthorized access, alteration, disclosure, or destruction.</p>
+
+<hr>
+<h2>7. Data Sharing</h2>
+<p>We do not sell, rent, or trade your personal information.</p>
+<p>Information may only be shared:</p>
+<ul>
+  <li>When required by law</li>
+  <li>To comply with legal obligations</li>
+  <li>To protect the security of the application</li>
+  <li>With trusted service providers required to operate the application (such as Firebase)</li>
+</ul>
+
+<hr>
+<h2>8. Cookies and Local Storage</h2>
+<p>The application may use browser cookies or local storage to:</p>
+<ul>
+  <li>Keep you signed in</li>
+  <li>Remember preferences</li>
+  <li>Improve performance</li>
+  <li>Save temporary scoring information</li>
+  <li>Enhance user experience</li>
+</ul>
+<p>You may disable cookies through your browser settings; however, some features may not function correctly.</p>
+
+<hr>
+<h2>9. Security</h2>
+<p>We implement industry-standard security practices including:</p>
+<ul>
+  <li>Secure Authentication</li>
+  <li>HTTPS Encryption</li>
+  <li>Access Control</li>
+  <li>Secure Cloud Infrastructure</li>
+  <li>Authentication Token Validation</li>
+</ul>
+<p>Although we strive to protect your information, no method of electronic storage or transmission over the Internet is completely secure.</p>
+
+<hr>
+<h2>10. Children's Privacy</h2>
+<p>This application is not intended for children under the age required by applicable law without appropriate parental or guardian consent.</p>
+<p>If we become aware that personal information has been collected from a child in violation of applicable law, we will take reasonable steps to remove such information.</p>
+
+<hr>
+<h2>11. Your Rights</h2>
+<p>Depending on applicable laws, you may have the right to:</p>
+<ul>
+  <li>Access your information</li>
+  <li>Request correction of inaccurate information</li>
+  <li>Request deletion of your data</li>
+  <li>Withdraw consent where applicable</li>
+  <li>Request a copy of your data</li>
+  <li>Contact us regarding privacy concerns</li>
+</ul>
+
+<hr>
+<h2>12. Third-Party Services</h2>
+<p>Our application may use trusted third-party services including:</p>
+<ul>
+  <li>Firebase Authentication</li>
+  <li>Google Sheets API</li>
+  <li>Vercel Hosting</li>
+</ul>
+<p>These services operate under their own privacy policies.</p>
+
+<hr>
+<h2>13. International Data Transfers</h2>
+<p>Your information may be processed or stored on servers located in countries other than your own. By using the application, you understand that such transfers may occur in accordance with applicable laws and appropriate safeguards.</p>
+
+<hr>
+<h2>14. Changes to This Privacy Policy</h2>
+<p>We may update this Privacy Policy from time to time.</p>
+<p>The updated version will become effective once published within the application or on the official website.</p>
+<p>Continued use of the application after changes are posted constitutes acceptance of the revised Privacy Policy.</p>
+
+<hr>
+<h2>15. Contact Us</h2>
+<p>If you have any questions, feedback, or support requests regarding Cric Scorer Pro or this Privacy Policy, please contact us through:</p>
+<div class="contact-box">
+  <p>📱 <strong>WhatsApp:</strong> +880 1934-000086</p>
+  <p>📘 <strong>Facebook:</strong> <a class="link" href="https://www.facebook.com/TaimurShakiB" target="_blank" rel="noopener">facebook.com/TaimurShakiB</a></p>
+  <p><strong>Application:</strong> Cric Scorer Pro</p>
+</div>
+<p>We aim to respond to all legitimate inquiries as promptly as possible.</p>
+
+<hr>
+<h2>16. Acceptance</h2>
+<p>By creating an account, signing in, or using Cric Scorer Pro, you acknowledge that you have read, understood, and agree to this Privacy Policy.</p>
+
+</div>
+
+<!-- ================= BANGLA ================= -->
+<div class="lang-bn">
+
+<h2>১. ভূমিকা</h2>
+<p>Cric Scorer Pro ("অ্যাপ", "আমরা") -তে স্বাগতম।</p>
+<p>আমরা আপনার গোপনীয়তাকে গুরুত্ব দিই এবং আপনার ব্যক্তিগত তথ্য সুরক্ষিত রাখতে প্রতিশ্রুতিবদ্ধ। এই প্রাইভেসি পলিসিতে ব্যাখ্যা করা হয়েছে, অ্যাপ ব্যবহারের সময় আমরা কীভাবে আপনার তথ্য সংগ্রহ, ব্যবহার, সংরক্ষণ ও সুরক্ষা করি।</p>
+<p>অ্যাপটি অ্যাক্সেস বা ব্যবহার করার মাধ্যমে আপনি এই প্রাইভেসি পলিসিতে বর্ণিত পদ্ধতিগুলোতে সম্মত হচ্ছেন।</p>
+
+<hr>
+<h2>২. আমরা যেসব তথ্য সংগ্রহ করি</h2>
+<p>আপনি অ্যাপটি কীভাবে ব্যবহার করছেন, তার ওপর নির্ভর করে আমরা নিচের তথ্যগুলো সংগ্রহ করতে পারি।</p>
+
+<h2 style="font-size:1.05rem;margin-top:20px">ব্যক্তিগত তথ্য</h2>
+<p>Firebase Authentication দিয়ে সাইন-ইন করলে আমরা সংগ্রহ করতে পারি:</p>
+<ul>
+  <li>পূর্ণ নাম</li>
+  <li>ইমেইল ঠিকানা</li>
+  <li>প্রোফাইল ছবি (থাকলে)</li>
+  <li>Firebase User ID</li>
+</ul>
+<p>আমরা আপনার পাসওয়ার্ড সংগ্রহ করি না। অথেন্টিকেশন নিরাপদে Firebase Authentication দ্বারা পরিচালিত হয়।</p>
+
+<h2 style="font-size:1.05rem;margin-top:20px">ক্রিকেট ম্যাচের তথ্য</h2>
+<p>অ্যাপটি নিচের তথ্য সংরক্ষণ করতে পারে:</p>
+<ul>
+  <li>টিমের নাম</li>
+  <li>খেলোয়াড়দের নাম</li>
+  <li>ম্যাচ সেটিংস</li>
+  <li>টস সংক্রান্ত তথ্য</li>
+  <li>ব্যাটিং ও বোলিং পরিসংখ্যান</li>
+  <li>বল-বাই-বল স্কোর</li>
+  <li>ইনিংস সামারি</li>
+  <li>ম্যাচ ফলাফল</li>
+  <li>চেজ টার্গেট তথ্য</li>
+  <li>ম্যাচ কনফিগারেশন</li>
+</ul>
+
+<h2 style="font-size:1.05rem;margin-top:20px">প্রযুক্তিগত তথ্য</h2>
+<p>আমরা স্বয়ংক্রিয়ভাবে সংগ্রহ করতে পারি:</p>
+<ul>
+  <li>ব্রাউজারের ধরন</li>
+  <li>ডিভাইসের তথ্য</li>
+  <li>অপারেটিং সিস্টেম</li>
+  <li>স্ক্রিন রেজোলিউশন</li>
+  <li>ভাষার পছন্দ</li>
+  <li>অ্যাক্সেসের তারিখ ও সময়</li>
+  <li>IP ঠিকানা (নিরাপত্তার প্রয়োজনে)</li>
+</ul>
+
+<hr>
+<h2>৩. আমরা আপনার তথ্য কীভাবে ব্যবহার করি</h2>
+<p>আমরা আপনার তথ্য ব্যবহার করি:</p>
+<ul>
+  <li>ক্রিকেট স্কোরিং সেবা প্রদানে</li>
+  <li>নিরাপদে ব্যবহারকারী যাচাইয়ে (অথেন্টিকেশন)</li>
+  <li>ম্যাচ ডেটা সংরক্ষণ ও পুনরুদ্ধারে</li>
+  <li>স্কোরিং তথ্য সিংক্রোনাইজ করতে</li>
+  <li>অ্যাপের পারফরম্যান্স উন্নত করতে</li>
+  <li>বাগ ও প্রযুক্তিগত সমস্যা সমাধানে</li>
+  <li>নিরাপত্তা বৃদ্ধিতে</li>
+  <li>অননুমোদিত অ্যাক্সেস প্রতিরোধে</li>
+  <li>সেবার নির্ভরযোগ্যতা বজায় রাখতে</li>
+</ul>
+
+<hr>
+<h2>৪. Firebase Authentication</h2>
+<p>আমাদের অ্যাপ ব্যবহারকারীর পরিচয় নিরাপদে যাচাই করতে Firebase Authentication ব্যবহার করে।</p>
+<p>অথেন্টিকেশন সংক্রান্ত তথ্য Google-এর প্রাইভেসি ও নিরাপত্তা মানদণ্ড অনুযায়ী Firebase দ্বারা পরিচালিত হয়।</p>
+<p>আমরা আপনার লগইন পাসওয়ার্ড নিজেদের সার্ভারে সংরক্ষণ করি না।</p>
+
+<hr>
+<h2>৫. Google Sheets ইন্টিগ্রেশন</h2>
+<p>সক্রিয় থাকলে, অ্যাপটি নির্বাচিত ম্যাচ ডেটা Google Sheets-এ এক্সপোর্ট করতে পারে।</p>
+<p>শুধুমাত্র এক্সপোর্টের জন্য প্রয়োজনীয় তথ্য আপনার সংযুক্ত Google অ্যাকাউন্টের সাথে শেয়ার করা হয়। আপনার স্পষ্টভাবে অনুমোদিত ফাইলের বাইরে আমরা কোনো ফাইল অ্যাক্সেস করি না।</p>
+
+<hr>
+<h2>৬. ডেটা সংরক্ষণ</h2>
+<p>আপনার তথ্য Firebase-সহ নিরাপদ ক্লাউড সেবা ও সংশ্লিষ্ট অবকাঠামোতে সংরক্ষিত হতে পারে।</p>
+<p>সংরক্ষিত তথ্যকে অননুমোদিত অ্যাক্সেস, পরিবর্তন, প্রকাশ বা ধ্বংস থেকে রক্ষা করতে যুক্তিসঙ্গত প্রযুক্তিগত ও প্রাতিষ্ঠানিক ব্যবস্থা নেওয়া হয়।</p>
+
+<hr>
+<h2>৭. ডেটা শেয়ারিং</h2>
+<p>আমরা আপনার ব্যক্তিগত তথ্য বিক্রি, ভাড়া বা বিনিময় করি না।</p>
+<p>তথ্য শুধুমাত্র নিচের ক্ষেত্রে শেয়ার করা হতে পারে:</p>
+<ul>
+  <li>আইন দ্বারা প্রয়োজনীয় হলে</li>
+  <li>আইনি বাধ্যবাধকতা পূরণে</li>
+  <li>অ্যাপের নিরাপত্তা রক্ষায়</li>
+  <li>অ্যাপ চালাতে প্রয়োজনীয় বিশ্বস্ত সেবাদাতাদের সাথে (যেমন Firebase)</li>
+</ul>
+
+<hr>
+<h2>৮. কুকিজ ও লোকাল স্টোরেজ</h2>
+<p>অ্যাপটি ব্রাউজার কুকিজ বা লোকাল স্টোরেজ ব্যবহার করতে পারে:</p>
+<ul>
+  <li>আপনাকে সাইন-ইন রাখতে</li>
+  <li>পছন্দ মনে রাখতে</li>
+  <li>পারফরম্যান্স উন্নত করতে</li>
+  <li>সাময়িক স্কোরিং তথ্য সংরক্ষণে</li>
+  <li>ব্যবহারকারীর অভিজ্ঞতা উন্নত করতে</li>
+</ul>
+<p>আপনি চাইলে ব্রাউজার সেটিংস থেকে কুকিজ বন্ধ করতে পারেন; তবে এতে কিছু ফিচার সঠিকভাবে কাজ নাও করতে পারে।</p>
+
+<hr>
+<h2>৯. নিরাপত্তা</h2>
+<p>আমরা ইন্ডাস্ট্রি-স্ট্যান্ডার্ড নিরাপত্তা ব্যবস্থা ব্যবহার করি, যেমন:</p>
+<ul>
+  <li>নিরাপদ অথেন্টিকেশন</li>
+  <li>HTTPS এনক্রিপশন</li>
+  <li>অ্যাক্সেস কন্ট্রোল</li>
+  <li>নিরাপদ ক্লাউড অবকাঠামো</li>
+  <li>অথেন্টিকেশন টোকেন যাচাই</li>
+</ul>
+<p>আমরা আপনার তথ্য সুরক্ষায় সর্বোচ্চ চেষ্টা করলেও, ইন্টারনেটে ইলেকট্রনিক সংরক্ষণ বা ট্রান্সমিশনের কোনো পদ্ধতিই সম্পূর্ণ নিরাপদ নয়।</p>
+
+<hr>
+<h2>১০. শিশুদের গোপনীয়তা</h2>
+<p>প্রযোজ্য আইন অনুযায়ী নির্ধারিত বয়সের কম বয়সী শিশুদের জন্য উপযুক্ত অভিভাবকের সম্মতি ছাড়া এই অ্যাপ ব্যবহারের উদ্দেশ্যে তৈরি নয়।</p>
+<p>আমরা যদি জানতে পারি যে প্রযোজ্য আইন লঙ্ঘন করে কোনো শিশুর কাছ থেকে ব্যক্তিগত তথ্য সংগ্রহ করা হয়েছে, তাহলে তা সরাতে যুক্তিসঙ্গত পদক্ষেপ নেওয়া হবে।</p>
+
+<hr>
+<h2>১১. আপনার অধিকার</h2>
+<p>প্রযোজ্য আইন অনুযায়ী, আপনার অধিকার থাকতে পারে:</p>
+<ul>
+  <li>আপনার তথ্য অ্যাক্সেস করার</li>
+  <li>ভুল তথ্য সংশোধনের অনুরোধ করার</li>
+  <li>আপনার ডেটা মুছে ফেলার অনুরোধ করার</li>
+  <li>প্রযোজ্য ক্ষেত্রে সম্মতি প্রত্যাহারের</li>
+  <li>আপনার ডেটার একটি কপি চাওয়ার</li>
+  <li>গোপনীয়তা সংক্রান্ত বিষয়ে আমাদের সাথে যোগাযোগ করার</li>
+</ul>
+
+<hr>
+<h2>১২. তৃতীয় পক্ষের সেবা</h2>
+<p>আমাদের অ্যাপ নিচের বিশ্বস্ত তৃতীয় পক্ষের সেবা ব্যবহার করতে পারে:</p>
+<ul>
+  <li>Firebase Authentication</li>
+  <li>Google Sheets API</li>
+  <li>Vercel Hosting</li>
+</ul>
+<p>এই সেবাগুলো তাদের নিজস্ব প্রাইভেসি পলিসি অনুযায়ী পরিচালিত হয়।</p>
+
+<hr>
+<h2>১৩. আন্তর্জাতিক ডেটা স্থানান্তর</h2>
+<p>আপনার তথ্য আপনার নিজের দেশের বাইরের সার্ভারেও প্রক্রিয়াজাত বা সংরক্ষিত হতে পারে। অ্যাপ ব্যবহারের মাধ্যমে আপনি বুঝছেন যে এই ধরনের স্থানান্তর প্রযোজ্য আইন ও যথাযথ সুরক্ষা ব্যবস্থার আওতায় ঘটতে পারে।</p>
+
+<hr>
+<h2>১৪. প্রাইভেসি পলিসিতে পরিবর্তন</h2>
+<p>আমরা সময়ে সময়ে এই প্রাইভেসি পলিসি আপডেট করতে পারি।</p>
+<p>হালনাগাদ সংস্করণ অ্যাপে বা অফিসিয়াল ওয়েবসাইটে প্রকাশের সাথে সাথে কার্যকর হবে।</p>
+<p>পরিবর্তন প্রকাশের পর অ্যাপ ব্যবহার চালিয়ে যাওয়ার অর্থ হলো সংশোধিত প্রাইভেসি পলিসিতে সম্মত হওয়া।</p>
+
+<hr>
+<h2>১৫. যোগাযোগ</h2>
+<p>Cric Scorer Pro বা এই প্রাইভেসি পলিসি সম্পর্কে কোনো প্রশ্ন, মতামত বা সাপোর্ট প্রয়োজন হলে যোগাযোগ করুন:</p>
+<div class="contact-box">
+  <p>📱 <strong>হোয়াটসঅ্যাপ:</strong> +880 1934-000086</p>
+  <p>📘 <strong>ফেসবুক:</strong> <a class="link" href="https://www.facebook.com/TaimurShakiB" target="_blank" rel="noopener">facebook.com/TaimurShakiB</a></p>
+  <p><strong>অ্যাপ্লিকেশন:</strong> Cric Scorer Pro</p>
+</div>
+<p>আমরা যৌক্তিক সব অনুরোধের যথাসম্ভব দ্রুত উত্তর দেওয়ার চেষ্টা করি।</p>
+
+<hr>
+<h2>১৬. সম্মতি</h2>
+<p>অ্যাকাউন্ট তৈরি, সাইন-ইন বা Cric Scorer Pro ব্যবহারের মাধ্যমে আপনি স্বীকার করছেন যে আপনি এই প্রাইভেসি পলিসি পড়েছেন, বুঝেছেন এবং এতে সম্মত হয়েছেন।</p>
+
+</div>
+
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand"><img src="icon.png" alt="">Cric Scorer Pro</div>
+    <div class="foot-links">
+      <a href="index.html"><span class="lang-en">Home</span><span class="lang-bn">হোম</span></a>
+      <a href="privacy.html"><span class="lang-en">Privacy Policy</span><span class="lang-bn">প্রাইভেসি পলিসি</span></a>
+    </div>
+    <div><span class="lang-en">© 2026 Taimur ShakiB. All Rights Reserved.</span><span class="lang-bn">© ২০২৬ তাইমুর শাকিব। সর্বস্বত্ব সংরক্ষিত।</span></div>
+  </div>
+</footer>
+
+<script>
+function setLang(l){
+  document.body.className = l;
+  document.documentElement.lang = l === 'bn' ? 'bn' : 'en';
+  document.getElementById('btn-en').classList.toggle('active', l==='en');
+  document.getElementById('btn-bn').classList.toggle('active', l==='bn');
+  try{localStorage.setItem('lang', l);}catch(e){}
+}
+try{
+  var saved = localStorage.getItem('lang');
+  if(saved==='bn'||saved==='en') setLang(saved);
+}catch(e){}
+</script>
+</body>
+</html>
