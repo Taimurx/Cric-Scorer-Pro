@@ -6,7 +6,7 @@
 <p align="center"><b>Score every ball like a pro — a free Android app for live cricket scoring.</b></p>
 
 <p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-All%20Rights%20Reserved-red.svg" alt="License: All Rights Reserved"></a>
   <img src="https://img.shields.io/badge/platform-Android%207.0%2B-3DDC84?logo=android&logoColor=white" alt="Platform: Android 7.0+">
   <img src="https://img.shields.io/badge/version-v2.0.10-E0567B" alt="Version v2.0.10">
   <img src="https://img.shields.io/badge/size-53%20MB-8A5F6E" alt="APK size 53 MB">
@@ -82,7 +82,7 @@ Cric-Scorer-Pro/
 ├── netlify.toml        # Netlify config — correct MIME/headers for the APK download
 ├── vercel.json          # Vercel config — correct MIME/headers for the APK download
 ├── DEPLOY.md             # Step-by-step deploy guide (Bengali)
-└── LICENSE                # MIT license
+└── LICENSE                # All Rights Reserved
 ```
 
 ## 🛠️ Tech stack
@@ -136,10 +136,12 @@ Both `netlify.toml` and `vercel.json` already set the correct `Content-Type`/`Co
 
 ## 📄 License
 
-Released under the [MIT License](LICENSE) — © 2026 Taimurx.
+© 2026 Taimur ShakiB. All Rights Reserved.
+
+This project is proprietary — see [LICENSE](LICENSE) for terms. The app is free to download and use in its distributed form (the APK); the source code is not licensed for reuse, modification, or redistribution without written permission.
 
 ## 📬 Contact
 
-**Taimurx** — [github.com/Taimurx](https://github.com/Taimurx)
+**Taimur ShakiB** — [github.com/Taimurx](https://github.com/Taimurx)
 
 <p align="center">Made with ❤️ for cricket.</p>
