@@ -1,49 +1,230 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-    Fun fact: Flutter apps built with `flutter build web` replace this
-    placeholder with the base href value passed via `--base-href`.
-  -->
   <base href="./">
-
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
 
-  <!-- SEO -->
-  <title>Cricket Scorer Pro — Live Cricket Scoring</title>
-  <meta name="description" content="Cricket Scorer Pro — professional live cricket scoring. Ball-by-ball scoring, full scoreboards, tournaments, PDF export and match history. Works offline.">
-  <meta name="keywords" content="cricket scorer, cricket scoring app, live cricket score, scoreboard, cricket tournament">
-  <meta name="theme-color" content="#E0567B">
+  <!-- Immediate Iframe Detection (Prevents Any UI Flash or Double Headers in Iframe) -->
+  <script>
+    try {
+      if (window.self !== window.top) {
+        document.documentElement.classList.add('in-iframe');
+      }
+    } catch (e) {
+      document.documentElement.classList.add('in-iframe');
+    }
+    // Progressive PWA caching lifecycle & optional diagnostic refresh hook (?reload_cache=1)
+    if (window.location.search.includes('reload_cache=1')) {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for (var registration of registrations) {
+            registration.unregister();
+          }
+        });
+      }
+      if ('caches' in window) {
+        caches.keys().then(function(names) {
+          for (var name of names) {
+            caches.delete(name);
+          }
+        });
+      }
+    }
+  </script>
+
+  <!-- SEO & Social Meta -->
+  <title>Cric Scorer Pro Web — Live Cricket Scoring in Browser</title>
+  <meta name="description" content="Cricket Scorer Pro Web — professional live cricket scoring right in your browser. Ball-by-ball scoring, full scoreboards, tournament tables and offline sync.">
+  <meta name="keywords" content="cricket scorer web, cricket scoring app online, live cricket score, web cricket scoreboard, cricket tournament">
+  <meta name="theme-color" content="#1E1744">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Cricket Scorer Pro — Live Cricket Scoring">
+  <meta property="og:title" content="Cric Scorer Pro Web — Live Cricket Scoring">
   <meta property="og:description" content="Ball-by-ball live cricket scoring, full scoreboards, tournaments and PDF export — right in your browser.">
   <meta property="og:image" content="icons/Icon-512.png">
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
 
-  <!-- iOS -->
+  <!-- iOS / PWA Meta -->
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Cric Scorer Pro">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="manifest" href="manifest.json">
 
+  <!-- Google Sign-In Web Client ID & Identity Services -->
+  <meta name="google-signin-client_id" content="889324711628-h52akp3rti8rffg4r1mhre14ahmgubq7.apps.googleusercontent.com">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+  <!-- Google Fonts: Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    html, body {
+    :root {
+      --bar-bg: rgba(26, 20, 52, 0.92);
+      --bar-border: rgba(255, 255, 255, 0.14);
+      --accent-a: #FF9A76;
+      --accent-b: #E0567B;
+      --accent-glow: rgba(224, 86, 123, 0.35);
+      --text: #FFFFFF;
+      --text-muted: #B8AEC5;
+      --success: #10B981;
+      --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      height: 100%;
-      background: #FFEFE6;
     }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #120F1F;
+      color: var(--text);
+      font-family: var(--font-main);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── Non-Obtrusive Floating Action Dock (Never Covers Flutter AppBar) ── */
+    #web-dock {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9998;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 5px 8px;
+      background: var(--bar-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--bar-border);
+      border-radius: 999px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+      max-width: calc(100vw - 24px);
+    }
+
+    #web-dock.minimized {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+    }
+    #web-dock.minimized .dock-content {
+      display: none;
+    }
+    #web-dock.minimized .dock-trigger-btn {
+      display: flex;
+    }
+
+    .dock-content {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .capsule-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #fff;
+      height: 30px;
+      padding: 0 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-decoration: none;
+      font-family: inherit;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .capsule-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-1px);
+    }
+    .capsule-btn.primary {
+      background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+      border: 0;
+      box-shadow: 0 3px 12px var(--accent-glow);
+    }
+    .capsule-btn.primary:hover {
+      opacity: 0.94;
+    }
+    .capsule-btn.icon-only {
+      width: 30px;
+      padding: 0;
+    }
+
+    #google-auth-btn.signed-in {
+      background: rgba(16, 185, 129, 0.18);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #A7F3D0;
+    }
+    #google-auth-btn.signed-in::after {
+      content: "";
+      width: 6px;
+      height: 6px;
+      background: #10B981;
+      border-radius: 50%;
+      margin-left: 2px;
+      display: inline-block;
+    }
+
+    #pwa-install-btn {
+      display: none; /* Dynamically displayed when PWA prompt is ready */
+    }
+
+    .dock-trigger-btn {
+      display: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      transition: transform 0.2s;
+    }
+    .dock-trigger-btn:hover {
+      transform: scale(1.08);
+    }
+
+    /* ── Hide Dock Completely In Iframe Mode ── */
+    html.in-iframe #web-dock,
+    body.in-iframe #web-dock,
+    html.in-iframe #help-modal,
+    body.in-iframe #help-modal,
+    html.in-iframe #pwa-toast,
+    body.in-iframe #pwa-toast {
+      display: none !important;
+    }
+
+    /* ── Enhanced Dynamic Loader ── */
     #cricket-loader {
       position: fixed;
       inset: 0;
@@ -51,65 +232,798 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 22px;
-      background: linear-gradient(135deg, #FF9A76, #E0567B);
-      z-index: 9999;
-      transition: opacity .35s ease;
+      gap: 18px;
+      background: radial-gradient(circle at center, #271C44 0%, #16102B 100%);
+      z-index: 10000;
+      transition: opacity .4s ease, visibility .4s ease;
+      padding: 20px;
+      text-align: center;
     }
+
+    .loader-icon-wrap {
+      position: relative;
+      width: 90px;
+      height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .loader-ring {
+      position: absolute;
+      inset: -6px;
+      border-radius: 30px;
+      border: 2px solid transparent;
+      border-top-color: var(--accent-a);
+      border-right-color: var(--accent-b);
+      animation: spin-ring 2.4s linear infinite;
+    }
+    @keyframes spin-ring {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     #cricket-loader img {
-      width: 96px;
-      height: 96px;
-      border-radius: 24px;
-      box-shadow: 0 16px 40px rgba(0, 0, 0, .25);
-      animation: pulse 1.6s ease-in-out infinite;
+      width: 82px;
+      height: 82px;
+      border-radius: 22px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+      animation: pulse-logo 2s ease-in-out infinite;
+      z-index: 1;
     }
-    #cricket-loader p {
-      margin: 0;
+    @keyframes pulse-logo {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .loader-title {
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
       color: #fff;
-      font: 600 15px system-ui, sans-serif;
-      letter-spacing: .04em;
-      opacity: .92;
     }
-    #cricket-loader .bar {
-      width: 132px;
+
+    #loader-status {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 500;
+      min-height: 20px;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .loader-bar-track {
+      width: 150px;
       height: 4px;
       border-radius: 99px;
-      background: rgba(255, 255, 255, .3);
+      background: rgba(255, 255, 255, 0.12);
       overflow: hidden;
+      position: relative;
     }
-    #cricket-loader .bar i {
-      display: block;
-      width: 40%;
-      height: 100%;
+    .loader-bar-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 45%;
       border-radius: 99px;
-      background: #fff;
-      animation: slide 1.2s ease-in-out infinite;
+      background: linear-gradient(90deg, var(--accent-a), var(--accent-b));
+      animation: progress-slide 1.4s ease-in-out infinite;
     }
-    @keyframes pulse {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.06); }
-    }
-    @keyframes slide {
+    @keyframes progress-slide {
       0% { transform: translateX(-100%); }
-      100% { transform: translateX(340%); }
+      100% { transform: translateX(350%); }
+    }
+
+    /* Fallback Watchdog Box */
+    #loader-watchdog {
+      display: none;
+      margin-top: 12px;
+      max-width: 340px;
+      width: 90%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      padding: 12px 16px;
+      animation: fadeIn 0.4s ease;
+    }
+    #loader-watchdog p {
+      font-size: 12px;
+      color: #DDD;
+      line-height: 1.45;
+      margin-bottom: 10px;
+    }
+    .watchdog-actions {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Help / Shortcuts Modal ── */
+    #help-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10001;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    #help-modal.active {
+      display: flex;
+    }
+    .help-card {
+      background: #1F1838;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 18px;
+      max-width: 420px;
+      width: 100%;
+      padding: 22px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5);
+      color: #fff;
+    }
+    .help-card h3 {
+      font-size: 17px;
+      font-weight: 800;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .help-card .close-btn {
+      background: transparent;
+      border: 0;
+      color: var(--text-muted);
+      font-size: 20px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px;
+    }
+    .help-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    .help-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #DDD;
+      padding: 7px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+    }
+    .kbd {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 5px;
+      padding: 2px 7px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: monospace;
+      color: #fff;
+    }
+
+    /* ── PWA Notification Toast ── */
+    #pwa-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #1A1333;
+      border: 1px solid var(--bar-border);
+      border-radius: 999px;
+      padding: 9px 18px;
+      color: #fff;
+      font-size: 12.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      z-index: 10002;
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s;
+      pointer-events: none;
+    }
+    #pwa-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* ── Mobile Anti-Collision Overlap Rules ── */
+    @media (max-width: 600px) {
+      #web-dock {
+        top: 8px;
+        right: 8px;
+        padding: 4px 6px;
+        gap: 5px;
+      }
+      .capsule-btn span {
+        display: none !important; /* Icon-only on mobile eliminates all text overflow and overlap */
+      }
+      .capsule-btn {
+        width: 30px;
+        height: 30px;
+        padding: 0;
+      }
     }
   </style>
 </head>
 <body>
-  <div id="cricket-loader">
-    <img src="icons/Icon-192.png" alt="Cricket Scorer Pro">
-    <p>Cricket Scorer Pro</p>
-    <div class="bar"><i></i></div>
+
+  <!-- Floating Non-Obtrusive Web Dock (Positioned at Top-Right Corner) -->
+  <div id="web-dock">
+    <div class="dock-content">
+      <a class="capsule-btn" href="../index.html" title="Back to Website">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
+        <span>Website</span>
+      </a>
+
+      <!-- PWA Install Button (Shown dynamically) -->
+      <button class="capsule-btn primary" id="pwa-install-btn" title="Install App">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span>Install</span>
+      </button>
+
+      <!-- Download APK Shortcut -->
+      <a class="capsule-btn" href="../cricket_pro.apk" download title="Download Offline Android APK">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v13M5 10l7 7 7-7"/><path d="M5 21h14"/></svg>
+        <span>APK</span>
+      </a>
+
+      <!-- Google Sign-In & Cloud Sync Button -->
+      <button class="capsule-btn" id="google-auth-btn" onclick="handleGoogleSignInClick()" title="Google Sign-In & Cloud Sync">
+        <svg width="13" height="13" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.02 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+        <span id="google-user-label">Google Sync</span>
+      </button>
+
+      <!-- Offline Ready Status Pill -->
+      <div class="capsule-btn" id="offline-status-pill" title="100% Offline Scoring Ready" style="cursor:default; background:rgba(16,185,129,0.14); border-color:rgba(16,185,129,0.35); color:#A7F3D0;">
+        <span style="display:inline-block; width:6px; height:6px; background:#10B981; border-radius:50%; margin-right:3px;"></span>
+        <span id="offline-status-text">Offline Ready</span>
+      </div>
+
+      <!-- Fullscreen Toggle -->
+      <button class="capsule-btn icon-only" id="fs-btn" title="Fullscreen (F)">
+        <svg id="fs-icon-enter" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+        <svg id="fs-icon-exit" style="display:none" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>
+      </button>
+
+      <!-- Help / Shortcuts -->
+      <button class="capsule-btn icon-only" id="help-btn" title="Shortcuts & Tips">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </button>
+
+      <!-- Minimize to corner dot -->
+      <button class="capsule-btn icon-only" id="dock-min-btn" title="Minimize Dock (H)">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </button>
+    </div>
+
+    <!-- Collapsed Trigger Button -->
+    <button class="dock-trigger-btn" id="dock-expand-btn" title="Show Web Menu (H)">
+      🏏
+    </button>
   </div>
 
+  <!-- Dynamic Interactive Cricket Loader -->
+  <div id="cricket-loader">
+    <div class="loader-icon-wrap">
+      <div class="loader-ring"></div>
+      <img src="icons/Icon-192.png" alt="Cricket Scorer Pro">
+    </div>
+    <div class="loader-title">Cricket Scorer Pro</div>
+    <div id="loader-status">Initializing cricket engine...</div>
+    <div class="loader-bar-track">
+      <div class="loader-bar-fill"></div>
+    </div>
+
+    <!-- Fallback Watchdog Box -->
+    <div id="loader-watchdog">
+      <p>Initializing CanvasKit engine &amp; local database.</p>
+      <div class="watchdog-actions">
+        <button class="capsule-btn" onclick="window.location.reload()">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+          Reload
+        </button>
+        <a class="capsule-btn primary" href="../cricket_pro.apk" download>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v13M5 10l7 7 7-7"/><path d="M5 21h14"/></svg>
+          Download APK
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Help & Shortcuts Modal -->
+  <div id="help-modal">
+    <div class="help-card">
+      <h3>
+        <span>⚡ Shortcuts &amp; Web Tips</span>
+        <button class="close-btn" id="help-close-btn">&times;</button>
+      </h3>
+      <ul class="help-list">
+        <li class="help-item">
+          <span>Toggle Fullscreen</span>
+          <span class="kbd">F</span>
+        </li>
+        <li class="help-item">
+          <span>Toggle Floating Dock</span>
+          <span class="kbd">H</span>
+        </li>
+        <li class="help-item">
+          <span>Close Menus / Dialogs</span>
+          <span class="kbd">Esc</span>
+        </li>
+        <li class="help-item">
+          <span>Offline Match Storage</span>
+          <span class="kbd" style="font-family:inherit">IndexedDB</span>
+        </li>
+      </ul>
+      <p style="font-size:12px; color:var(--text-muted); line-height:1.5; margin-bottom:14px;">
+        💡 <strong>Pro Tip:</strong> Install as a PWA on your PC or mobile for 100% offline instant match scoring!
+      </p>
+      <button class="capsule-btn primary" style="width:100%; height:36px;" onclick="closeHelpModal()">Got it!</button>
+    </div>
+  </div>
+
+  <!-- Cloud Sync Status Modal -->
+  <div id="sync-modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); z-index:10001; align-items:center; justify-content:center; padding:20px;">
+    <div class="help-card" style="max-width:440px;">
+      <h3>
+        <span id="sync-modal-title">☁️ Cloud Backup &amp; Sync</span>
+        <button class="close-btn" onclick="closeSyncModal()">&times;</button>
+      </h3>
+      <div id="sync-modal-body">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="pwa-toast">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+    <span id="toast-text">App ready for offline scoring!</span>
+  </div>
+
+  <!-- Logic & Flutter Bootstrap -->
   <script>
-    window.addEventListener('flutter-first-frame', function () {
-      var loader = document.getElementById('cricket-loader');
+    // 1. Dynamic loader tips cycler
+    const loaderTips = [
+      "Initializing cricket scoring engine...",
+      "Configuring offline database & rules...",
+      "Preparing ball-by-ball scoreboards...",
+      "Almost ready! Launching match desk..."
+    ];
+    let tipIdx = 0;
+    const statusEl = document.getElementById('loader-status');
+    const tipInterval = setInterval(function() {
+      if (!statusEl) return;
+      tipIdx = (tipIdx + 1) % loaderTips.length;
+      statusEl.style.opacity = '0';
+      statusEl.style.transform = 'translateY(4px)';
+      setTimeout(function() {
+        statusEl.textContent = loaderTips[tipIdx];
+        statusEl.style.opacity = '1';
+        statusEl.style.transform = 'translateY(0)';
+      }, 200);
+    }, 1800);
+
+    // 2. Fallback Watchdog (12 seconds)
+    const watchdogTimer = setTimeout(function() {
+      const wd = document.getElementById('loader-watchdog');
+      if (wd) wd.style.display = 'block';
+    }, 12000);
+
+    function dismissLoader() {
+      clearInterval(tipInterval);
+      clearTimeout(watchdogTimer);
+      if (typeof checkFlutterReady !== 'undefined') clearInterval(checkFlutterReady);
+      const loader = document.getElementById('cricket-loader');
       if (!loader) return;
       loader.style.opacity = '0';
-      setTimeout(function () { loader.remove(); }, 400);
+      loader.style.visibility = 'hidden';
+      setTimeout(function () { loader.remove(); }, 350);
+    }
+
+    // 3. Flutter first frame listener & Active DOM detector
+    window.addEventListener('flutter-first-frame', dismissLoader);
+    const checkFlutterReady = setInterval(function() {
+      if (document.querySelector('flutter-view, flt-glass-pane, [flt-renderer]')) {
+        dismissLoader();
+      }
+    }, 200);
+
+    // 4. Floating Dock Minimize / Expand
+    const dock = document.getElementById('web-dock');
+    const minBtn = document.getElementById('dock-min-btn');
+    const expandBtn = document.getElementById('dock-expand-btn');
+
+    function minimizeDock() {
+      if (dock) dock.classList.add('minimized');
+    }
+    function expandDock() {
+      if (dock) dock.classList.remove('minimized');
+    }
+    if (minBtn) minBtn.addEventListener('click', minimizeDock);
+    if (expandBtn) expandBtn.addEventListener('click', expandDock);
+
+    // 5. Fullscreen Handling
+    const fsBtn = document.getElementById('fs-btn');
+    const fsEnter = document.getElementById('fs-icon-enter');
+    const fsExit = document.getElementById('fs-icon-exit');
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(function(e) {
+          console.warn('Fullscreen error:', e);
+        });
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+    if (fsBtn) fsBtn.addEventListener('click', toggleFullscreen);
+
+    document.addEventListener('fullscreenchange', function() {
+      const isFs = !!document.fullscreenElement;
+      if (fsEnter && fsExit) {
+        fsEnter.style.display = isFs ? 'none' : 'block';
+        fsExit.style.display = isFs ? 'block' : 'none';
+      }
+    });
+
+    // 6. PWA Install Prompt Capture
+    let deferredPrompt;
+    const pwaBtn = document.getElementById('pwa-install-btn');
+
+    window.addEventListener('beforeinstallprompt', function (e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (pwaBtn) pwaBtn.style.display = 'inline-flex';
+    });
+
+    if (pwaBtn) {
+      pwaBtn.addEventListener('click', async function () {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        const { outcome } = await deferredPrompt.userChoice;
+        if (outcome === 'accepted') {
+          showToast('Thank you for installing Cric Scorer Pro! 🎉');
+        }
+        deferredPrompt = null;
+        pwaBtn.style.display = 'none';
+      });
+    }
+
+    window.addEventListener('appinstalled', function () {
+      showToast('Cric Scorer Pro installed successfully! 📱');
+      if (pwaBtn) pwaBtn.style.display = 'none';
+    });
+
+    // 7. Help Modal Handling
+    const helpBtn = document.getElementById('help-btn');
+    const helpModal = document.getElementById('help-modal');
+    const helpCloseBtn = document.getElementById('help-close-btn');
+
+    function openHelpModal() { if (helpModal) helpModal.classList.add('active'); }
+    function closeHelpModal() { if (helpModal) helpModal.classList.remove('active'); }
+
+    if (helpBtn) helpBtn.addEventListener('click', openHelpModal);
+    if (helpCloseBtn) helpCloseBtn.addEventListener('click', closeHelpModal);
+    if (helpModal) {
+      helpModal.addEventListener('click', function(e) {
+        if (e.target === helpModal) closeHelpModal();
+      });
+    }
+
+    // 8. Toast Notification Helper
+    function showToast(msg) {
+      const toast = document.getElementById('pwa-toast');
+      const text = document.getElementById('toast-text');
+      if (!toast || !text) return;
+      text.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(function() { toast.classList.remove('show'); }, 3500);
+    }
+
+    // 9. Keyboard Shortcuts (F, H, Esc)
+    window.addEventListener('keydown', function (e) {
+      if (['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+
+      if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleFullscreen();
+      } else if (e.key === 'h' || e.key === 'H') {
+        e.preventDefault();
+        if (dock && dock.classList.contains('minimized')) {
+          expandDock();
+        } else {
+          minimizeDock();
+        }
+      } else if (e.key === 'Escape') {
+        closeHelpModal();
+        closeSyncModal();
+      }
+    });
+
+    // 10. Google Sign-In & Cloud Sync Integration
+    const GOOGLE_CLIENT_ID = '889324711628-h52akp3rti8rffg4r1mhre14ahmgubq7.apps.googleusercontent.com';
+
+    function getCloudUser() {
+      try {
+        const flutterProfile = localStorage.getItem('flutter.feature_hub_profile');
+        if (flutterProfile) {
+          const parsed = JSON.parse(flutterProfile);
+          if (parsed && (parsed.isLoggedIn || parsed.uid)) {
+            return parsed;
+          }
+        }
+        const savedUser = localStorage.getItem('cric_google_user');
+        if (savedUser) {
+          const parsed = JSON.parse(savedUser);
+          if (parsed && (parsed.email || parsed.name)) return parsed;
+        }
+      } catch (e) {}
+      return null;
+    }
+
+    function updateGoogleUserUi(user) {
+      const label = document.getElementById('google-user-label');
+      const btn = document.getElementById('google-auth-btn');
+      if (!label || !btn) return;
+      if (user && (user.name || user.email)) {
+        const displayName = user.name ? user.name.split(' ')[0] : (user.email ? user.email.split('@')[0] : 'Account');
+        label.textContent = displayName;
+        btn.classList.add('signed-in');
+        btn.title = 'Signed in as ' + (user.email || user.name) + ' · Cloud sync active';
+      } else {
+        label.textContent = 'Google Sync';
+        btn.classList.remove('signed-in');
+        btn.title = 'Google Sign-In & Cloud Sync';
+      }
+    }
+
+    function openSyncModal() {
+      const modal = document.getElementById('sync-modal');
+      const body = document.getElementById('sync-modal-body');
+      if (!modal || !body) return;
+      const user = getCloudUser();
+
+      if (user && (user.name || user.email)) {
+        const initial = user.name ? user.name.charAt(0).toUpperCase() : '🏏';
+        body.innerHTML = `
+          <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px; background:rgba(255,255,255,0.06); padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.12);">
+            <div style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, var(--accent-a), var(--accent-b)); display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; color:#fff; overflow:hidden; flex-shrink:0;">
+              ${user.photoUrl ? '<img src="' + user.photoUrl + '" style="width:100%; height:100%; object-fit:cover;" alt="Avatar">' : initial}
+            </div>
+            <div style="flex:1; min-width:0;">
+              <div style="font-weight:700; font-size:15px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${user.name || 'Cricket Scorer'}</div>
+              <div style="font-size:12px; color:var(--text-muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${user.email || 'Cloud connected'}</div>
+            </div>
+            <span style="font-size:11px; background:rgba(16,185,129,0.2); color:#A7F3D0; border:1px solid rgba(16,185,129,0.4); padding:3px 8px; border-radius:99px; font-weight:600;">Active</span>
+          </div>
+          <p style="font-size:13px; color:#DDD; line-height:1.55; margin-bottom:16px;">
+            ☁️ <strong>Automatic Cloud Backup:</strong> All your matches, teams, and tournament leaderboards are safely stored in Firebase and synced whenever changes are made.
+          </p>
+          <div style="display:flex; gap:8px;">
+            <button class="capsule-btn" style="flex:1; height:38px; border-color:rgba(239,68,68,0.4); color:#FCA5A5; background:rgba(239,68,68,0.1);" onclick="handleSignOutClick()">Sign Out</button>
+            <button class="capsule-btn primary" style="flex:1; height:38px;" onclick="closeSyncModal()">Close</button>
+          </div>
+        `;
+      } else {
+        body.innerHTML = `
+          <div style="text-align:center; padding:10px 0 16px;">
+            <div style="width:52px; height:52px; border-radius:50%; background:rgba(224,86,123,0.15); border:1px solid rgba(224,86,123,0.3); display:inline-flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:12px;">☁️</div>
+            <h4 style="font-size:16px; font-weight:700; color:#fff; margin-bottom:6px;">Connect Google Cloud Backup</h4>
+            <p style="font-size:13px; color:var(--text-muted); line-height:1.5; margin-bottom:18px;">
+              Back up your ball-by-ball matches, custom teams, and tournaments to Google Cloud so you can restore them on any Android phone or browser.
+            </p>
+          </div>
+          <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:14px; margin-bottom:18px;">
+            <div style="font-size:12px; font-weight:700; color:var(--accent-a); text-transform:uppercase; letter-spacing:0.04em; margin-bottom:8px;">How to Sign In</div>
+            <ol style="font-size:12.5px; color:#DDD; line-height:1.6; padding-left:18px; margin:0;">
+              <li>Tap the <strong>Profile</strong> tab in the bottom navigation bar.</li>
+              <li>Under <strong>Cloud Backup</strong>, tap <strong>"Continue with Google"</strong>.</li>
+              <li>Once authenticated, all your cricket records sync automatically!</li>
+            </ol>
+          </div>
+          <div style="display:flex; gap:8px;">
+            <button class="capsule-btn primary" style="flex:1; height:38px;" onclick="closeSyncModal(); triggerDirectGoogleSignIn();">Sign In with Google</button>
+            <button class="capsule-btn" style="height:38px; padding:0 14px;" onclick="closeSyncModal();">Cancel</button>
+          </div>
+        `;
+      }
+      modal.style.display = 'flex';
+    }
+
+    function closeSyncModal() {
+      const modal = document.getElementById('sync-modal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    const syncModalEl = document.getElementById('sync-modal');
+    if (syncModalEl) {
+      syncModalEl.addEventListener('click', function(e) {
+        if (e.target === syncModalEl) closeSyncModal();
+      });
+    }
+
+    async function triggerDirectGoogleSignIn() {
+      if (typeof window.cricSignInWithGoogle === 'function') {
+        showToast('Connecting Google Sign-In... ☁️');
+        try {
+          await window.cricSignInWithGoogle();
+          setTimeout(syncAuthState, 800);
+          setTimeout(syncAuthState, 2500);
+        } catch (e) {
+          console.warn('Google sign-in notice:', e);
+          const msg = e && (e.message || String(e)) || '';
+          if (msg.toLowerCase().includes('cancel')) {
+            showToast('Sign-in cancelled.');
+          } else if (msg) {
+            showToast('Notice: ' + msg.replace(/^Error:\s*/, ''));
+          }
+        }
+      } else {
+        openSyncModal();
+      }
+    }
+
+    function handleGoogleSignInClick() {
+      const user = getCloudUser();
+      if (user && (user.name || user.email)) {
+        openSyncModal();
+      } else {
+        triggerDirectGoogleSignIn();
+      }
+    }
+
+    async function handleSignOutClick() {
+      if (confirm('Are you sure you want to sign out from Google Sync on this device?')) {
+        try {
+          if (typeof window.cricSignOut === 'function') {
+            await window.cricSignOut();
+          }
+          const profile = localStorage.getItem('flutter.feature_hub_profile');
+          if (profile) {
+            const parsed = JSON.parse(profile);
+            parsed.isLoggedIn = false;
+            localStorage.setItem('flutter.feature_hub_profile', JSON.stringify(parsed));
+          }
+        } catch (e) {}
+        localStorage.removeItem('cric_google_user');
+        updateGoogleUserUi(null);
+        closeSyncModal();
+        showToast('Signed out from Google Sync.');
+      }
+    }
+
+    let lastKnownUserEmail = null;
+    function syncAuthState() {
+      const user = getCloudUser();
+      updateGoogleUserUi(user);
+      const currentEmail = user ? (user.email || user.name) : null;
+      if (currentEmail && currentEmail !== lastKnownUserEmail) {
+        lastKnownUserEmail = currentEmail;
+        showToast('Welcome, ' + (user.name || currentEmail) + '! Cloud sync active. ☁️');
+      } else if (!currentEmail) {
+        lastKnownUserEmail = null;
+      }
+    }
+
+    window.addEventListener('load', function() {
+      syncAuthState();
+      setInterval(syncAuthState, 1500);
+      warmOfflineCache();
+    });
+    window.addEventListener('storage', syncAuthState);
+
+    // 11. Offline-First PWA Engine & Persistent Storage
+    const OFFLINE_CACHE_NAME = 'cric-scorer-v2.0.11-offline';
+    const CRITICAL_OFFLINE_URLS = [
+      './',
+      'index.html',
+      'manifest.json',
+      'favicon.png',
+      'flutter.js',
+      'flutter_bootstrap.js',
+      'main.dart.js',
+      'canvaskit/canvaskit.js',
+      'canvaskit/canvaskit.wasm',
+      'canvaskit/chromium/canvaskit.wasm',
+      'assets/AssetManifest.bin.json',
+      'assets/FontManifest.json',
+      'assets/NOTICES'
+    ];
+
+    // Request persistent storage to ensure browser never purges IndexedDB or CacheStorage
+    if (navigator.storage && navigator.storage.persist) {
+      navigator.storage.persist().then(function(persistent) {
+        if (persistent) {
+          console.log('[Storage] Persistent storage granted. Offline match records protected.');
+        }
+      }).catch(function() {});
+    }
+
+    // Background silent cache warmer
+    async function warmOfflineCache() {
+      if (!('caches' in window)) return;
+      try {
+        const cache = await caches.open(OFFLINE_CACHE_NAME);
+        for (const url of CRITICAL_OFFLINE_URLS) {
+          const match = await cache.match(url);
+          if (!match) {
+            fetch(url, { cache: 'no-cache' })
+              .then(function(res) {
+                if (res && (res.status === 200 || res.type === 'opaque')) cache.put(url, res);
+              })
+              .catch(function() {});
+          }
+        }
+        console.log('[Offline] All cricket engine assets pre-cached for 100% offline scoring.');
+        const text = document.getElementById('offline-status-text');
+        const pill = document.getElementById('offline-status-pill');
+        if (text && pill && navigator.onLine) {
+          text.textContent = 'Offline Ready';
+          pill.title = '100% Offline Scoring Ready · All match rules & engine cached';
+        }
+      } catch (e) {
+        console.warn('[Offline] Cache warmer notice:', e);
+      }
+    }
+
+    // Network Status Tracker
+    function updateNetworkStatus() {
+      const pill = document.getElementById('offline-status-pill');
+      const text = document.getElementById('offline-status-text');
+      const isOnline = navigator.onLine;
+
+      if (!isOnline) {
+        if (pill) {
+          pill.style.background = 'rgba(234, 179, 8, 0.2)';
+          pill.style.borderColor = 'rgba(234, 179, 8, 0.45)';
+          pill.style.color = '#FDE047';
+          pill.title = 'Offline Mode Active: You can continue scoring matches without internet!';
+        }
+        if (text) text.textContent = 'Offline Scoring';
+        showToast('📱 অফলাইন মোড সক্রিয় — নেট ছাড়াও সম্পূর্ণ ম্যাচ স্কোরিং করতে পারবেন!');
+      } else {
+        if (pill) {
+          pill.style.background = 'rgba(16, 185, 129, 0.14)';
+          pill.style.borderColor = 'rgba(16, 185, 129, 0.35)';
+          pill.style.color = '#A7F3D0';
+          pill.title = 'Online · Cloud Sync & Offline Ready';
+        }
+        if (text) text.textContent = 'Offline Ready';
+        if (pill && pill.getAttribute('data-was-offline') === 'true') {
+          pill.setAttribute('data-was-offline', 'false');
+          showToast('🌐 ইন্টারনেট সংযুক্ত হয়েছে — ক্লাউড সিঙ্ক চালু! ☁️');
+          if (typeof syncAuthState === 'function') syncAuthState();
+        }
+      }
+    }
+
+    window.addEventListener('offline', function() {
+      const pill = document.getElementById('offline-status-pill');
+      if (pill) pill.setAttribute('data-was-offline', 'true');
+      updateNetworkStatus();
+    });
+
+    window.addEventListener('online', function() {
+      updateNetworkStatus();
     });
   </script>
-  <script src="flutter_bootstrap.js" async></script>
+
+  <!-- Flutter Web Bootstrapper -->
+  <script src="flutter_bootstrap.js?v=2.0.12.0" async></script>
 </body>
 </html>

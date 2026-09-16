@@ -8,9 +8,9 @@
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-All%20Rights%20Reserved-red.svg" alt="License: All Rights Reserved"></a>
   <img src="https://img.shields.io/badge/platform-Android%207.0%2B-3DDC84?logo=android&logoColor=white" alt="Platform: Android 7.0+">
-  <img src="https://img.shields.io/badge/version-v2.0.10-E0567B" alt="Version v2.0.10">
+  <img src="https://img.shields.io/badge/version-v2.0.11-E0567B" alt="Version v2.0.11">
   <img src="https://img.shields.io/badge/size-53%20MB-8A5F6E" alt="APK size 53 MB">
-  <img src="https://img.shields.io/badge/made%20with-HTML%20%7C%20CSS%20%7C%20JS-FF9A76" alt="Made with HTML, CSS, JS">
+  <img src="https://img.shields.io/badge/made%20with-HTML%20%7C%20Node%20%7C%20Flutter-FF9A76" alt="Made with HTML, Node, Flutter">
 </p>
 
 <p align="center">
@@ -18,6 +18,7 @@
   <a href="#-features">Features</a> ·
   <a href="#-installation">Installation</a> ·
   <a href="#-deployment">Deploy the site</a> ·
+  <a href="#-enterprise-server">Enterprise Server</a> ·
   <a href="#-faq">FAQ</a>
 </p>
 
@@ -27,9 +28,9 @@
 
 **Cric Scorer Pro** turns any phone into a complete cricket scoring desk — ball-by-ball live scoring, full scoreboards, PDF export, tournaments, and cloud sync. Built for street, club, and tournament cricket.
 
-This repository hosts the **official landing & download website** for the app — a single-file, bilingual (EN/BN) static site — along with the **release APK**, ready to deploy to Netlify, Vercel, or any static host.
+This repository hosts the **official landing & download website** for the app — a single-file, bilingual (EN/BN) static site — along with the **release APK (v2.0.11)** and an enterprise-grade production Node.js server, ready to deploy to Netlify, Vercel, Docker, or any cloud host.
 
-> 🇧🇩 **বাংলায়:** ক্রিক স্কোরার প্রো একটি ফ্রি অ্যান্ড্রয়েড অ্যাপ, যা আপনার ফোনকে বানিয়ে দেয় একটি পূর্ণাঙ্গ ক্রিকেট স্কোরিং ডেস্ক — বল-বাই-বল লাইভ স্কোরিং, ফুল স্কোরবোর্ড, PDF এক্সপোর্ট, টুর্নামেন্ট ও ক্লাউড সিংক সহ। এই রিপোজিটরিতে অ্যাপের অফিসিয়াল ওয়েবসাইট এবং ডাউনলোডযোগ্য APK রাখা আছে।
+> 🇧🇩 **বাংলায়:** ক্রিক স্কোরার প্রো একটি ফ্রি অ্যান্ড্রয়েড অ্যাপ, যা আপনার ফোনকে বানিয়ে দেয় একটি পূর্ণাঙ্গ ক্রিকেট স্কোরিং ডেস্ক — বল-বাই-বল লাইভ স্কোরিং, ফুল স্কোরবোর্ড, PDF এক্সপোর্ট, টুর্নামেন্ট ও ক্লাউড সিংক সহ। এই রিপোজিটরিতে অ্যাপের অফিসিয়াল ওয়েবসাইট, ফ্লাটার ওয়েব সংস্করণ, প্রোডাকশন সার্ভার এবং ডাউনলোডযোগ্য APK রাখা আছে।
 
 ## 📑 Table of contents
 
@@ -38,6 +39,7 @@ This repository hosts the **official landing & download website** for the app �
 - [Download & installation](#-installation)
 - [Project structure](#-project-structure)
 - [Tech stack](#-tech-stack)
+- [Enterprise Production Server](#-enterprise-production-server)
 - [Deployment](#-deployment)
 - [FAQ](#-faq)
 - [License](#-license)
@@ -75,43 +77,52 @@ This repository hosts the **official landing & download website** for the app �
 
 ```
 Cric-Scorer-Pro/
-├── index.html         # Single-file bilingual (EN/BN) landing page
-├── privacy.html       # Bilingual (EN/BN) Privacy Policy page
-├── cricket_pro.apk    # Release APK (v2.0.10, ~53 MB)
-├── icon.png           # App icon
-├── favicon.png        # Site favicon
-├── netlify.toml        # Netlify config — correct MIME/headers for the APK download
-├── vercel.json          # Vercel config — correct MIME/headers for the APK download
-├── DEPLOY.md             # Step-by-step deploy guide (Bengali)
-└── LICENSE                # All Rights Reserved
+├── index.html            # Bilingual (EN/BN) landing page with live web demo
+├── privacy.html          # Bilingual (EN/BN) Privacy Policy page
+├── 404.html              # Custom branded bilingual 404 page
+├── cricket_pro.apk       # Release APK (v2.0.11, ~53 MB)
+├── server.js             # Enterprise Node.js HTTP server (HTTP 206 range, Gzip, ETags, Security)
+├── package.json          # NPM configuration and automated test scripts
+├── Dockerfile            # Production Docker image with non-root user and healthcheck
+├── docker-compose.yml    # Docker Compose for local or cloud orchestrations
+├── test/
+│   └── server.test.js    # Automated test suite (100% pass)
+├── web/                  # Complete Flutter Web App build (Canvaskit, WASM, PWA)
+├── sitemap.xml           # SEO Sitemap
+├── robots.txt            # Search engine crawler policies
+├── netlify.toml          # Netlify config with security and cache headers
+├── vercel.json           # Vercel config with security, cache headers and clean rewrites
+├── DEPLOY.md             # Complete deployment guide (Bengali & English)
+└── LICENSE               # All Rights Reserved
 ```
 
 ## 🛠️ Tech stack
 
-**Website** — vanilla HTML5, CSS3 and JavaScript, zero build step and zero frameworks:
-- Google Fonts (`Outfit` + `Hind Siliguri`) for EN/BN typography
-- CSS custom properties for theming, `IntersectionObserver` for scroll-reveal animations
-- `localStorage` to remember the visitor's chosen language
+- **Landing Page** — semantic HTML5, modern CSS3 custom properties, zero build step.
+- **Flutter Web App** — Canvaskit / WebAssembly renderer with Google Identity Services cloud backup.
+- **Production Server** — Node.js native engine with HTTP 206 Byte-Range streaming for reliable 54MB APK downloads, Gzip/Deflate compression, ETags, and enterprise security headers.
+- **App** — distributed here as signed release APK (`cricket_pro.apk`, v2.0.11).
 
-**App** — distributed here as a signed release APK (`cricket_pro.apk`, v2.0.10). This repository hosts the download site only; the native Android app source lives in a separate codebase.
+## 🚀 Enterprise Production Server
 
-## 🚀 Deployment
+Run the production server with Node.js or Docker:
 
-The site is a static folder — deploy it anywhere that serves static files.
-
-**Netlify**
-1. Go to [app.netlify.com](https://app.netlify.com) → *Add new site* → *Deploy manually*.
-2. Drag & drop this folder. Done — your site is live.
-
-**Vercel**
 ```bash
-npx vercel --prod
+# Start server
+npm start
+
+# Run automated tests
+npm test
+
+# Run with Docker
+docker compose up -d
 ```
-Framework preset: **Other**, build command: empty.
 
-Both `netlify.toml` and `vercel.json` already set the correct `Content-Type`/`Content-Disposition` headers so the APK downloads correctly instead of opening inline.
-
-📄 See [DEPLOY.md](DEPLOY.md) for a detailed walkthrough (Bengali).
+Key Endpoints:
+- `http://localhost:3000/` — Main landing page
+- `http://localhost:3000/web/` — Flutter Web application
+- `http://localhost:3000/download` — Direct APK download (HTTP 206 Byte Range support)
+- `http://localhost:3000/healthz` — Container health check telemetry
 
 ## ❓ FAQ
 

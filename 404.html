@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Page Not Found | Cric Scorer Pro</title>
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #E0567B;
+      --accent-grad: linear-gradient(135deg, #FF9A76, #E0567B);
+      --bg: #FFF8F3;
+      --navy: #1E1744;
+      --text: #371D2B;
+      --muted: #5C4350;
+      --radius: 16px;
+      --radius-pill: 9999px;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 24px;
+      text-align: center;
+    }
+    .card {
+      background: #FFFFFF;
+      max-width: 520px;
+      width: 100%;
+      padding: 44px 32px;
+      border-radius: var(--radius);
+      box-shadow: 0 16px 40px rgba(224, 86, 123, 0.12);
+      border: 1px solid #F0D7CB;
+    }
+    .cricket-icon {
+      font-size: 56px;
+      margin-bottom: 16px;
+      display: inline-block;
+      animation: bounce 2s infinite ease-in-out;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    h1 {
+      font-size: 64px;
+      font-weight: 800;
+      background: var(--accent-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--navy);
+    }
+    p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+    .bn {
+      font-family: 'Hind Siliguri', sans-serif;
+      font-size: 14.5px;
+      color: #7A5F6E;
+      margin-top: -18px;
+      margin-bottom: 28px;
+    }
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: var(--radius-pill);
+      font-weight: 700;
+      font-size: 15px;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn.primary {
+      background: var(--accent-grad);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(224, 86, 123, 0.25);
+    }
+    .btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(224, 86, 123, 0.35);
+    }
+    .btn.secondary {
+      background: #F4ECE7;
+      color: var(--navy);
+    }
+    .btn.secondary:hover {
+      background: #EBDED7;
+    }
+    @media (min-width: 480px) {
+      .btn-group {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="cricket-icon">🏏</div>
+    <h1>404</h1>
+    <h2>Out of the Ground! (Page Not Found)</h2>
+    <p>The page you are looking for might have been moved, renamed, or was hit for a massive six outside the stadium.</p>
+    <p class="bn">আপনি যে পৃষ্ঠাটি খুঁজছেন তা সরানো হয়েছে অথবা স্টেডিয়ামের বাইরে চলে গেছে!</p>
+    
+    <div class="btn-group">
+      <a href="/" class="btn primary">
+        <span>&larr; Back to Home</span>
+      </a>
+      <a href="/web/" class="btn secondary">
+        <span>Try Web App &rarr;</span>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

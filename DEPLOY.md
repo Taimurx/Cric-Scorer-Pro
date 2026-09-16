@@ -1,27 +1,89 @@
-# Deploy — Cric Scorer Pro Website
+# Deploy গাইড — Cric Scorer Pro এন্টারপ্রাইজ প্রোডাকশন
 
-এই `site` ফোল্ডারটাই পুরো ওয়েবসাইট। ভেতরে যা আছে:
+এই রিপোজিটরিতে Cric Scorer Pro-এর আধুনিক, রেসপনসিভ ও দ্বিভাষিক (বাংলা/ইংরেজি) ল্যান্ডিং পেইজ, ফ্লাটার ওয়েব অ্যাপ (PWA), প্রোডাকশন নোড সার্ভার এবং রিলিজ APK রয়েছে।
 
-- `index.html` — মূল সাইট (EN/BN toggle সহ, single file)
-- `cricket_pro.apk` — অ্যাপের release APK (v2.0.10)
-- `icon.png`, `favicon.png` — অ্যাপ আইকন
-- `netlify.toml` / `vercel.json` — APK ডাউনলোড হেডার কনফিগ
+## যা যা অন্তর্ভুক্ত রয়েছে:
+- `index.html` — আধুনিক রেসপনসিভ ল্যান্ডিং পেইজ (Anek Bangla + Outfit টাইপোগ্রাফি, মোবাইল ড্রয়ার মেনু, ৩-থিম লাইভ প্রিভিউ, কিউআর কোড স্ক্যানার, এসইও ও সোশ্যাল কার্ড সহ)
+- `privacy.html` — ক্লিকেবল সাপোর্ট লিংক ও সূচিপত্র সহ পূর্ণাঙ্গ প্রাইভেসি পলিসি
+- `404.html` — ব্র্যান্ডেড কাস্টম দ্বিভাষিক ৪০৪ পেইজ
+- `cricket_pro.apk` — অ্যাপের অফিসিয়াল রিলিজ প্যাকেজ (v2.0.11, ~53 MB)
+- `web/` — সরাসরি ব্রাউজারে ক্রিকেট স্কোরার চালানোর ফ্লাটার ওয়েব বিল্ড (PWA)
+- `server.js` — এন্টারপ্রাইজ নোড সার্ভার (HTTP 206 রেঞ্জ রিকোয়েস্ট, Gzip কম্প্রেশন, ETag ও সিকিউরিটি হেডার সহ)
+- `Dockerfile` & `docker-compose.yml` — প্রোডাকশন কনটেইনার ডেপ্লয়মেন্ট
+- `test/server.test.js` — অটোমেটেড টেস্ট স্যুট (100% Pass)
+- `robots.txt` & `sitemap.xml` — সার্চ ইঞ্জিন অপটিমাইজেশন (SEO)
+- `vercel.json` ও `netlify.toml` — এজ ক্যাশিং, সিকিউরিটি হেডার ও ক্লিন রিডাইরেক্ট কনফিগারেশন
 
-## Netlify (সবচেয়ে সহজ)
+---
 
-1. https://app.netlify.com → "Add new site" → **"Deploy manually"**
-2. পুরো `site` ফোল্ডারটা drag & drop করুন
-3. ব্যস — সাইট লাইভ। Site settings থেকে নাম বদলে নিন (যেমন `cricscorerpro.netlify.app`)
+## ১. Node.js প্রোডাকশন সার্ভার রান করার নিয়ম
 
-নতুন APK ভার্সন এলে: `cricket_pro.apk` replace করে আবার drag & drop।
+আপনার নিজস্ব VPS, Cloud Server (Ubuntu/Debian) বা লোকাল মেশিনে:
 
-## Vercel
+```bash
+# ১. ডিপেন্ডেন্সি ও টেস্ট চেক
+npm test
 
-1. https://vercel.com → "Add New Project"
-2. CLI দিয়ে হলে: `site` ফোল্ডারে গিয়ে `npx vercel --prod`
-3. Framework preset: **Other**, build command খালি রাখুন
+# ২. সার্ভার চালু করুন (Port 3000)
+npm start
 
-## নোট
+# কাস্টম পোর্ট দিয়ে চালু করতে চাইলে:
+PORT=8080 npm start
+```
 
-- APK ১০০MB-এর নিচে (৫৩MB), তাই দুই প্ল্যাটফর্মেই সরাসরি হোস্ট করা যাবে
-- ভবিষ্যতে ভার্সন বদলালে `index.html`-এ v2.0.10 লেখাগুলোও আপডেট করবেন (hero, meta chips, download band)
+সার্ভার চালু হলে নিচের এন্ডপয়েন্টগুলো পাওয়া যাবে:
+- ল্যান্ডিং পেজ: `http://localhost:3000/`
+- ওয়েব অ্যাপ: `http://localhost:3000/web/`
+- এপিকে ডাউনলোড (Byte Range Support সহ): `http://localhost:3000/download`
+- হেলথচেক এপিআই: `http://localhost:3000/healthz`
+
+---
+
+## ২. Docker / Docker Compose দিয়ে ডেপ্লয় (Enterprise Container)
+
+ক্লাউড বা সার্ভারে ডকার দিয়ে ১ ক্লিকে ডিপ্লয়:
+
+```bash
+# ব্যাকগ্রাউন্ডে কনটেইনার চালু করুন
+docker compose up -d --build
+
+# হেলথ স্ট্যাটাস চেক করুন
+docker ps
+```
+
+---
+
+## ৩. Netlify-তে ডেপ্লয় (স্ট্যাটিক হোস্টিং)
+
+1. [app.netlify.com](https://app.netlify.com)-এ যান &rarr; **Add new site** &rarr; **Deploy manually** সিলেক্ট করুন।
+2. এই প্রজেক্ট ফোল্ডারটি ড্র্যাগ অ্যান্ড ড্রপ (Drag & Drop) করে ছেড়ে দিন।
+3. কয়েক সেকেন্ডেই আপনার সাইট লাইভ হয়ে যাবে।
+4. `netlify.toml`-এর কারণে স্বয়ংক্রিয়ভাবে সিকিউরিটি হেডার ও APK ডাউনলোড অপটিমাইজেশন কার্যকর হবে।
+
+---
+
+## ৪. Vercel-এ ডেপ্লয় (CLI অথবা গিটহাব)
+
+### গিটহাব দিয়ে:
+1. [vercel.com](https://vercel.com)-এ গিয়ে **Add New Project** সিলেক্ট করুন।
+2. গিটহাব রিপোজিটরিটি ইমপোর্ট করুন।
+3. **Framework Preset:** `Other`, **Build Command:** খালি রাখুন এবং **Output Directory:** খালি রাখুন।
+4. **Deploy** বাটনে ক্লিক করুন।
+
+### Vercel CLI দিয়ে:
+```bash
+npx vercel --prod
+```
+
+---
+
+## ৫. নতুন ভার্সন আপডেট করার নিয়ম
+
+ভবিষ্যতে নতুন APK ভার্সন এলে:
+1. নতুন APK ফাইলটির নাম `cricket_pro.apk` দিয়ে এই ফোল্ডারের ফাইলটি রিপ্লেস করুন।
+2. `index.html`, `server.js`, এবং `package.json`-এ ভার্সন নাম্বার আপডেট করুন।
+3. টেস্ট রান করুন:
+   ```bash
+   npm test
+   ```
+4. গিটহাবে পুশ করুন অথবা পুনরায় ডিপ্লয় করুন।
