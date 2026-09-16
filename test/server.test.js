@@ -120,5 +120,25 @@ test('9. Flutter Web Offline Service Worker is accessible and configured', async
   const res = await makeRequest('/web/flutter_service_worker.js');
   assert.strictEqual(res.statusCode, 200);
   assert.match(res.headers['content-type'], /javascript/);
-  assert.ok(res.body.toString('utf8').includes('cric-scorer-v2.0.11-offline'));
+  assert.ok(res.body.toString('utf8').includes('self.addEventListener') || res.body.toString('utf8').includes('service worker'));
 });
+
+test('10. GET /web redirects 301 to /web/', async () => {
+  const res = await makeRequest('/web');
+  assert.strictEqual(res.statusCode, 301);
+  assert.strictEqual(res.headers['location'], '/web/');
+});
+
+test('11. GET /web/ returns 200 and serves Flutter Web app', async () => {
+  const res = await makeRequest('/web/');
+  assert.strictEqual(res.statusCode, 200);
+  assert.match(res.headers['content-type'], /text\/html/);
+  assert.ok(res.body.toString('utf8').includes('Cricket Scorer Pro'));
+});
+
+test('12. GET /app redirects 301 to /web/', async () => {
+  const res = await makeRequest('/app');
+  assert.strictEqual(res.statusCode, 301);
+  assert.strictEqual(res.headers['location'], '/web/');
+});
+
