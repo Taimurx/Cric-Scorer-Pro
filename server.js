@@ -56,7 +56,6 @@ function getSecurityHeaders() {
     'X-Content-Type-Options': 'nosniff',
     'X-Frame-Options': 'SAMEORIGIN',
     'Referrer-Policy': 'strict-origin-when-cross-origin',
-    'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
     'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
     'Access-Control-Allow-Origin': '*',
     'Accept-Ranges': 'bytes'
@@ -183,7 +182,16 @@ const server = http.createServer((req, res) => {
 
   fs.stat(filePath, (err, stats) => {
     if (err) {
-      return send404(res, reqPath);
+      if (reqPath.startsWith('/web/') && !reqPath.includes('.')) {
+        filePath = path.join(ROOT, 'web', 'index.html');
+        try {
+          stats = fs.statSync(filePath);
+        } catch (fallbackErr) {
+          return send404(res, reqPath);
+        }
+      } else {
+        return send404(res, reqPath);
+      }
     }
 
     // Handle directory index resolution
