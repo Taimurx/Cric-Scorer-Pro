@@ -25,6 +25,10 @@
     {
       "source": "/privacy",
       "destination": "/privacy.html"
+    },
+    {
+      "source": "/web/(.*)",
+      "destination": "/web/index.html"
     }
   ],
   "headers": [

@@ -183,7 +183,16 @@ const server = http.createServer((req, res) => {
 
   fs.stat(filePath, (err, stats) => {
     if (err) {
-      return send404(res, reqPath);
+      if (reqPath.startsWith('/web/') && !reqPath.includes('.')) {
+        filePath = path.join(ROOT, 'web', 'index.html');
+        try {
+          stats = fs.statSync(filePath);
+        } catch (fallbackErr) {
+          return send404(res, reqPath);
+        }
+      } else {
+        return send404(res, reqPath);
+      }
     }
 
     // Handle directory index resolution
