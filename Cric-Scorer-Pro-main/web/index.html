@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+    Fun fact: Flutter apps built with `flutter build web` replace this
+    placeholder with the base href value passed via `--base-href`.
+  -->
+  <base href="./">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+
+  <!-- SEO -->
+  <title>Cricket Scorer Pro — Live Cricket Scoring</title>
+  <meta name="description" content="Cricket Scorer Pro — professional live cricket scoring. Ball-by-ball scoring, full scoreboards, tournaments, PDF export and match history. Works offline.">
+  <meta name="keywords" content="cricket scorer, cricket scoring app, live cricket score, scoreboard, cricket tournament">
+  <meta name="theme-color" content="#E0567B">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Cricket Scorer Pro — Live Cricket Scoring">
+  <meta property="og:description" content="Ball-by-ball live cricket scoring, full scoreboards, tournaments and PDF export — right in your browser.">
+  <meta property="og:image" content="icons/Icon-512.png">
+  <meta name="twitter:card" content="summary">
+
+  <!-- iOS -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Cric Scorer Pro">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #FFEFE6;
+    }
+    #cricket-loader {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+      background: linear-gradient(135deg, #FF9A76, #E0567B);
+      z-index: 9999;
+      transition: opacity .35s ease;
+    }
+    #cricket-loader img {
+      width: 96px;
+      height: 96px;
+      border-radius: 24px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .25);
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+    #cricket-loader p {
+      margin: 0;
+      color: #fff;
+      font: 600 15px system-ui, sans-serif;
+      letter-spacing: .04em;
+      opacity: .92;
+    }
+    #cricket-loader .bar {
+      width: 132px;
+      height: 4px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, .3);
+      overflow: hidden;
+    }
+    #cricket-loader .bar i {
+      display: block;
+      width: 40%;
+      height: 100%;
+      border-radius: 99px;
+      background: #fff;
+      animation: slide 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+    @keyframes slide {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(340%); }
+    }
+  </style>
+</head>
+<body>
+  <div id="cricket-loader">
+    <img src="icons/Icon-192.png" alt="Cricket Scorer Pro">
+    <p>Cricket Scorer Pro</p>
+    <div class="bar"><i></i></div>
+  </div>
+
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var loader = document.getElementById('cricket-loader');
+      if (!loader) return;
+      loader.style.opacity = '0';
+      setTimeout(function () { loader.remove(); }, 400);
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
