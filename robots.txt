@@ -1,0 +1,6 @@
+# robots.txt for Cric Scorer Pro
+User-agent: *
+Allow: /
+Disallow: /healthz
+
+Sitemap: https://cric-scorer-pro.vercel.app/sitemap.xml
