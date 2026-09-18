@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'cric-scorer-pro-v2.0.16';
+const CACHE_NAME = 'cric-scorer-pro-v2.0.17';
 const CORE_ASSETS = [
   './',
   'index.html',
