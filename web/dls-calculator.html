@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DLS Target &amp; Par Score Calculator — Cric Scorer Pro</title>
+  <meta name="description" content="Official Duckworth-Lewis-Stern (DLS) target and par score calculator for rain-affected limited overs cricket matches. Instant accurate target recalculation.">
+  <meta name="keywords" content="DLS calculator, Duckworth Lewis Stern calculator, cricket par score calculator, rain affected cricket target, DLS method cricket, DLS target calculator online">
+  <meta name="author" content="Taimur ShakiB">
+  <meta name="theme-color" content="#120F1F">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; img-src 'self' data: https://cric-scorer-pro.vercel.app;">
+  <link rel="canonical" href="https://cric-scorer-pro.vercel.app/web/dls-calculator.html">
+
+  <link rel="icon" type="image/png" href="../favicon.png">
+  <link rel="apple-touch-icon" href="../icon.png">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cric-scorer-pro.vercel.app/web/dls-calculator.html">
+  <meta property="og:title" content="DLS Target &amp; Par Score Calculator — Cric Scorer Pro">
+  <meta property="og:description" content="Calculate revised targets and par scores for rain-interrupted cricket matches instantly with the official DLS standard engine.">
+  <meta property="og:image" content="https://cric-scorer-pro.vercel.app/icon.png">
+  <meta property="og:site_name" content="Cric Scorer Pro">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DLS Target &amp; Par Score Calculator — Cric Scorer Pro">
+  <meta name="twitter:description" content="Calculate revised targets and par scores for rain-interrupted cricket matches instantly.">
+  <meta name="twitter:image" content="https://cric-scorer-pro.vercel.app/icon.png">
+
+  <!-- Structured Data: WebApplication -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "DLS Target & Par Score Calculator — Cric Scorer Pro",
+    "url": "https://cric-scorer-pro.vercel.app/web/dls-calculator.html",
+    "applicationCategory": "SportsApplication",
+    "operatingSystem": "All modern browsers",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "description": "Duckworth-Lewis-Stern (DLS) target and par score calculator for rain-affected limited overs cricket matches."
+  }
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script src="js/cricket-engine.js"></script>
+  <style>
+    :root {
+      --bg: #120F1F;
+      --card-bg: #1A1430;
+      --card-border: rgba(255, 255, 255, 0.12);
+      --accent-a: #FF9A76;
+      --accent-b: #E0567B;
+      --accent-glow: rgba(224, 86, 123, 0.35);
+      --cyan: #38BDF8;
+      --emerald: #10B981;
+      --gold: #F59E0B;
+      --text: #F8FAFC;
+      --text-muted: #A59EBA;
+      --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: radial-gradient(circle at top center, #241A44 0%, #120F1F 100%);
+      color: var(--text);
+      font-family: var(--font-main);
+      min-height: 100vh;
+      padding: 30px 16px 50px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 960px;
+    }
+
+    .back-nav {
+      margin-bottom: 22px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      transition: all 0.2s ease;
+    }
+    .back-nav:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateX(-2px);
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    header p {
+      color: var(--text-muted);
+      font-size: 15px;
+      margin-top: 8px;
+      font-weight: 500;
+    }
+
+    /* Target Banner */
+    .result-banner {
+      background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+      border-radius: 20px;
+      padding: 26px 20px;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 24px;
+      box-shadow: 0 16px 40px var(--accent-glow);
+      position: relative;
+      overflow: hidden;
+    }
+    .result-banner::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .banner-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 600px) {
+      .banner-grid { grid-template-columns: 1fr; gap: 14px; }
+    }
+    .banner-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .banner-stat .label {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.95;
+    }
+    .banner-stat .big-num {
+      font-size: 58px;
+      font-weight: 900;
+      line-height: 1.05;
+      margin: 4px 0;
+      font-variant-numeric: tabular-nums;
+      text-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+    }
+    .banner-stat.tie-stat {
+      border-left: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    @media (max-width: 600px) {
+      .banner-stat.tie-stat {
+        border-left: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.25);
+        padding-top: 10px;
+      }
+    }
+    .banner-details {
+      grid-column: 1 / -1;
+      font-size: 14.5px;
+      font-weight: 600;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 8px 16px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-top: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 18px;
+      padding: 22px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+    .card-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--accent-a);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.01em;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    input, select {
+      width: 100%;
+      background: rgba(13, 9, 26, 0.7);
+      border: 1.5px solid var(--card-border);
+      border-radius: 10px;
+      padding: 10px 14px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      outline: none;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    input:focus, select:focus {
+      border-color: var(--accent-a);
+      box-shadow: 0 0 0 3px rgba(255, 154, 118, 0.2);
+    }
+
+    .quota-box {
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      border-radius: 10px;
+      padding: 12px;
+      margin-top: 8px;
+    }
+    .quota-box p {
+      font-size: 13.5px;
+      color: var(--cyan);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+
+    /* Par Sheet Table */
+    .table-card {
+      margin-top: 24px;
+    }
+    .table-header-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+    .copy-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: inherit;
+      transition: all 0.2s;
+    }
+    .copy-btn:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .table-container {
+      overflow-x: auto;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    th, td {
+      padding: 10px 12px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    th {
+      background: #150F29;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    /* Sticky Over Column for Smooth Mobile Scrolling */
+    th.sticky-col, td.sticky-col {
+      position: sticky;
+      left: 0;
+      background: #191230;
+      z-index: 2;
+      font-weight: 800;
+      color: var(--cyan);
+      box-shadow: 2px 0 6px rgba(0, 0, 0, 0.4);
+    }
+    th.sticky-col {
+      background: #150F29;
+    }
+    tbody tr:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <a href="./" class="back-nav">&larr; Back to App</a>
+
+    <header>
+      <h1>🌧️ DLS Target &amp; Par Score Calculator</h1>
+      <p>Official Duckworth-Lewis-Stern Engine for Rain-Curtailed Cricket Matches</p>
+    </header>
+
+    <!-- Target & Par Score Output Banner -->
+    <div class="result-banner">
+      <div class="banner-grid">
+        <div class="banner-stat">
+          <div class="label">Revised 2nd Innings Target to Win</div>
+          <div class="big-num" id="revised-target">138</div>
+          <div style="font-size: 12px; opacity: 0.9;">(+1 run ahead of par)</div>
+        </div>
+        <div class="banner-stat tie-stat">
+          <div class="label">DLS Par Score (Match Tied)</div>
+          <div class="big-num" id="par-score">137</div>
+          <div style="font-size: 12px; opacity: 0.9;">(Equal resources)</div>
+        </div>
+        <div class="banner-details" id="target-details">
+          Need 138 runs from 14.0 overs · Required Run Rate: 9.86 RPO
+        </div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- 1st Innings Setup -->
+      <div class="card">
+        <div class="card-title">🏏 1st Innings Information</div>
+        <div class="form-group">
+          <label>Match Format</label>
+          <select id="match-format" onchange="handleFormatChange()">
+            <option value="T20" selected>T20 (20 Overs)</option>
+            <option value="ODI">ODI (50 Overs)</option>
+            <option value="T10">T10 (10 Overs)</option>
+            <option value="CUSTOM">Custom Format</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>1st Innings Scheduled Overs</label>
+          <input type="number" id="team1-overs" value="20" min="5" max="50" step="0.1" oninput="recalculate()">
+        </div>
+        <div class="form-group">
+          <label>1st Innings Total Runs Scored</label>
+          <input type="number" id="team1-runs" value="180" min="1" max="600" oninput="recalculate()">
+        </div>
+      </div>
+
+      <!-- 2nd Innings Rain Curtailment -->
+      <div class="card">
+        <div class="card-title">🌧️ 2nd Innings Rain Curtailment</div>
+        <div class="form-group">
+          <label>Revised Overs Available for 2nd Innings</label>
+          <input type="number" id="team2-overs" value="14" min="5" max="50" step="0.1" oninput="recalculate()">
+        </div>
+        <div class="form-group">
+          <label>Bowler Over Quotas (Max 3 overs for &lt;10 overs; 20% for &ge;10 overs)</label>
+          <div class="quota-box">
+            <p id="bowler-quota-text">
+              4 bowlers max 3 overs; 1 bowler max 2 overs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Par Sheet Matrix (0 to 9 Wickets) -->
+    <div class="card table-card">
+      <div class="table-header-flex">
+        <div>
+          <div class="card-title" style="margin-bottom: 4px;">📋 Live DLS Par Score Matrix (Wickets Lost)</div>
+          <p style="font-size: 13px; color: var(--text-muted);">If play is halted at any over mark, compare 2nd innings score with this table:</p>
+        </div>
+        <button class="copy-btn" onclick="copyParSheet()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          <span id="copy-btn-text">Copy Matrix</span>
+        </button>
+      </div>
+
+      <div class="table-container">
+        <table id="par-table">
+          <thead>
+            <tr>
+              <th class="sticky-col">Overs</th>
+              <th>0 wkts</th>
+              <th>1 wkt</th>
+              <th>2 wkts</th>
+              <th>3 wkts</th>
+              <th>4 wkts</th>
+              <th>5 wkts</th>
+              <th>6 wkts</th>
+              <th>7 wkts</th>
+              <th>8 wkts</th>
+              <th>9 wkts</th>
+            </tr>
+          </thead>
+          <tbody id="par-tbody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const dls = new CricketEngine.DLSEngine();
+
+    function handleFormatChange() {
+      const format = document.getElementById('match-format').value;
+      const team1Input = document.getElementById('team1-overs');
+      const team2Input = document.getElementById('team2-overs');
+
+      if (format === 'T20') {
+        team1Input.value = 20;
+        team2Input.value = Math.min(14, team2Input.value || 14);
+      } else if (format === 'ODI') {
+        team1Input.value = 50;
+        team2Input.value = Math.min(30, team2Input.value || 30);
+      } else if (format === 'T10') {
+        team1Input.value = 10;
+        team2Input.value = Math.min(7, team2Input.value || 7);
+      }
+      recalculate();
+    }
+
+    function recalculate() {
+      const format = document.getElementById('match-format').value;
+      const team1Overs = parseFloat(document.getElementById('team1-overs').value) || 20;
+      const team1Runs = parseInt(document.getElementById('team1-runs').value, 10) || 180;
+      const team2Overs = parseFloat(document.getElementById('team2-overs').value) || 14;
+
+      const result = dls.calculateRevisedTarget(team1Runs, team1Overs, team2Overs, format);
+      document.getElementById('revised-target').textContent = result.target;
+      document.getElementById('par-score').textContent = result.parScore;
+
+      const decTeam2Overs = CricketEngine.NetRunRateCalculator.oversToDecimal(team2Overs);
+      const rrr = decTeam2Overs > 0 ? +(result.target / decTeam2Overs).toFixed(2) : 0;
+      document.getElementById('target-details').textContent = 
+        `Need ${result.target} runs from ${team2Overs} overs · Required Run Rate: ${rrr} RPO`;
+
+      // ICC Bowler Quotas
+      const quotas = CricketEngine.BowlerQuotaCalculator.calculateQuotas(team2Overs, 5);
+      document.getElementById('bowler-quota-text').textContent = quotas.distributionText;
+
+      // Populate 0-9 Wickets Par Matrix
+      populateParSheet(team1Runs, team2Overs);
+    }
+
+    function populateParSheet(team1Runs, maxOvers) {
+      const tbody = document.getElementById('par-tbody');
+      tbody.innerHTML = '';
+      const decMax = CricketEngine.NetRunRateCalculator.oversToDecimal(maxOvers);
+
+      const step = decMax > 20 ? 5 : (decMax > 10 ? 2 : 1);
+      const startOver = decMax > 10 ? 5 : 2;
+
+      for (let ov = startOver; ov <= decMax; ov += step) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td class="sticky-col">Ov ${ov}.0</td>`;
+
+        for (let w = 0; w <= 9; w++) {
+          const par = dls.calculateParScore(team1Runs, ov, w, maxOvers);
+          tr.innerHTML += `<td><strong>${par}</strong></td>`;
+        }
+        tbody.appendChild(tr);
+      }
+    }
+
+    function copyParSheet() {
+      const table = document.getElementById('par-table');
+      if (!table) return;
+      let text = '';
+      for (const row of table.rows) {
+        const cells = Array.from(row.cells).map(c => c.textContent.trim());
+        text += cells.join('\t') + '\n';
+      }
+      navigator.clipboard.writeText(text).then(() => {
+        const btnText = document.getElementById('copy-btn-text');
+        btnText.textContent = 'Copied!';
+        setTimeout(() => { btnText.textContent = 'Copy Matrix'; }, 2000);
+      }).catch(() => {
+        alert('Par sheet copied to clipboard!');
+      });
+    }
+
+    // Initial calculation
+    recalculate();
+  </script>
+</body>
+</html>

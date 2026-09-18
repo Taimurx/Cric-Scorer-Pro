@@ -2,5 +2,8 @@
 User-agent: *
 Allow: /
 Disallow: /healthz
+Disallow: /health
 
+# Host & Sitemap
+Host: https://cric-scorer-pro.vercel.app
 Sitemap: https://cric-scorer-pro.vercel.app/sitemap.xml

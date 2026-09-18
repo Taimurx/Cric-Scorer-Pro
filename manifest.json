@@ -1,0 +1,30 @@
+{
+  "name": "Cric Scorer Pro — Live Cricket Scoring",
+  "short_name": "Cric Scorer Pro",
+  "description": "Professional ball-by-ball cricket scoring app for Android and Web. Live scoreboards, PDF export, tournaments, and cloud sync.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#120F1F",
+  "theme_color": "#E0567B",
+  "orientation": "portrait-primary",
+  "categories": ["sports", "utilities", "productivity"],
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

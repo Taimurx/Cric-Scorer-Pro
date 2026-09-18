@@ -1,0 +1,42 @@
+name: Cric Scorer Pro CI & Production Validation
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-and-validate:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Lint and syntax validation
+        run: npm run lint
+
+      - name: Run automated test suite
+        run: npm test
+
+      - name: Verify APK release artifact integrity
+        run: |
+          test -f cricket_pro.apk
+          APK_SIZE=$(stat -c%s "cricket_pro.apk")
+          echo "APK Size: $APK_SIZE bytes"
+          if [ "$APK_SIZE" -lt 50000000 ]; then
+            echo "APK file is suspiciously small or corrupted"
+            exit 1
+          fi
+
+      - name: Validate Dockerfile syntax
+        run: docker build --check .

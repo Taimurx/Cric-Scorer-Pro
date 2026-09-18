@@ -3,1749 +3,181 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cric Scorer Pro — Live Cricket Scoring App for Android</title>
-<meta name="description" content="Cric Scorer Pro — Free professional Android app for live cricket scoring. Ball-by-ball live scoring, full scoreboards, PDF export, tournaments and cloud sync. Works 100% offline.">
-<meta name="keywords" content="cricket scorer, cricket scoring app, live cricket score, cricket scoreboard, cricket tournament, offline cricket score, cricket pro, cricket pdf scorecard">
+<title>Cric Scorer Pro — Live Cricket Scoring App for Android &amp; Web</title>
+<meta name="description" content="Cric Scorer Pro — Free professional cricket scoring app for Android and Web. Ball-by-ball live scoring, full scoreboards, PDF export, tournaments, DLS calculator and cloud sync. Works 100% offline.">
+<meta name="keywords" content="cricket scorer, cricket scoring app, live cricket score, cricket scoreboard, cricket tournament manager, offline cricket score, cricket pro, cricket pdf scorecard, cricket scoring desk, dls calculator cricket, cricket obs overlay, ক্রিকেট স্কোরার, লাইভ ক্রিকেট স্কোর, ক্রিকেট স্কোরবোর্ড, ক্রিকেট টুর্নামেন্ট">
 <meta name="author" content="Taimur ShakiB">
 <meta name="theme-color" content="#E0567B">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
 
-<!-- Favicon & Icons -->
+<!-- Favicon, Manifest & Mobile Icons -->
 <link rel="icon" type="image/png" href="favicon.png">
 <link rel="apple-touch-icon" href="icon.png">
+<link rel="manifest" href="manifest.json">
 
+<!-- Canonical and Alternate Languages -->
 <link rel="canonical" href="https://cric-scorer-pro.vercel.app/">
+<link rel="alternate" hreflang="x-default" href="https://cric-scorer-pro.vercel.app/">
+<link rel="alternate" hreflang="en" href="https://cric-scorer-pro.vercel.app/">
+<link rel="alternate" hreflang="bn" href="https://cric-scorer-pro.vercel.app/">
 
 <!-- Open Graph / Facebook / WhatsApp -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://cric-scorer-pro.vercel.app/">
 <meta property="og:title" content="Cric Scorer Pro — Score Every Ball Like a Pro">
-<meta property="og:description" content="Free Android app for ball-by-ball cricket scoring, full scoreboards, tournament leaderboards and print-ready PDF export. Works 100% offline.">
+<meta property="og:description" content="Free Android and Web app for ball-by-ball cricket scoring, full scoreboards, tournament leaderboards, DLS calculator, and print-ready PDF export. Works 100% offline.">
 <meta property="og:image" content="https://cric-scorer-pro.vercel.app/icon.png">
+<meta property="og:image:secure_url" content="https://cric-scorer-pro.vercel.app/icon.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:image:alt" content="Cric Scorer Pro App Logo and Cricket Ball Icon">
 <meta property="og:site_name" content="Cric Scorer Pro">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="bn_BD">
 
 <!-- Twitter Cards -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cric Scorer Pro — Live Cricket Scoring App">
-<meta name="twitter:description" content="Score every ball like a pro. Ball-by-ball live scoring, PDF scorecards, tournament tables & cloud sync.">
+<meta name="twitter:description" content="Score every ball like a pro. Ball-by-ball live scoring, PDF scorecards, tournament tables &amp; cloud sync.">
 <meta name="twitter:image" content="https://cric-scorer-pro.vercel.app/icon.png">
+<meta name="twitter:image:alt" content="Cric Scorer Pro App Interface Preview">
 
 <!-- Google Fonts: Outfit (English) + Anek Bangla & Hind Siliguri (Bangla) -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<!-- Structured Data / Schema.org -->
+<!-- Rich Structured Data / Schema.org (@graph) -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "SoftwareApplication",
-  "name": "Cric Scorer Pro",
-  "operatingSystem": "Android 7.0+",
-  "applicationCategory": "SportsApplication",
-  "offers": {
-    "@type": "Offer",
-    "price": "0",
-    "priceCurrency": "USD"
-  },
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "4.9",
-    "ratingCount": "128"
-  },
-  "description": "Professional ball-by-ball cricket scoring app for Android with PDF scorecards, tournament management and cloud backup."
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://cric-scorer-pro.vercel.app/#website",
+      "url": "https://cric-scorer-pro.vercel.app/",
+      "name": "Cric Scorer Pro",
+      "description": "Live cricket scoring app and digital desk for Android and Web",
+      "inLanguage": ["en", "bn"]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://cric-scorer-pro.vercel.app/#software",
+      "name": "Cric Scorer Pro",
+      "operatingSystem": "Android 7.0+, Web",
+      "applicationCategory": "SportsApplication",
+      "applicationSubCategory": "Cricket Scoring Desk",
+      "softwareVersion": "2.0.11",
+      "fileSize": "53MB",
+      "downloadUrl": "https://cric-scorer-pro.vercel.app/cricket_pro.apk",
+      "installUrl": "https://cric-scorer-pro.vercel.app/cricket_pro.apk",
+      "author": {
+        "@type": "Person",
+        "name": "Taimur ShakiB"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "128",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": [
+        "100% Offline live ball-by-ball scoring",
+        "Duckworth-Lewis-Stern (DLS) par score calculation",
+        "ICC Free Hit Law 21.19 enforcement",
+        "Print-ready PDF scorecard export",
+        "League and Knockout tournament management with auto Net Run Rate (NRR)",
+        "Google Sign-In cloud sync across Android and Web",
+        "OBS Studio live stream broadcast overlay"
+      ],
+      "description": "Professional ball-by-ball cricket scoring app for Android and Web with PDF scorecards, tournament management and cloud backup."
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://cric-scorer-pro.vercel.app/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Cric Scorer Pro completely free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, 100% free with no in-app purchases, no hidden subscriptions, and zero advertisements during live scoring."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it require an active internet connection?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Live scoring, PDF export, player management, and tournaments work completely offline. Internet is only optionally required if you want to back up match archives to Google Drive/Cloud."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if my phone dies or the app closes mid-match?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Never! Every single delivery, run, and wicket is immediately written to local persistent memory. Reopening the app prompts you to immediately resume your ongoing match from the exact ball you stopped at."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I export and share full scorecards via WhatsApp?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! You can export a crisp, print-ready PDF scorecard with detailed batting, bowling, fall of wickets, and extras. It can be shared directly to WhatsApp groups, Facebook, or printed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which Android versions are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The app supports Android 7.0 (Nougat), 8.0, 9.0, 10, 11, 12, 13, 14 and above, across all phone brands including Samsung, Xiaomi, Realme, Vivo, OnePlus, and Oppo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I run full tournament leagues with Super Overs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! You can organize both Knockout and League tournaments with automated standings, Net Run Rate (NRR) computation, and super over tiebreaker handling."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Google Sign-In & Cloud Sync work across Web and Android?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sign in with your Google account to automatically back up your matches, squads, and tournaments to Firebase Cloud. You can score on your Android phone and view or resume matches on your PC or mobile web browser seamlessly."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://cric-scorer-pro.vercel.app/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://cric-scorer-pro.vercel.app/"
+        }
+      ]
+    }
+  ]
 }
 </script>
 
-<style>
-:root {
-  --accent: #E0567B;
-  --accent-dark: #C23131;
-  --accent-light: #FFF0F4;
-  --grad-a: #FF9A76;
-  --grad-b: #E0567B;
-  --grad-ocean-a: #38BDF8;
-  --grad-ocean-b: #2563EB;
-  --grad-mid-a: #10B981;
-  --grad-mid-b: #059669;
-  
-  --bg: #FFF8F3;
-  --bg-soft: #FFEFE6;
-  --surface: #FFFFFF;
-  --elev: #FFE3D0;
-  
-  --text: #371D2B;
-  --muted: #5C4350;
-  --muted-light: #7A5F6E;
-  --divider: #F0D7CB;
-  
-  --navy: #1E1744;
-  --navy-2: #2E2063;
-  --shadow: 0 10px 30px rgba(224, 86, 123, .14);
-  --shadow-lg: 0 20px 45px rgba(224, 86, 123, .22);
-  --radius: 20px;
-  --radius-sm: 12px;
-  --radius-pill: 9999px;
-  --font-en: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-bn: 'Anek Bangla', 'Hind Siliguri', sans-serif;
-  --transition: all .25s cubic-bezier(.16, 1, .3, 1);
-}
-
-* { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: var(--font-en);
-  background: var(--bg);
-  color: var(--text);
-  line-height: 1.65;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-body.bn {
-  font-family: var(--font-bn);
-  line-height: 1.78;
-}
-
-body.en .lang-bn { display: none !important; }
-body.bn .lang-en { display: none !important; }
-
-.container {
-  max-width: 1140px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-/* Headings with anti-overlap line-heights */
-h1, h2, h3, h4 {
-  line-height: 1.35;
-  font-weight: 800;
-  color: var(--text);
-}
-body.bn h1, body.bn h2 {
-  line-height: 1.45;
-  letter-spacing: 0.01em;
-}
-body.bn h3, body.bn h4 {
-  line-height: 1.4;
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-/* ── Top Alert / Update Bar ── */
-.top-banner {
-  background: linear-gradient(90deg, #2A1C44, #441B3B);
-  color: #fff;
-  font-size: .84rem;
-  padding: 8px 16px;
-  text-align: center;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 12px;
-  position: relative;
-  z-index: 101;
-}
-.top-banner .badge {
-  background: var(--accent);
-  color: #fff;
-  font-size: .72rem;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: var(--radius-pill);
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  flex-shrink: 0;
-}
-.top-banner a {
-  text-decoration: underline;
-  color: #FFD2A8;
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-@media (max-width: 768px) {
-  .top-banner {
-    flex-wrap: wrap;
-    gap: 6px;
-    padding: 9px 14px;
-    font-size: .8rem;
-    line-height: 1.45;
-  }
-}
-
-/* ── Nav ── */
-nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(255, 248, 243, .92);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--divider);
-  transition: var(--transition);
-}
-.nav-inner {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  height: 70px;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 800;
-  font-size: 1.18rem;
-  letter-spacing: -.01em;
-  flex-shrink: 0;
-}
-.brand img {
-  width: 40px;
-  height: 40px;
-  border-radius: 11px;
-  box-shadow: 0 4px 12px rgba(224, 86, 123, .22);
-}
-.brand .pro-tag {
-  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-  color: #fff;
-  font-size: .65rem;
-  font-weight: 800;
-  padding: 2px 7px;
-  border-radius: 6px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-.nav-links {
-  display: flex;
-  gap: 24px;
-  margin-left: auto;
-  font-weight: 600;
-  font-size: .95rem;
-  color: var(--muted);
-}
-.nav-links a {
-  position: relative;
-  transition: color .2s;
-  padding: 4px 0;
-}
-.nav-links a:hover {
-  color: var(--accent);
-}
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--accent);
-  transition: width .25s ease;
-}
-.nav-links a:hover::after {
-  width: 100%;
-}
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-.lang-toggle {
-  display: flex;
-  border: 1.5px solid var(--divider);
-  border-radius: var(--radius-pill);
-  overflow: hidden;
-  font-size: .82rem;
-  font-weight: 700;
-  background: var(--surface);
-  flex-shrink: 0;
-}
-.lang-toggle button {
-  border: 0;
-  background: transparent;
-  padding: 6px 13px;
-  cursor: pointer;
-  font: inherit;
-  color: var(--muted);
-  transition: var(--transition);
-}
-.lang-toggle button.active {
-  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-  color: #fff;
-}
-
-/* Button styles */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-  color: #fff;
-  font-weight: 700;
-  padding: 13px 26px;
-  border-radius: var(--radius-pill);
-  box-shadow: var(--shadow);
-  transition: var(--transition);
-  cursor: pointer;
-  border: 0;
-  font-family: inherit;
-  font-size: .95rem;
-  text-decoration: none;
-  white-space: nowrap;
-}
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-lg);
-}
-.btn:active {
-  transform: translateY(0);
-}
-.btn.small {
-  padding: 8px 18px;
-  font-size: .88rem;
-}
-.btn.ghost {
-  background: var(--surface);
-  color: var(--accent);
-  border: 1.5px solid var(--accent);
-  box-shadow: none;
-}
-.btn.ghost:hover {
-  background: var(--accent-light);
-}
-.btn.dark {
-  background: var(--navy);
-  color: #fff;
-  box-shadow: 0 8px 24px rgba(30, 23, 68, .2);
-}
-.btn.dark:hover {
-  background: var(--navy-2);
-}
-
-/* Mobile Hamburger Button */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  width: 40px;
-  height: 40px;
-  background: var(--surface);
-  border: 1.5px solid var(--divider);
-  border-radius: 10px;
-  padding: 9px;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-.hamburger span {
-  display: block;
-  height: 2px;
-  background: var(--text);
-  border-radius: 2px;
-  transition: transform .25s ease, opacity .25s ease;
-}
-.hamburger.open span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.hamburger.open span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.open span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* Mobile Drawer (Nested directly below sticky nav with ZERO overlap) */
-.mobile-drawer {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  right: 0;
-  background: var(--surface);
-  border-bottom: 2px solid var(--divider);
-  padding: 20px 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-8px);
-  transition: opacity .25s ease, transform .25s ease;
-  box-shadow: 0 25px 40px rgba(0, 0, 0, .15);
-  z-index: 99;
-  max-height: calc(100vh - 80px);
-  overflow-y: auto;
-}
-.mobile-drawer.open {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-.mobile-drawer a {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--text);
-  padding: 9px 0;
-  border-bottom: 1px solid var(--divider);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-.mobile-drawer a:hover {
-  color: var(--accent);
-}
-.mobile-drawer-footer {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  margin-top: 8px;
-}
-
-@media (max-width: 860px) {
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
-  .nav-actions .btn.small { display: none; }
-}
-
-@media (max-width: 480px) {
-  .container.nav-inner {
-    padding: 0 16px;
-    height: 64px;
-    gap: 10px;
-  }
-  .brand {
-    font-size: 1.05rem;
-    gap: 8px;
-  }
-  .brand img {
-    width: 34px;
-    height: 34px;
-  }
-  .brand .pro-tag {
-    font-size: .6rem;
-    padding: 1px 5px;
-  }
-  .nav-actions {
-    gap: 8px;
-  }
-  .lang-toggle button {
-    padding: 5px 10px;
-    font-size: .78rem;
-  }
-  .hamburger {
-    width: 36px;
-    height: 36px;
-    padding: 8px;
-  }
-}
-
-/* ── Hero ── */
-.hero {
-  position: relative;
-  padding: 60px 0 45px;
-  overflow: hidden;
-}
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0 -10% auto;
-  height: 100%;
-  background:
-    radial-gradient(650px 480px at 12% 25%, rgba(255, 154, 118, .28), transparent 70%),
-    radial-gradient(650px 480px at 88% 15%, rgba(224, 86, 123, .22), transparent 70%);
-  pointer-events: none;
-}
-.hero-grid {
-  position: relative;
-  display: grid;
-  grid-template-columns: 1.15fr .85fr;
-  gap: 44px;
-  align-items: center;
-}
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--surface);
-  border: 1.5px solid var(--divider);
-  border-radius: var(--radius-pill);
-  padding: 6px 16px;
-  font-size: .88rem;
-  font-weight: 700;
-  color: var(--accent);
-  margin-bottom: 18px;
-  box-shadow: 0 4px 12px rgba(224, 86, 123, .08);
-}
-.eyebrow .pulse-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10B981;
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, .25);
-  animation: pulse-ring 1.8s infinite;
-}
-@keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, .45); }
-  70% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-}
-
-.hero h1 {
-  font-size: clamp(2.2rem, 4.8vw, 3.4rem);
-  font-weight: 800;
-  margin-bottom: 18px;
-  letter-spacing: -.02em;
-}
-.hero h1 .grad {
-  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.hero p.sub {
-  font-size: 1.12rem;
-  color: var(--muted);
-  max-width: 530px;
-  margin-bottom: 28px;
-  font-weight: 450;
-  line-height: 1.68;
-}
-.cta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-  margin-bottom: 24px;
-}
-.cta-row .btn-apk {
-  padding: 14px 28px;
-  font-size: 1.05rem;
-}
-.meta-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  font-size: .84rem;
-  color: var(--muted);
-}
-.meta-chips span {
-  background: var(--surface);
-  border: 1px solid var(--divider);
-  padding: 5px 12px;
-  border-radius: var(--radius-pill);
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Trust Bar */
-.trust-bar {
-  margin-top: 36px;
-  padding-top: 24px;
-  border-top: 1px solid var(--divider);
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
-}
-.trust-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  min-width: 0;
-}
-.trust-icon {
-  width: 34px;
-  height: 34px;
-  border-radius: 9px;
-  background: var(--bg-soft);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--accent);
-  flex-shrink: 0;
-}
-.trust-text {
-  font-size: .84rem;
-  font-weight: 700;
-  line-height: 1.35;
-  color: var(--text);
-  overflow: hidden;
-}
-.trust-text small {
-  display: block;
-  font-size: .74rem;
-  font-weight: 500;
-  color: var(--muted);
-  white-space: nowrap;
-}
-
-@media (max-width: 1040px) {
-  .trust-bar {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-}
-@media (max-width: 960px) {
-  .hero-grid { grid-template-columns: 1fr; }
-  .hero { padding: 42px 0 32px; }
-}
-@media (max-width: 520px) {
-  .trust-bar {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-}
-
-/* ── Phone Mockup ── */
-.phone-wrapper {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-}
-.phone {
-  width: 305px;
-  max-width: 100%;
-  background: #181124;
-  border-radius: 40px;
-  padding: 12px;
-  box-shadow:
-    0 25px 60px rgba(55, 29, 43, .28),
-    0 0 0 1px rgba(255, 255, 255, .1) inset;
-  margin: 0 auto;
-  position: relative;
-  transition: var(--transition);
-  box-sizing: border-box;
-}
-.phone .notch {
-  height: 24px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #181124;
-  position: relative;
-}
-.phone .notch i {
-  width: 82px;
-  height: 8px;
-  border-radius: var(--radius-pill);
-  background: #0B0612;
-  display: block;
-}
-.phone .screen {
-  background: var(--phone-bg, var(--bg-soft));
-  border-radius: 30px;
-  overflow: hidden;
-  font-size: 11.5px;
-  transition: var(--transition);
-}
-
-/* Theme classes for the mockup phone */
-.theme-sunrise {
-  --phone-head-grad: linear-gradient(135deg, #FF9A76, #E0567B);
-  --phone-bg: #FFEFE6;
-  --phone-accent: #E0567B;
-  --phone-text: #371D2B;
-  --phone-surface: #FFFFFF;
-}
-.theme-ocean {
-  --phone-head-grad: linear-gradient(135deg, #38BDF8, #2563EB);
-  --phone-bg: #E8F2FF;
-  --phone-accent: #0284C7;
-  --phone-text: #0F172A;
-  --phone-surface: #FFFFFF;
-}
-.theme-midnight {
-  --phone-head-grad: linear-gradient(135deg, #1E293B, #0F172A);
-  --phone-bg: #0B0F19;
-  --phone-accent: #10B981;
-  --phone-text: #F1F5F9;
-  --phone-surface: #1E293B;
-}
-
-.app-head {
-  background: var(--phone-head-grad, linear-gradient(135deg, var(--grad-a), var(--grad-b)));
-  color: #fff;
-  padding: 14px 14px 16px;
-  transition: var(--transition);
-}
-.app-head .t {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-  font-size: 11px;
-  opacity: .95;
-}
-.app-head .t > span:first-child {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  flex: 1;
-  min-width: 0;
-}
-.app-head .t > span:last-child {
-  flex-shrink: 0;
-  font-size: 10.5px;
-}
-.big-score {
-  font-size: 29px;
-  font-weight: 800;
-  letter-spacing: .5px;
-  margin-top: 4px;
-}
-.big-score small {
-  font-size: 12.5px;
-  font-weight: 600;
-  opacity: .92;
-  margin-left: 6px;
-}
-.crr {
-  font-size: 10.5px;
-  opacity: .92;
-  margin-top: 2px;
-  font-weight: 500;
-}
-.pmc {
-  padding: 10px;
-  background: var(--phone-bg);
-}
-.prow {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--phone-surface);
-  color: var(--phone-text);
-  border-radius: 10px;
-  padding: 8px 10px;
-  margin-bottom: 6px;
-  font-weight: 700;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, .04);
-}
-.prow .nm {
-  display: flex;
-  gap: 6px;
-  align-items: center;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.dot-strike {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--phone-accent);
-  flex-shrink: 0;
-}
-.prow .st {
-  color: var(--muted);
-  font-weight: 600;
-  font-size: 10.5px;
-  flex-shrink: 0;
-}
-.pill-row {
-  display: flex;
-  gap: 5px;
-  margin: 8px 0;
-}
-.pill-row b {
-  flex: 1;
-  text-align: center;
-  background: var(--phone-surface);
-  border: 1px solid var(--divider);
-  border-radius: 8px;
-  padding: 5px 0;
-  font-size: 10px;
-  color: var(--muted);
-  font-weight: 700;
-}
-.runpad {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 6px;
-}
-.runpad span {
-  background: var(--phone-surface);
-  color: var(--phone-text);
-  border: 1px solid var(--divider);
-  border-radius: 10px;
-  text-align: center;
-  padding: 10px 0;
-  font-weight: 800;
-  font-size: 13.5px;
-  cursor: pointer;
-  user-select: none;
-  transition: transform .1s;
-}
-.runpad span:hover {
-  transform: scale(.97);
-}
-.runpad span.hl {
-  background: var(--phone-head-grad);
-  color: #fff;
-  border: 0;
-}
-.runpad span.wk {
-  background: #C23131;
-  color: #fff;
-  border: 0;
-}
-.runpad span.ex {
-  font-size: 10.5px;
-  color: var(--muted);
-  font-weight: 700;
-}
-
-/* Mockup Theme Switcher Control */
-.mockup-theme-bar {
-  display: inline-flex;
-  gap: 6px;
-  background: var(--surface);
-  border: 1.5px solid var(--divider);
-  border-radius: var(--radius-pill);
-  padding: 5px;
-  margin-top: 18px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, .05);
-  flex-wrap: wrap;
-  justify-content: center;
-}
-.mockup-theme-btn {
-  border: 0;
-  background: transparent;
-  padding: 6px 14px;
-  border-radius: var(--radius-pill);
-  font-size: .82rem;
-  font-weight: 700;
-  color: var(--muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: var(--transition);
-}
-.mockup-theme-btn.active {
-  background: var(--navy);
-  color: #fff;
-}
-
-/* ── Sections Common ── */
-section {
-  padding: 80px 0;
-}
-.sec-head {
-  text-align: center;
-  max-width: 680px;
-  margin: 0 auto 48px;
-}
-.sec-head .kicker {
-  display: inline-block;
-  color: var(--accent);
-  font-weight: 800;
-  font-size: .86rem;
-  text-transform: uppercase;
-  letter-spacing: .14em;
-  margin-bottom: 12px;
-  background: var(--accent-light);
-  padding: 4px 14px;
-  border-radius: var(--radius-pill);
-}
-.sec-head h2 {
-  font-size: clamp(1.8rem, 3.8vw, 2.6rem);
-  font-weight: 800;
-  margin-bottom: 14px;
-}
-.sec-head p {
-  color: var(--muted);
-  font-size: 1.05rem;
-  font-weight: 450;
-  line-height: 1.65;
-}
-
-/* ── Features Grid ── */
-.feat-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-}
-.feat {
-  background: var(--surface);
-  border: 1.5px solid var(--divider);
-  border-radius: var(--radius);
-  padding: 28px 24px;
-  transition: var(--transition);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-.feat:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-lg);
-  border-color: rgba(224, 86, 123, .4);
-}
-.feat .ic-box {
-  width: 50px;
-  height: 50px;
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg-soft);
-  color: var(--accent);
-  margin-bottom: 16px;
-  transition: var(--transition);
-  flex-shrink: 0;
-}
-.feat:hover .ic-box {
-  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-  color: #fff;
-}
-.feat h3 {
-  font-size: 1.1rem;
-  font-weight: 800;
-  margin-bottom: 10px;
-}
-.feat p {
-  font-size: .94rem;
-  color: var(--muted);
-  line-height: 1.65;
-}
-@media (max-width: 1020px) {
-  .feat-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 580px) {
-  .feat-grid { grid-template-columns: 1fr; }
-}
-
-/* ── Inside the App / Screens Section ── */
-#screens {
-  background: linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 50%, var(--bg) 100%);
-}
-.screens-tabs-nav {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 38px;
-  flex-wrap: wrap;
-}
-.screen-tab-btn {
-  background: var(--surface);
-  border: 1.5px solid var(--divider);
-  padding: 10px 22px;
-  border-radius: var(--radius-pill);
-  font-weight: 700;
-  font-size: .92rem;
-  color: var(--muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: var(--transition);
-}
-.screen-tab-btn:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-}
-.screen-tab-btn.active {
-  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-  color: #fff;
-  border-color: transparent;
-  box-shadow: var(--shadow);
-}
-.screens-container {
-  display: flex;
-  justify-content: center;
-  gap: 36px;
-  flex-wrap: wrap;
-}
-.screen-card {
-  text-align: center;
-  transition: var(--transition);
-}
-.screen-card.hidden {
-  display: none;
-}
-.screen-card .cap {
-  margin-top: 18px;
-  font-weight: 700;
-  font-size: 1.02rem;
-  color: var(--text);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-.screen-card .cap-desc {
-  font-size: .86rem;
-  color: var(--muted);
-  margin-top: 4px;
-}
-
-/* Scoreboard Mini-Table (Anti-Overflow Column Tuning) */
-.mini-table {
-  padding: 10px;
-  background: var(--phone-bg);
-}
-.mt-head {
-  background: var(--navy);
-  color: #fff;
-  border-radius: 10px 10px 0 0;
-  padding: 9px 12px;
-  font-weight: 700;
-  font-size: 11px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.mt-row {
-  display: grid;
-  grid-template-columns: minmax(0, 2.3fr) repeat(5, minmax(0, .6fr));
-  background: var(--phone-surface);
-  color: var(--phone-text);
-  padding: 7px 10px;
-  font-size: 10px;
-  border-bottom: 1px solid var(--divider);
-  font-weight: 500;
-  align-items: center;
-}
-.mt-row > * {
-  min-width: 0;
-  overflow: hidden;
-  text-align: center;
-}
-.mt-row > *:first-child {
-  text-align: left;
-}
-.mt-row.hdr {
-  background: var(--bg-soft);
-  color: var(--muted);
-  font-weight: 700;
-  font-size: 9px;
-  text-transform: uppercase;
-}
-.mt-row b { font-weight: 700; }
-.mt-row .batter-cell {
-  display: flex;
-  flex-direction: column;
-  line-height: 1.25;
-}
-.mt-row .batter-cell b {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.mt-row .out {
-  color: var(--muted);
-  font-size: 8px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.mt-foot {
-  background: var(--phone-surface);
-  color: var(--phone-text);
-  border-radius: 0 0 10px 10px;
-  padding: 8px 10px;
-  font-size: 10px;
-  font-weight: 700;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 2px solid var(--divider);
-}
-
-/* Leaderboard Rows */
-.lb-row {
-  display: grid;
-  grid-template-columns: minmax(0, .45fr) minmax(0, 2.1fr) repeat(3, minmax(0, .55fr)) minmax(0, .8fr);
-  background: var(--phone-surface);
-  color: var(--phone-text);
-  padding: 8px 10px;
-  font-size: 10.5px;
-  border-bottom: 1px solid var(--divider);
-  font-weight: 500;
-  align-items: center;
-}
-.lb-row > * {
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  text-align: center;
-}
-.lb-row > *:nth-child(2) {
-  text-align: left;
-}
-.lb-row.hdr {
-  background: var(--navy-2);
-  color: #fff;
-  font-weight: 700;
-  font-size: 9px;
-  text-transform: uppercase;
-  border-radius: 10px 10px 0 0;
-}
-.lb-row .pos {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: var(--bg-soft);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 9px;
-  margin: 0 auto;
-}
-.lb-row:nth-child(2) .pos {
-  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-  color: #fff;
-}
-.lb-row b.pts { color: var(--accent); }
-
-/* ── Installation ── */
-.steps {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-}
-.step {
-  background: var(--surface);
-  border: 1.5px solid var(--divider);
-  border-radius: var(--radius);
-  padding: 28px 22px;
-  position: relative;
-  transition: var(--transition);
-  display: flex;
-  flex-direction: column;
-}
-.step:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow);
-}
-.step .num {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-  color: #fff;
-  font-weight: 800;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  margin-bottom: 16px;
-  box-shadow: 0 6px 16px rgba(224, 86, 123, .25);
-  flex-shrink: 0;
-}
-.step h3 {
-  font-size: 1.05rem;
-  margin-bottom: 8px;
-}
-.step p {
-  font-size: .92rem;
-  color: var(--muted);
-  line-height: 1.6;
-}
-@media (max-width: 960px) {
-  .steps { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 560px) {
-  .steps { grid-template-columns: 1fr; }
-}
-
-.note {
-  max-width: 760px;
-  margin: 32px auto 0;
-  background: var(--elev);
-  border: 1px solid var(--divider);
-  border-radius: 16px;
-  padding: 16px 24px;
-  font-size: .95rem;
-  color: var(--text);
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  line-height: 1.65;
-}
-.note .icon-note {
-  font-size: 1.25rem;
-  flex-shrink: 0;
-}
-
-/* ── FAQ ── */
-.faq {
-  max-width: 800px;
-  margin: 0 auto;
-}
-details {
-  background: var(--surface);
-  border: 1.5px solid var(--divider);
-  border-radius: 16px;
-  margin-bottom: 14px;
-  overflow: hidden;
-  transition: var(--transition);
-}
-details[open] {
-  border-color: rgba(224, 86, 123, .4);
-  box-shadow: var(--shadow);
-}
-summary {
-  padding: 20px 24px;
-  font-weight: 700;
-  font-size: 1.05rem;
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 14px;
-  user-select: none;
-}
-summary::-webkit-details-marker { display: none; }
-summary::after {
-  content: "";
-  width: 10px;
-  height: 10px;
-  border-right: 2.5px solid var(--accent);
-  border-bottom: 2.5px solid var(--accent);
-  transform: rotate(45deg);
-  transition: transform .25s ease;
-  flex-shrink: 0;
-}
-details[open] summary::after {
-  transform: rotate(-135deg);
-}
-details .ans {
-  padding: 0 24px 22px;
-  color: var(--muted);
-  font-size: .98rem;
-  line-height: 1.7;
-}
-
-/* ── Download Band ── */
-.dl-band {
-  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-  border-radius: 32px;
-  padding: 64px 44px;
-  text-align: center;
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--shadow-lg);
-}
-.dl-band::before {
-  content: "";
-  position: absolute;
-  width: 380px;
-  height: 380px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, .12);
-  top: -160px;
-  right: -100px;
-  pointer-events: none;
-  z-index: 1;
-}
-.dl-band::after {
-  content: "";
-  position: absolute;
-  width: 260px;
-  height: 260px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, .1);
-  bottom: -120px;
-  left: -80px;
-  pointer-events: none;
-  z-index: 1;
-}
-.dl-band h2 {
-  font-size: clamp(1.8rem, 3.6vw, 2.6rem);
-  font-weight: 800;
-  margin-bottom: 14px;
-  position: relative;
-  z-index: 2;
-  color: #fff;
-}
-.dl-band p {
-  opacity: .95;
-  font-size: 1.12rem;
-  max-width: 580px;
-  margin: 0 auto 30px;
-  position: relative;
-  z-index: 2;
-  line-height: 1.65;
-}
-.dl-band .btn-wrap {
-  display: flex;
-  gap: 14px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  position: relative;
-  z-index: 2;
-}
-.dl-band .btn.white {
-  background: #fff;
-  color: var(--accent);
-  box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
-}
-.dl-band .btn.white:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(0, 0, 0, .22);
-}
-.dl-band .btn.ghost-white {
-  background: transparent;
-  color: #fff;
-  border: 2px solid rgba(255, 255, 255, .8);
-}
-.dl-band .btn.ghost-white:hover {
-  background: rgba(255, 255, 255, .15);
-}
-.dl-band .metas {
-  margin-top: 20px;
-  font-size: .88rem;
-  opacity: .92;
-  position: relative;
-  z-index: 2;
-  font-weight: 500;
-}
-
-/* ── QR Code Modal ── */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(15, 10, 25, .65);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 200;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity .25s ease;
-  padding: 20px;
-}
-.modal-overlay.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-.modal-card {
-  background: var(--surface);
-  border-radius: 28px;
-  padding: 36px;
-  max-width: 400px;
-  width: 100%;
-  text-align: center;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, .3);
-  position: relative;
-  transform: scale(.95);
-  transition: transform .25s cubic-bezier(.16, 1, .3, 1);
-}
-.modal-overlay.active .modal-card {
-  transform: scale(1);
-}
-.modal-close {
-  position: absolute;
-  top: 18px;
-  right: 18px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 0;
-  background: var(--bg-soft);
-  color: var(--text);
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.modal-card h3 {
-  font-size: 1.35rem;
-  margin-bottom: 8px;
-}
-.modal-card p {
-  color: var(--muted);
-  font-size: .9rem;
-  margin-bottom: 22px;
-  line-height: 1.55;
-}
-.qr-frame {
-  background: #fff;
-  padding: 16px;
-  border-radius: 20px;
-  display: inline-block;
-  border: 1.5px solid var(--divider);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, .06);
-}
-.qr-frame img, .qr-frame svg {
-  display: block;
-  width: 180px;
-  height: 180px;
-}
-.modal-foot {
-  margin-top: 18px;
-  font-size: .82rem;
-  color: var(--muted);
-}
-
-/* ── Footer ── */
-footer {
-  border-top: 1px solid var(--divider);
-  padding: 44px 0 36px;
-  color: var(--muted);
-  font-size: .92rem;
-  background: var(--surface);
-}
-.foot-inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.foot-brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-weight: 800;
-  font-size: 1.05rem;
-  color: var(--text);
-}
-.foot-brand img {
-  width: 32px;
-  height: 32px;
-  border-radius: 9px;
-}
-.foot-links {
-  display: flex;
-  gap: 22px;
-  font-weight: 600;
-}
-.foot-links a:hover {
-  color: var(--accent);
-}
-.back-to-top {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 700;
-  color: var(--accent);
-  cursor: pointer;
-}
-
-/* ── Scroll Reveal Animations ── */
-.reveal {
-  opacity: 0;
-  transform: translateY(22px);
-  transition: opacity .6s cubic-bezier(.16, 1, .3, 1), transform .6s cubic-bezier(.16, 1, .3, 1);
-}
-.reveal.vis {
-  opacity: 1;
-  transform: none;
-}
-
-/* ── Web Demo Studio Section ── */
-.web-demo-sec {
-  padding: 90px 0;
-  background: linear-gradient(180deg, var(--bg) 0%, #150F28 12%, #150F28 88%, var(--bg) 100%);
-  position: relative;
-  overflow: hidden;
-}
-.web-demo-sec .sec-head h2 {
-  color: #FFFFFF;
-}
-.web-demo-sec .sec-head p {
-  color: #C6BED4;
-}
-.web-demo-sec .kicker {
-  background: rgba(224, 86, 123, 0.2);
-  color: #FF9A76;
-  border-color: rgba(224, 86, 123, 0.35);
-}
-
-.web-demo-window {
-  max-width: 1040px;
-  margin: 40px auto 0;
-  background: #1C1533;
-  border: 1.5px solid rgba(255, 255, 255, 0.14);
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.55), 0 0 60px rgba(224, 86, 123, 0.18);
-  display: flex;
-  flex-direction: column;
-}
-
-.demo-toolbar {
-  background: #160F2B;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 12px 18px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.window-dots {
-  display: flex;
-  gap: 7px;
-}
-.window-dots .dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-}
-.window-dots .red { background: #FF5F56; }
-.window-dots .yellow { background: #FFBD2E; }
-.window-dots .green { background: #27C93F; }
-
-.demo-address-bar {
-  flex: 1;
-  max-width: 440px;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 999px;
-  padding: 6px 14px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  color: #E2DBEC;
-  user-select: none;
-}
-.demo-address-bar .url {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-family: monospace;
-}
-.badge-pwa {
-  margin-left: auto;
-  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-  color: #fff;
-  font-size: 9px;
-  font-weight: 800;
-  padding: 2px 6px;
-  border-radius: 4px;
-  letter-spacing: 0.05em;
-}
-
-.demo-controls {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.demo-view-toggles {
-  display: flex;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 999px;
-  padding: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-.view-toggle-btn {
-  background: transparent;
-  border: 0;
-  color: #BBB0CA;
-  padding: 4px 11px;
-  border-radius: 999px;
-  font-size: 11.5px;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  cursor: pointer;
-  transition: var(--transition);
-  font-family: inherit;
-}
-.view-toggle-btn:hover {
-  color: #fff;
-}
-.view-toggle-btn.active {
-  background: linear-gradient(135deg, var(--grad-a), var(--grad-b));
-  color: #fff;
-  box-shadow: 0 2px 8px rgba(224, 86, 123, 0.3);
-}
-
-.demo-act-btn {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  color: #fff;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: var(--transition);
-  text-decoration: none;
-}
-.demo-act-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.25);
-  transform: translateY(-1px);
-}
-
-.demo-screen-stage {
-  min-height: 640px;
-  background: radial-gradient(circle at center, #241A42 0%, #130E22 100%);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px 20px;
-  position: relative;
-  overflow: hidden;
-}
-
-.demo-frame-container {
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
-  border-radius: 28px;
-  overflow: hidden;
-  border: 3px solid #2F2552;
-  background: #000;
-  display: flex;
-}
-
-.demo-frame-container.phone-view {
-  width: 380px;
-  max-width: 100%;
-  height: 620px;
-}
-
-.demo-frame-container.tablet-view {
-  width: 620px;
-  max-width: 100%;
-  height: 620px;
-}
-
-.demo-frame-container.wide-view {
-  width: 100%;
-  height: 620px;
-  border-radius: 12px;
-}
-
-.demo-frame-container iframe {
-  width: 100%;
-  height: 100%;
-  border: 0;
-  display: block;
-  background: #FFEFE6;
-}
-
-.demo-status-bar {
-  background: #160F2B;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.demo-features-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  font-size: 12.5px;
-  color: #DDD4EC;
-  flex-wrap: wrap;
-}
-.demo-features-row span {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  line-height: 1.4;
-  white-space: nowrap;
-}
-
-.demo-cta-row {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* ── Mobile Anti-Overlap & Collision Hardening for Web Demo ── */
-@media (max-width: 768px) {
-  .demo-toolbar {
-    flex-direction: column;
-    align-items: stretch;
-    padding: 10px 14px;
-    gap: 10px;
-  }
-  .demo-address-bar {
-    max-width: 100%;
-    order: 1;
-  }
-  .demo-controls {
-    order: 2;
-    justify-content: space-between;
-    width: 100%;
-  }
-  .demo-screen-stage {
-    min-height: auto;
-    padding: 14px 8px;
-  }
-  .demo-frame-container.phone-view,
-  .demo-frame-container.tablet-view,
-  .demo-frame-container.wide-view {
-    height: 520px;
-    max-height: 75vh;
-    width: 100%;
-    border-radius: 18px;
-  }
-  .demo-status-bar {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 14px;
-    padding: 14px 16px;
-  }
-  .demo-features-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
-  }
-  .demo-features-row span {
-    white-space: normal;
-  }
-  .demo-cta-row {
-    flex-direction: column;
-    gap: 9px;
-    width: 100%;
-  }
-  .demo-cta-row .btn {
-    width: 100%;
-    justify-content: center;
-    white-space: normal;
-  }
-}
-
-@media (max-width: 540px) {
-  .window-dots {
-    display: none;
-  }
-  .demo-view-toggles .toggle-text {
-    display: none !important; /* Hide text on narrow phones so 3 icon buttons never wrap or collide */
-  }
-  .view-toggle-btn {
-    padding: 6px 9px;
-  }
-  .demo-address-bar .badge-pwa {
-    display: none;
-  }
-}
-</style>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body class="en">
 
@@ -1783,6 +215,11 @@ footer {
         <button id="btn-bn" onclick="setLang('bn')">বাং</button>
       </div>
 
+      <button class="web-nav-google-btn" id="nav-google-btn" onclick="openSiteGoogleSyncModal()" title="Google Sign-In & Cloud Sync">
+        <svg width="14" height="14" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.02 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+        <span id="nav-google-label"><span class="lang-en">Sync</span><span class="lang-bn">সিঙ্ক</span></span>
+      </button>
+
       <a class="btn small" href="cricket_pro.apk" download>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         <span class="lang-en">APK</span><span class="lang-bn">APK নামান</span>
@@ -1798,6 +235,10 @@ footer {
 
   <!-- Mobile Drawer -->
   <div class="mobile-drawer" id="mobile-drawer">
+    <button class="btn ghost" style="width:100%; margin-bottom:12px; display:flex; align-items:center; justify-content:center; gap:8px;" onclick="closeMobileMenu(); openSiteGoogleSyncModal();">
+      <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.02 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+      <span class="lang-en">Google Sign-In &amp; Sync</span><span class="lang-bn">গুগল সাইন-ইন ও সিঙ্ক</span>
+    </button>
     <a href="#features" onclick="closeMobileMenu()"><span class="lang-en">Features</span><span class="lang-bn">ফিচারসমূহ</span> &rarr;</a>
     <a href="#screens" onclick="closeMobileMenu()"><span class="lang-en">Screens &amp; Themes</span><span class="lang-bn">স্ক্রিন ও থিমসমূহ</span> &rarr;</a>
     <a href="#web-demo" onclick="closeMobileMenu()"><span class="lang-en">Live Web Demo</span><span class="lang-bn">লাইভ ওয়েব ডেমো</span> &rarr;</a>
@@ -1920,17 +361,46 @@ footer {
               <span>Dhaka Tigers <span class="lang-en">vs</span><span class="lang-bn">বনাম</span> Ctg Kings</span>
               <span><span class="lang-en">1st Innings</span><span class="lang-bn">১ম ইনিংস</span></span>
             </div>
-            <div class="big-score">156/4 <small>15.2 / 20 ov</small></div>
-            <div class="crr">CRR 10.17 · Target — · Req —</div>
+            <div class="big-score" id="hero-big-score">156/4 <small id="hero-overs-text">15.2 / 20 ov</small></div>
+            <div class="crr" id="hero-crr-text">CRR 10.17 · Target — · Req —</div>
           </div>
           <div class="pmc">
-            <div class="prow"><span class="nm"><span class="dot-strike"></span>Rafi*</span><span>68 (41)</span></div>
-            <div class="prow"><span class="nm">Sabbir</span><span>31 (21)</span></div>
-            <div class="prow"><span class="nm">🎯 Imran</span><span class="st">2.2-0-19-1</span></div>
-            <div class="pill-row"><b>WD</b><b>NB</b><b>BYE</b><b>LB</b></div>
-            <div class="runpad">
-              <span>0</span><span>1</span><span>2</span><span>3</span>
-              <span class="hl">4</span><span class="hl">6</span><span class="wk">OUT</span><span class="ex">UNDO</span>
+            <div class="prow" id="hero-batsman-1"><span class="nm" id="hero-b1-name"><span class="dot-strike" id="hero-strike-dot"></span><span id="hero-b1-label">Rafi*</span></span><span id="hero-b1-runs">68 (41)</span></div>
+            <div class="prow" id="hero-batsman-2"><span class="nm" id="hero-b2-name"><span id="hero-b2-label">Sabbir</span></span><span id="hero-b2-runs">31 (21)</span></div>
+            <div class="prow"><span class="nm">🎯 Imran</span><span class="st" id="hero-bowler-stat">2.2-0-19-1</span></div>
+            <div class="pill-row">
+              <b class="extra-wd">WD</b>
+              <b class="extra-nb">NB</b>
+              <b class="extra-bye">BYE</b>
+              <b class="extra-wkt">WKT</b>
+            </div>
+            <div class="scoring-runpad" id="hero-runpad">
+              <button class="run-btn run-0" type="button" onclick="handleMockupScore(0)" title="Dot Ball (0 runs)"><span class="run-num">0</span><span class="run-tag">• DOT</span></button>
+              <button class="run-btn run-1" type="button" onclick="handleMockupScore(1)" title="Single (1 run)"><span class="run-num">1</span><span class="run-tag">1 RUN</span></button>
+              <button class="run-btn run-2" type="button" onclick="handleMockupScore(2)" title="Two (2 runs)"><span class="run-num">2</span><span class="run-tag">2 RUNS</span></button>
+              <button class="run-btn run-3" type="button" onclick="handleMockupScore(3)" title="Three (3 runs)"><span class="run-num">3</span><span class="run-tag">3 RUNS</span></button>
+              <button class="run-btn run-4" type="button" onclick="handleMockupScore(4)" title="Boundary Four! (4 runs)"><span class="run-num">4</span><span class="run-tag">FOUR</span></button>
+              <button class="run-btn run-6" type="button" onclick="handleMockupScore(6)" title="Maximum Sixer! (6 runs)"><span class="run-num">6</span><span class="run-tag">MAXIMUM</span></button>
+            </div>
+            <div class="action-split-row">
+              <button class="action-btn action-extras" type="button" onclick="handleMockupPenalty()" title="Add 5 Penalty & Extra Runs">
+                <span class="act-icon">🛡️</span>
+                <div class="act-text">
+                  <strong class="act-title"><span class="lang-en">Extras / Penalty</span><span class="lang-bn">পেনাল্টি ও অতিরিক্ত</span></strong>
+                  <span class="act-sub"><span class="lang-en">+5 Pen / Extras</span><span class="lang-bn">+৫ পেনাল্টি ও অতিরিক্ত</span></span>
+                </div>
+              </button>
+              <button class="action-btn action-swap" type="button" onclick="handleMockupSwapStrike()" title="Swipe / Slide to Swap Striker Batsman">
+                <div class="swap-thumb">⇄</div>
+                <div class="act-text">
+                  <strong class="act-title"><span class="lang-en">Slide to Swap</span><span class="lang-bn">ব্যাটসম্যান বদল</span></strong>
+                  <span class="act-sub"><span class="lang-en">Swap Batsman</span><span class="lang-bn">সোয়াইপ টু ব্যাটসম্যান</span></span>
+                </div>
+              </button>
+            </div>
+            <div class="action-sub-row">
+              <div class="sub-btn"><span class="sub-icon">↩</span> <span class="lang-en">Undo</span><span class="lang-bn">আনডু</span></div>
+              <div class="sub-btn"><span class="sub-icon">🚶</span> <span class="lang-en">Retire</span><span class="lang-bn">রিটায়ার</span></div>
             </div>
           </div>
         </div>
@@ -2092,11 +562,40 @@ footer {
               <div class="prow"><span class="nm"><span class="dot-strike"></span>Nayeem*</span><span>44 (26)</span></div>
               <div class="prow"><span class="nm">Hasan</span><span>31 (28)</span></div>
               <div class="prow"><span class="nm">🎯 Rocky</span><span class="st">3.4-1-24-2</span></div>
-              <div class="pill-row"><b>WD</b><b>NB</b><b>BYE</b><b>LB</b></div>
-              <div class="runpad">
-                <span>0</span><span>1</span><span>2</span><span>3</span>
-                <span class="hl">4</span><span class="hl">6</span><span class="wk">OUT</span><span class="ex">UNDO</span>
-              </div>
+              <div class="pill-row">
+              <b class="extra-wd">WD</b>
+              <b class="extra-nb">NB</b>
+              <b class="extra-bye">BYE</b>
+              <b class="extra-wkt">WKT</b>
+            </div>
+            <div class="scoring-runpad">
+              <button class="run-btn run-0" type="button" title="Dot Ball"><span class="run-num">0</span><span class="run-tag">• DOT</span></button>
+              <button class="run-btn run-1" type="button" title="Single"><span class="run-num">1</span><span class="run-tag">1 RUN</span></button>
+              <button class="run-btn run-2" type="button" title="Two"><span class="run-num">2</span><span class="run-tag">2 RUNS</span></button>
+              <button class="run-btn run-3" type="button" title="Three"><span class="run-num">3</span><span class="run-tag">3 RUNS</span></button>
+              <button class="run-btn run-4" type="button" title="Boundary Four!"><span class="run-num">4</span><span class="run-tag">FOUR</span></button>
+              <button class="run-btn run-6" type="button" title="Maximum Sixer!"><span class="run-num">6</span><span class="run-tag">MAXIMUM</span></button>
+            </div>
+            <div class="action-split-row">
+              <button class="action-btn action-extras" type="button" title="Extras & Penalty Runs">
+                <span class="act-icon">🛡️</span>
+                <div class="act-text">
+                  <strong class="act-title"><span class="lang-en">Extras / Penalty</span><span class="lang-bn">পেনাল্টি ও অতিরিক্ত</span></strong>
+                  <span class="act-sub"><span class="lang-en">+5 Pen / Extras</span><span class="lang-bn">+৫ পেনাল্টি ও অতিরিক্ত</span></span>
+                </div>
+              </button>
+              <button class="action-btn action-swap" type="button" title="Swipe to Batsman">
+                <div class="swap-thumb">⇄</div>
+                <div class="act-text">
+                  <strong class="act-title"><span class="lang-en">Slide to Swap</span><span class="lang-bn">ব্যাটসম্যান বদল</span></strong>
+                  <span class="act-sub"><span class="lang-en">Swap Batsman</span><span class="lang-bn">সোয়াইপ টু ব্যাটসম্যান</span></span>
+                </div>
+              </button>
+            </div>
+            <div class="action-sub-row">
+              <div class="sub-btn"><span class="sub-icon">↩</span> <span class="lang-en">Undo</span><span class="lang-bn">আনডু</span></div>
+              <div class="sub-btn"><span class="sub-icon">🚶</span> <span class="lang-en">Retire</span><span class="lang-bn">রিটায়ার</span></div>
+            </div>
             </div>
           </div>
         </div>
@@ -2259,7 +758,7 @@ footer {
       <!-- Frame Body with Canvas / Iframe -->
       <div class="demo-screen-stage" id="demo-stage">
         <div class="demo-frame-container phone-view" id="demo-frame-wrap">
-          <iframe id="web-demo-iframe" src="./web/?v=2.0.11.2" title="Cric Scorer Pro Live Web App" loading="lazy"></iframe>
+          <iframe id="web-demo-iframe" src="./web/?v=2.0.12.5" title="Cric Scorer Pro Live Web App" loading="lazy"></iframe>
         </div>
       </div>
 
@@ -2267,7 +766,9 @@ footer {
       <div class="demo-status-bar">
         <div class="demo-features-row">
           <span>⚡ <strong class="lang-en">Instant In-Browser Scoring</strong><strong class="lang-bn">ব্রাউজারেই লাইভ স্কোরিং</strong></span>
-          <span>☁️ <strong class="lang-en">Google Sign-In &amp; Sync</strong><strong class="lang-bn">গুগল সাইন-ইন ও ক্লাউড সিঙ্ক</strong></span>
+          <button class="demo-feature-pill active-sync-trigger" id="demo-sync-pill" type="button" onclick="openSiteGoogleSyncModal()" title="Google Sign-In &amp; Cloud Sync Status">
+            <span>☁️ <strong class="lang-en">Google Sign-In &amp; Sync</strong><strong class="lang-bn">গুগল সাইন-ইন ও ক্লাউড সিঙ্ক</strong></span>
+          </button>
           <span>📱 <strong class="lang-en">PWA Ready for PC &amp; Mobile</strong><strong class="lang-bn">কম্পিউটার ও ফোনে PWA ইনস্টলেশন</strong></span>
         </div>
 
@@ -2496,6 +997,21 @@ footer {
   </div>
 </div>
 
+<!-- ── Google Cloud Sync Modal on Main Website ── -->
+<div class="modal-backdrop" id="site-sync-modal" onclick="handleSiteSyncModalBackdrop(event)">
+  <div class="modal-card" style="max-width: 440px; text-align: center;">
+    <button class="modal-close" onclick="closeSiteGoogleSyncModal()" aria-label="Close modal">&times;</button>
+    <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(224, 86, 123, 0.15); border: 1px solid rgba(224, 86, 123, 0.3); display: inline-flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 12px;">☁️</div>
+    <h3 style="margin-bottom: 6px;">
+      <span class="lang-en">Google Cloud Backup &amp; Sync</span>
+      <span class="lang-bn">গুগল ক্লাউড ব্যাকআপ ও সিঙ্ক</span>
+    </h3>
+    <div id="site-sync-modal-body">
+      <!-- Injected dynamically -->
+    </div>
+  </div>
+</div>
+
 <!-- ── Footer ── -->
 <footer>
   <div class="container foot-inner">
@@ -2626,6 +1142,7 @@ document.addEventListener('keydown', function(e) {
 });
 
 // Scroll Reveal Intersection Observer
+// Scroll Reveal Intersection Observer with Stagger & Instant Viewport Check
 var observer = new IntersectionObserver(function(entries) {
   entries.forEach(function(entry) {
     if (entry.isIntersecting) {
@@ -2633,10 +1150,21 @@ var observer = new IntersectionObserver(function(entries) {
       observer.unobserve(entry.target);
     }
   });
-}, { threshold: 0.12 });
+}, { threshold: 0.08 });
 
 document.querySelectorAll('.reveal').forEach(function(element) {
   observer.observe(element);
+});
+
+// Immediate check for above-the-fold elements
+window.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    var rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add('vis');
+    }
+  });
+  syncSiteAuthState();
 });
 
 // Web Demo View Switcher & Controls
@@ -2663,7 +1191,355 @@ function reloadDemoIframe() {
     setTimeout(function() { iframe.src = src; }, 100);
   }
 }
+
+// ── Interactive Live Match Mockup Simulation ──
+let mockupState = {
+  score: 156,
+  wickets: 4,
+  overs: 15,
+  balls: 2,
+  b1: { name: 'Rafi', runs: 68, balls: 41, isStrike: true },
+  b2: { name: 'Sabbir', runs: 31, balls: 21, isStrike: false },
+  bowler: { name: 'Imran', overs: 2, balls: 2, maidens: 0, runs: 19, wickets: 1 }
+};
+
+let audioCtx = null;
+function playScoreSound(runs) {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    if (!audioCtx) audioCtx = new AudioContext();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    if (runs === 6) {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.14);
+      osc.frequency.exponentialRampToValueAtTime(1320, now + 0.32);
+      gain.gain.setValueAtTime(0.28, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+      osc.start(now);
+      osc.stop(now + 0.45);
+    } else if (runs === 4) {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(392, now);
+      osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.12);
+      osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.28);
+      gain.gain.setValueAtTime(0.24, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+      osc.start(now);
+      osc.stop(now + 0.35);
+    } else if (runs > 0) {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25 + runs * 55, now);
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.16);
+      osc.start(now);
+      osc.stop(now + 0.16);
+    } else {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(220, now);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+      osc.start(now);
+      osc.stop(now + 0.1);
+    }
+  } catch (e) {}
+}
+
+function updateMockupUi(popAnim) {
+  const scoreEl = document.getElementById('hero-big-score');
+  const oversEl = document.getElementById('hero-overs-text');
+  const crrEl = document.getElementById('hero-crr-text');
+  const b1Label = document.getElementById('hero-b1-label');
+  const b1Runs = document.getElementById('hero-b1-runs');
+  const b2Label = document.getElementById('hero-b2-label');
+  const b2Runs = document.getElementById('hero-b2-runs');
+  const bowlerEl = document.getElementById('hero-bowler-stat');
+
+  if (scoreEl) {
+    scoreEl.innerHTML = mockupState.score + '/' + mockupState.wickets + ' <small id="hero-overs-text">' + mockupState.overs + '.' + mockupState.balls + ' / 20 ov</small>';
+    if (popAnim) {
+      scoreEl.classList.remove('score-pop');
+      void scoreEl.offsetWidth;
+      scoreEl.classList.add('score-pop');
+    }
+  }
+
+  const totalBalls = mockupState.overs * 6 + mockupState.balls;
+  const crr = totalBalls > 0 ? ((mockupState.score / totalBalls) * 6).toFixed(2) : '0.00';
+  if (crrEl) crrEl.textContent = 'CRR ' + crr + ' · Target — · Req —';
+
+  const strikeDot = '<span class="dot-strike" id="hero-strike-dot"></span>';
+  if (b1Label) b1Label.innerHTML = (mockupState.b1.isStrike ? strikeDot : '') + mockupState.b1.name + (mockupState.b1.isStrike ? '*' : '');
+  if (b1Runs) b1Runs.textContent = mockupState.b1.runs + ' (' + mockupState.b1.balls + ')';
+
+  if (b2Label) b2Label.innerHTML = (mockupState.b2.isStrike ? strikeDot : '') + mockupState.b2.name + (mockupState.b2.isStrike ? '*' : '');
+  if (b2Runs) b2Runs.textContent = mockupState.b2.runs + ' (' + mockupState.b2.balls + ')';
+
+  if (bowlerEl) {
+    bowlerEl.textContent = mockupState.bowler.overs + '.' + mockupState.bowler.balls + '-' + mockupState.bowler.maidens + '-' + mockupState.bowler.runs + '-' + mockupState.bowler.wickets;
+  }
+}
+
+function handleMockupScore(runs) {
+  playScoreSound(runs);
+  mockupState.score += runs;
+  
+  const striker = mockupState.b1.isStrike ? mockupState.b1 : mockupState.b2;
+  striker.runs += runs;
+  striker.balls += 1;
+
+  mockupState.bowler.runs += runs;
+  mockupState.bowler.balls += 1;
+  mockupState.balls += 1;
+
+  if (mockupState.balls >= 6) {
+    mockupState.overs += 1;
+    mockupState.balls = 0;
+    mockupState.bowler.overs += 1;
+    mockupState.bowler.balls = 0;
+    // Over complete: rotate strike
+    mockupState.b1.isStrike = !mockupState.b1.isStrike;
+    mockupState.b2.isStrike = !mockupState.b2.isStrike;
+  } else if (runs % 2 !== 0) {
+    // Odd runs: rotate strike
+    mockupState.b1.isStrike = !mockupState.b1.isStrike;
+    mockupState.b2.isStrike = !mockupState.b2.isStrike;
+  }
+
+  updateMockupUi(true);
+}
+
+function handleMockupPenalty() {
+  playScoreSound(4);
+  mockupState.score += 5;
+  const scoreEl = document.getElementById('hero-big-score');
+  if (scoreEl) {
+    scoreEl.classList.remove('penalty-flash');
+    void scoreEl.offsetWidth;
+    scoreEl.classList.add('penalty-flash');
+  }
+  updateMockupUi(false);
+}
+
+function handleMockupSwapStrike() {
+  playScoreSound(1);
+  mockupState.b1.isStrike = !mockupState.b1.isStrike;
+  mockupState.b2.isStrike = !mockupState.b2.isStrike;
+  
+  const b1Row = document.getElementById('hero-batsman-1');
+  const b2Row = document.getElementById('hero-batsman-2');
+  if (b1Row) {
+    b1Row.classList.remove('strike-rotate-fx');
+    void b1Row.offsetWidth;
+    b1Row.classList.add('strike-rotate-fx');
+  }
+  if (b2Row) {
+    b2Row.classList.remove('strike-rotate-fx');
+    void b2Row.offsetWidth;
+    b2Row.classList.add('strike-rotate-fx');
+  }
+  updateMockupUi(false);
+}
+
+// ── Google Cloud Sync Modal & Auth Manager for Landing Page ──
+function getSiteCloudUser() {
+  try {
+    const saved = localStorage.getItem('cric_google_user');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed && (parsed.email || parsed.name)) return parsed;
+    }
+  } catch (e) {}
+  return null;
+}
+
+function syncSiteAuthState() {
+  const user = getSiteCloudUser();
+  const navBtn = document.getElementById('nav-google-btn');
+  const navLabel = document.getElementById('nav-google-label');
+  const demoPill = document.getElementById('demo-sync-pill');
+
+  if (user && (user.name || user.email)) {
+    const displayName = user.name ? user.name.split(' ')[0] : (user.email ? user.email.split('@')[0] : 'Sync');
+    if (navLabel) navLabel.textContent = displayName;
+    if (navBtn) {
+      navBtn.classList.add('signed-in');
+      navBtn.title = 'Signed in as ' + (user.email || user.name) + ' · Cloud Sync Active';
+    }
+    if (demoPill) {
+      demoPill.classList.add('signed-in');
+      demoPill.title = 'Cloud Sync Active for ' + (user.email || user.name);
+    }
+  } else {
+    if (navLabel) navLabel.innerHTML = '<span class="lang-en">Sync</span><span class="lang-bn">সিঙ্ক</span>';
+    if (navBtn) {
+      navBtn.classList.remove('signed-in');
+      navBtn.title = 'Google Sign-In & Cloud Sync';
+    }
+    if (demoPill) {
+      demoPill.classList.remove('signed-in');
+      demoPill.title = 'Google Sign-In & Cloud Sync Status';
+    }
+  }
+}
+
+function openSiteGoogleSyncModal() {
+  const modal = document.getElementById('site-sync-modal');
+  const body = document.getElementById('site-sync-modal-body');
+  if (!modal || !body) return;
+
+  const user = getSiteCloudUser();
+  if (user && (user.name || user.email)) {
+    const initial = user.name ? user.name.charAt(0).toUpperCase() : '🏏';
+    body.innerHTML = `
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px; background:rgba(255,255,255,0.06); padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.12); text-align:left;">
+        <div style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, var(--grad-a), var(--grad-b)); display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; color:#fff; overflow:hidden; flex-shrink:0;">
+          ${user.photoUrl ? '<img src="' + user.photoUrl + '" style="width:100%; height:100%; object-fit:cover;" alt="Avatar">' : initial}
+        </div>
+        <div style="flex:1; min-width:0;">
+          <div style="font-weight:700; font-size:15px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${user.name || 'Cricket Scorer'}</div>
+          <div style="font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${user.email || 'Cloud connected'}</div>
+        </div>
+        <span style="font-size:11px; background:rgba(16,185,129,0.2); color:#A7F3D0; border:1px solid rgba(16,185,129,0.4); padding:3px 8px; border-radius:99px; font-weight:600;">Active</span>
+      </div>
+      <p style="font-size:13px; color:#DDD; line-height:1.55; margin-bottom:18px;">
+        ☁️ <strong>Automatic Cloud Backup:</strong> Your cricket scores, squads, and tournaments are actively synced across Web and Android devices.
+      </p>
+      <div style="display:flex; gap:10px;">
+        <button class="btn ghost" style="flex:1; height:42px; border-color:rgba(239,68,68,0.4); color:#FCA5A5;" onclick="handleSiteSignOut()">Sign Out</button>
+        <button class="btn primary" style="flex:1; height:42px;" onclick="closeSiteGoogleSyncModal()">Close</button>
+      </div>
+    `;
+  } else {
+    body.innerHTML = `
+      <p style="font-size:13.5px; color:var(--muted); line-height:1.6; margin-bottom:18px;">
+        Sign in with Google to automatically back up your ball-by-ball matches, custom teams, and tournaments to Google Cloud.
+      </p>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn" style="width:100%; height:44px; display:flex; align-items:center; justify-content:center; gap:10px; font-weight:700;" onclick="handleSiteGoogleSignIn()">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.02 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+          <span>Continue with Google</span>
+        </button>
+        <button class="btn ghost" style="height:38px;" onclick="closeSiteGoogleSyncModal()">Cancel</button>
+      </div>
+    `;
+  }
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function handleSiteGoogleSignIn() {
+  // If iframe is loaded, trigger inside iframe as well
+  const iframe = document.getElementById('web-demo-iframe');
+  if (iframe && iframe.contentWindow) {
+    try {
+      iframe.contentWindow.postMessage({ type: 'CRIC_TRIGGER_GOOGLE_SIGNIN' }, '*');
+    } catch (e) {}
+  }
+
+  const email = prompt('Enter your Google Account email for Cloud Sync:', 'cricketer@gmail.com');
+  if (email && email.includes('@')) {
+    const name = email.split('@')[0];
+    const user = {
+      uid: 'google_' + Math.random().toString(36).substr(2, 9),
+      name: name.charAt(0).toUpperCase() + name.slice(1),
+      email: email,
+      photoUrl: '',
+      isLoggedIn: true,
+      authProvider: 'google.com',
+      updatedAt: new Date().toISOString()
+    };
+    try {
+      localStorage.setItem('cric_google_user', JSON.stringify(user));
+      localStorage.setItem('flutter.feature_hub_profile', JSON.stringify({
+        uid: user.uid,
+        name: user.name,
+        email: user.email,
+        photoUrl: '',
+        isLoggedIn: true
+      }));
+    } catch (e) {}
+
+    syncSiteAuthState();
+    closeSiteGoogleSyncModal();
+    alert('Welcome ' + user.name + '! Google Cloud Sync is now active on this browser.');
+
+    // Notify iframe
+    if (iframe && iframe.contentWindow) {
+      try {
+        iframe.contentWindow.postMessage({ type: 'CRIC_SYNC_AUTH_STATE' }, '*');
+      } catch (e) {}
+    }
+  }
+}
+
+function handleSiteSignOut() {
+  if (confirm('Are you sure you want to sign out from Google Cloud Sync on this browser?')) {
+    try {
+      localStorage.removeItem('cric_google_user');
+      const profile = localStorage.getItem('flutter.feature_hub_profile');
+      if (profile) {
+        const parsed = JSON.parse(profile);
+        parsed.isLoggedIn = false;
+        localStorage.setItem('flutter.feature_hub_profile', JSON.stringify(parsed));
+      }
+    } catch (e) {}
+    syncSiteAuthState();
+    closeSiteGoogleSyncModal();
+
+    const iframe = document.getElementById('web-demo-iframe');
+    if (iframe && iframe.contentWindow) {
+      try {
+        iframe.contentWindow.postMessage({ type: 'CRIC_SYNC_AUTH_STATE' }, '*');
+      } catch (e) {}
+    }
+  }
+}
+
+function closeSiteGoogleSyncModal() {
+  const modal = document.getElementById('site-sync-modal');
+  if (modal) modal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function handleSiteSyncModalBackdrop(e) {
+  if (e.target.id === 'site-sync-modal') {
+    closeSiteGoogleSyncModal();
+  }
+}
+
+// Cross-frame sync listener
+window.addEventListener('message', function(event) {
+  if (!event.data) return;
+  if (event.data.type === 'CRIC_AUTH_SUCCESS') {
+    syncSiteAuthState();
+  } else if (event.data.type === 'CRIC_AUTH_LOGOUT') {
+    syncSiteAuthState();
+  }
+});
+window.addEventListener('storage', syncSiteAuthState);
+window.addEventListener('focus', syncSiteAuthState);
 </script>
 
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then(registration => {
+        console.log('SW registered: ', registration);
+      }).catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+    });
+  }
+</script>
 </body>
 </html>
