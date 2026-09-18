@@ -135,10 +135,12 @@
       border: 1px solid var(--bar-border);
       border-radius: 999px;
       box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
-      transition: box-shadow 0.2s ease;
+      transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
       user-select: none;
       max-width: calc(100vw - 24px);
       cursor: grab;
+      opacity: 1;
+      transform: translateY(0) scale(1);
     }
     #web-dock:active {
       cursor: grabbing;
@@ -149,12 +151,15 @@
       border: 0;
       background: transparent;
       box-shadow: none;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-10px) scale(0.95);
     }
     #web-dock.minimized .dock-content {
       display: none;
     }
     #web-dock.minimized .dock-trigger-btn {
-      display: flex;
+      display: none;
     }
 
     .dock-content {
@@ -526,7 +531,7 @@
 <body>
 
   <!-- Floating Non-Obtrusive Web Dock (Positioned at Top-Right Corner) -->
-  <div id="web-dock">
+  <div id="web-dock" class="minimized">
     <div class="dock-content">
       <a class="capsule-btn" href="../index.html" title="Back to Website">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
@@ -1220,11 +1225,15 @@
       let isDragging = false;
       let startX, startY, origLeft, origTop;
 
-      dockEl.addEventListener('mousedown', (e) => {
+      function onDragStart(e) {
         if (e.target.closest('button, a, input, select')) return;
         isDragging = true;
-        startX = e.clientX;
-        startY = e.clientY;
+        
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        
+        startX = clientX;
+        startY = clientY;
         const rect = dockEl.getBoundingClientRect();
         origLeft = rect.left;
         origTop = rect.top;
@@ -1232,19 +1241,39 @@
         dockEl.style.bottom = 'auto';
         dockEl.style.left = origLeft + 'px';
         dockEl.style.top = origTop + 'px';
-      });
+      }
 
-      window.addEventListener('mousemove', (e) => {
+      function onDragMove(e) {
         if (!isDragging) return;
-        const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
+        
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        
+        const dx = clientX - startX;
+        const dy = clientY - startY;
         const maxLeft = window.innerWidth - dockEl.offsetWidth - 10;
         const maxTop = window.innerHeight - dockEl.offsetHeight - 10;
+        
         dockEl.style.left = Math.max(10, Math.min(maxLeft, origLeft + dx)) + 'px';
         dockEl.style.top = Math.max(10, Math.min(maxTop, origTop + dy)) + 'px';
-      });
+        
+        if (e.type === 'touchmove') {
+          e.preventDefault(); // Prevent scrolling while dragging
+        }
+      }
 
-      window.addEventListener('mouseup', () => { isDragging = false; });
+      function onDragEnd() { 
+        isDragging = false; 
+      }
+
+      dockEl.addEventListener('mousedown', onDragStart);
+      dockEl.addEventListener('touchstart', onDragStart, { passive: false });
+      
+      window.addEventListener('mousemove', onDragMove);
+      window.addEventListener('touchmove', onDragMove, { passive: false });
+      
+      window.addEventListener('mouseup', onDragEnd);
+      window.addEventListener('touchend', onDragEnd);
     })();
 
     window.addEventListener('load', function() {
