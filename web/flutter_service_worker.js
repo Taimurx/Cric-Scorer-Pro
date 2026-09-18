@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'cric-scorer-pro-v2.0.13';
+const CACHE_NAME = 'cric-scorer-pro-v2.0.14';
 const CORE_ASSETS = [
   './',
   'index.html',
@@ -9,7 +9,7 @@ const CORE_ASSETS = [
   'js/cricket-engine.js',
   'dls-calculator.html',
   'overlay.html',
-  'flutter.js',
+  'main.dart.js',
   'flutter_bootstrap.js',
   'version.json'
 ];
