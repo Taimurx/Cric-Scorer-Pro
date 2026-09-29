@@ -251,28 +251,6 @@
     static calculateQuotas(totalInningsOvers, minBowlers = 5) {
       const overs = Math.max(1, Math.floor(totalInningsOvers));
 
-      // Rule: Under 10 overs, each bowler can bowl a maximum of 3 overs
-      if (overs < 10) {
-        const maxLimit = Math.min(3, overs);
-        const fullBowlers = Math.floor(overs / maxLimit);
-        const remainder = overs % maxLimit;
-        let distributionText = '';
-
-        if (remainder === 0) {
-          distributionText = `Matches under 10 overs rule: Each bowler can bowl a maximum of ${maxLimit} overs (${fullBowlers} bowler(s) x ${maxLimit} overs).`;
-        } else {
-          distributionText = `Matches under 10 overs rule: Each bowler can bowl a maximum of ${maxLimit} overs (${fullBowlers} bowler(s) max ${maxLimit} overs, 1 bowler max ${remainder} over(s)).`;
-        }
-
-        return {
-          totalOvers: overs,
-          bowlersWithExtraOver: remainder,
-          maxOverLimit: maxLimit,
-          minOverLimit: remainder > 0 ? remainder : maxLimit,
-          distributionText
-        };
-      }
-
       const baseQuota = Math.floor(overs / minBowlers);
       const remainder = overs % minBowlers;
       const maxOverLimit = Math.max(1, baseQuota + (remainder > 0 ? 1 : 0));
@@ -813,7 +791,7 @@
           localStorage.setItem(this.storageKey, JSON.stringify(matchData));
         }
       } catch (err) {
-        void err;
+        console.warn('[OverlayBridge] localStorage QuotaExceededError - Match data is too large for local storage sync. Continuing via BroadcastChannel.', err);
       }
     },
 
@@ -844,9 +822,145 @@
   };
 
   // =========================================================================
+  // 9. EVENT SOURCED CORE ENGINE (P0)
+  // =========================================================================
+  const EventType = {
+    MATCH_STARTED: 'MATCH_STARTED',
+    INNINGS_STARTED: 'INNINGS_STARTED',
+    BALL_SCORED: 'BALL_SCORED',
+    UNDO_ACTION: 'UNDO_ACTION',
+    EDIT_BALL: 'EDIT_BALL',
+    PENALTY_ADDED: 'PENALTY_ADDED',
+    MATCH_ENDED: 'MATCH_ENDED',
+  };
+
+  class MatchEngine {
+    constructor(events = []) {
+      this.events = [...events];
+      this.events.sort((a, b) => (a.version || 0) - (b.version || 0) || a.timestamp - b.timestamp);
+    }
+    applyEvent(event) {
+      this.events.push(event);
+    }
+    get projectedState() {
+      const state = { matchId: '', status: 'PENDING', currentInnings: 0, innings: [] };
+      const undoneEventIds = new Set();
+      const edits = new Map();
+      for (let i = this.events.length - 1; i >= 0; i--) {
+        const ev = this.events[i];
+        if (ev.type === EventType.UNDO_ACTION) undoneEventIds.add(ev.payload.targetEventId);
+        else if (ev.type === EventType.EDIT_BALL && !edits.has(ev.payload.targetEventId)) {
+          edits.set(ev.payload.targetEventId, ev.payload.newPayload);
+        }
+      }
+      for (const ev of this.events) {
+        if (undoneEventIds.has(ev.eventId)) continue;
+        if (ev.type === EventType.UNDO_ACTION || ev.type === EventType.EDIT_BALL) continue;
+        state.matchId = ev.matchId;
+        if (ev.type === EventType.MATCH_STARTED) state.status = 'ONGOING';
+        else if (ev.type === EventType.INNINGS_STARTED) {
+          state.currentInnings += 1;
+          state.innings.push({ runs: 0, wickets: 0, overs: 0, balls: 0, extras: { wideRuns: 0, noBallRuns: 0, byeRuns: 0, legByeRuns: 0, penaltyRuns: 0 } });
+        } else if (ev.type === EventType.BALL_SCORED) {
+          const payload = edits.has(ev.eventId) ? edits.get(ev.eventId) : ev.payload;
+          if (state.innings.length === 0) continue;
+          const currentInning = state.innings[state.currentInnings - 1];
+          currentInning.runs += payload.runsOffBat || 0;
+          let isLegalDelivery = true;
+          if (payload.extras && payload.extras.length > 0) {
+            for (const extra of payload.extras) {
+              currentInning.runs += extra.runs;
+              if (extra.type === 'WIDE') { currentInning.extras.wideRuns += extra.runs; isLegalDelivery = false; }
+              else if (extra.type === 'NO_BALL') { currentInning.extras.noBallRuns += extra.runs; isLegalDelivery = false; }
+              else if (extra.type === 'BYE') { currentInning.extras.byeRuns += extra.runs; }
+              else if (extra.type === 'LEG_BYE') { currentInning.extras.legByeRuns += extra.runs; }
+              else if (extra.type === 'PENALTY') { currentInning.extras.penaltyRuns += extra.runs; }
+            }
+          }
+          if (payload.dismissal) currentInning.wickets += 1;
+          if (isLegalDelivery) {
+            currentInning.balls += 1;
+            if (currentInning.balls === 6) { currentInning.overs += 1; currentInning.balls = 0; }
+          }
+        } else if (ev.type === EventType.MATCH_ENDED) state.status = 'COMPLETED';
+      }
+      return state;
+    }
+
+    get ballHistory() {
+      const history = [];
+      const undoneEventIds = new Set();
+      const edits = new Map();
+      for (let i = this.events.length - 1; i >= 0; i--) {
+        const ev = this.events[i];
+        if (ev.type === EventType.UNDO_ACTION) undoneEventIds.add(ev.payload.targetEventId);
+        else if (ev.type === EventType.EDIT_BALL && !edits.has(ev.payload.targetEventId)) {
+          edits.set(ev.payload.targetEventId, ev.payload.newPayload);
+        }
+      }
+      for (const ev of this.events) {
+        if (ev.type === EventType.BALL_SCORED && !undoneEventIds.has(ev.eventId)) {
+          const payload = edits.has(ev.eventId) ? edits.get(ev.eventId) : ev.payload;
+          let desc = payload.runsOffBat.toString();
+          if (payload.dismissal) desc = "W";
+          if (payload.extras && payload.extras.length > 0) {
+            const ext = payload.extras[0].type;
+            if (ext === 'WIDE') desc = "Wd";
+            else if (ext === 'NO_BALL') desc = "Nb";
+            else if (ext === 'LEG_BYE') desc = "Lb";
+            else if (ext === 'BYE') desc = "B";
+          }
+          history.push({
+            eventId: ev.eventId,
+            overNumber: payload.overNumber,
+            ballNumber: payload.ballNumber,
+            description: desc,
+            payload: payload
+          });
+        }
+      }
+      return history;
+    }
+  }
+
+  class IndexedDBEventStore {
+    constructor(dbName = 'CricScorerPro_Events', version = 1) {
+      this.dbName = dbName; this.version = version; this.db = null;
+    }
+    async init() {
+      return new Promise((resolve, reject) => {
+        if (typeof window === 'undefined' || !window.indexedDB) { this.isNode = true; this.memoryEvents = []; return resolve(); }
+        const request = window.indexedDB.open(this.dbName, this.version);
+        request.onupgradeneeded = (event) => {
+          const db = event.target.result;
+          if (!db.objectStoreNames.contains('events')) {
+            const store = db.createObjectStore('events', { keyPath: 'eventId' });
+            store.createIndex('matchId', 'matchId', { unique: false });
+            store.createIndex('synced', 'synced', { unique: false });
+          }
+        };
+        request.onsuccess = (event) => { this.db = event.target.result; resolve(); };
+        request.onerror = (event) => reject(event.target.error);
+      });
+    }
+    async saveEvent(event) {
+      if (this.isNode) { this.memoryEvents.push({ ...event, synced: false }); return Promise.resolve(); }
+      return new Promise((resolve, reject) => {
+        const tx = this.db.transaction('events', 'readwrite');
+        const request = tx.objectStore('events').put({ ...event, synced: false });
+        request.onsuccess = () => resolve();
+        request.onerror = (e) => reject(e.target.error);
+      });
+    }
+  }
+
+  // =========================================================================
   // EXPOSE GLOBAL API
   // =========================================================================
   const audioInstance = new CricketAudioSynthesizer();
+  if (typeof document !== 'undefined') {
+    document.addEventListener('click', () => audioInstance.init(), { once: true });
+  }
   const announcerInstance = new CricketVoiceAnnouncer();
   const shortcutsInstance = new KeyboardShortcutsManager();
 
@@ -856,6 +970,9 @@
     DLSEngine,
     BowlerQuotaCalculator,
     NetRunRateCalculator,
+    EventType,
+    MatchEngine,
+    IndexedDBEventStore,
     audio: audioInstance,
     announcer: announcerInstance,
     shortcuts: shortcutsInstance,

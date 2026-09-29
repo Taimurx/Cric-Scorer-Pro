@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <base href="/web/">
+  <base href="/">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -24,14 +24,14 @@
   <meta name="keywords" content="cricket scorer web, cricket scoring app online, live cricket score, web cricket scoreboard, cricket tournament, offline cricket score, cricket live web app">
   <meta name="theme-color" content="#1E1744">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-  <link rel="canonical" href="https://cric-scorer-pro.vercel.app/web/">
+  <link rel="canonical" href="https://cric-scorer-pro-two.vercel.app/web/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://cric-scorer-pro.vercel.app/web/">
+  <meta property="og:url" content="https://cric-scorer-pro-two.vercel.app/web/">
   <meta property="og:title" content="Cric Scorer Pro Web — Live Cricket Scoring in Browser">
   <meta property="og:description" content="Ball-by-ball live cricket scoring, full scoreboards, tournaments and PDF export — right in your browser.">
-  <meta property="og:image" content="https://cric-scorer-pro.vercel.app/web/icons/Icon-512.png">
+  <meta property="og:image" content="https://cric-scorer-pro-two.vercel.app/web/icons/Icon-512.png">
   <meta property="og:image:width" content="512">
   <meta property="og:image:height" content="512">
   <meta property="og:image:alt" content="Cric Scorer Pro Web App Icon">
@@ -41,7 +41,7 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Cric Scorer Pro Web — Live Cricket Scoring in Browser">
   <meta name="twitter:description" content="Ball-by-ball live cricket scoring, full scoreboards, tournaments and PDF export — right in your browser.">
-  <meta name="twitter:image" content="https://cric-scorer-pro.vercel.app/web/icons/Icon-512.png">
+  <meta name="twitter:image" content="https://cric-scorer-pro-two.vercel.app/web/icons/Icon-512.png">
 
   <!-- Structured Data: WebApplication -->
   <script type="application/ld+json">
@@ -49,7 +49,7 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Cric Scorer Pro Web",
-    "url": "https://cric-scorer-pro.vercel.app/web/",
+    "url": "https://cric-scorer-pro-two.vercel.app/web/",
     "applicationCategory": "SportsApplication",
     "operatingSystem": "All modern browsers (Chrome, Safari, Firefox, Edge)",
     "browserRequirements": "Requires JavaScript, WebAssembly, and HTML5 canvas",
@@ -655,6 +655,10 @@
       <p style="font-size:12px; color:var(--text-muted); line-height:1.5; margin-bottom:14px;">
         💡 <strong>Pro Tip:</strong> Install as a PWA on your PC or mobile for 100% offline instant match scoring!
       </p>
+      <div style="margin-bottom: 14px; display: flex; align-items: center; gap: 8px;">
+        <input type="checkbox" id="dont-show-help-again" />
+        <label for="dont-show-help-again" style="font-size: 13px; color: #DDD; cursor: pointer; user-select: none;">Don't show again</label>
+      </div>
       <button class="capsule-btn primary" style="width:100%; height:36px;" onclick="closeHelpModal()">Got it!</button>
     </div>
   </div>
@@ -674,8 +678,11 @@
 
   <!-- Toast Notification -->
   <div id="pwa-toast">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-    <span id="toast-text">App ready for offline scoring!</span>
+    <div style="display:flex; align-items:center; gap:8px;">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      <span id="toast-text">App ready for offline scoring!</span>
+    </div>
+    <button id="toast-dont-show-btn" onclick="hideToastForever(event)" style="display:none; margin-left:12px; background:rgba(255,255,255,0.1); border:none; padding:4px 8px; border-radius:4px; color:#ddd; cursor:pointer; font-size:11px; white-space:nowrap; transition:background 0.2s;">Don't show again</button>
   </div>
 
   <!-- Logic & Flutter Bootstrap -->
@@ -797,8 +804,21 @@
     const helpModal = document.getElementById('help-modal');
     const helpCloseBtn = document.getElementById('help-close-btn');
 
-    function openHelpModal() { if (helpModal) helpModal.classList.add('active'); }
-    function closeHelpModal() { if (helpModal) helpModal.classList.remove('active'); }
+    function openHelpModal(e) { 
+      const isAuto = !e || !(e instanceof Event);
+      if (isAuto && localStorage.getItem('cric_hide_help_modal') === 'true') {
+        return;
+      }
+      if (helpModal) helpModal.classList.add('active'); 
+    }
+    
+    function closeHelpModal() { 
+      if (helpModal) helpModal.classList.remove('active'); 
+      const dontShow = document.getElementById('dont-show-help-again');
+      if (dontShow && dontShow.checked) {
+        localStorage.setItem('cric_hide_help_modal', 'true');
+      }
+    }
 
     if (helpBtn) helpBtn.addEventListener('click', openHelpModal);
     if (helpCloseBtn) helpCloseBtn.addEventListener('click', closeHelpModal);
@@ -809,13 +829,41 @@
     }
 
     // 8. Toast Notification Helper
+    function hideToastForever(e) {
+      if (e) e.stopPropagation();
+      localStorage.setItem('cric_hide_offline_toast', 'true');
+      const toast = document.getElementById('pwa-toast');
+      if (toast) {
+        toast.classList.remove('show');
+      }
+    }
+
     function showToast(msg) {
+      if (msg === 'App ready for offline scoring!' || (msg && msg.includes('offline scoring'))) {
+        if (localStorage.getItem('cric_hide_offline_toast') === 'true') {
+          return; // Skip showing
+        }
+      }
+      
       const toast = document.getElementById('pwa-toast');
       const text = document.getElementById('toast-text');
+      const dontShowBtn = document.getElementById('toast-dont-show-btn');
+      
       if (!toast || !text) return;
       text.textContent = msg;
+      
+      if (dontShowBtn) {
+        if (msg === 'App ready for offline scoring!' || (msg && msg.includes('offline scoring'))) {
+          dontShowBtn.style.display = 'block';
+        } else {
+          dontShowBtn.style.display = 'none';
+        }
+      }
+      
       toast.classList.add('show');
-      setTimeout(function() { toast.classList.remove('show'); }, 3500);
+      
+      if (toast.timeoutId) clearTimeout(toast.timeoutId);
+      toast.timeoutId = setTimeout(function() { toast.classList.remove('show'); }, (msg && msg.includes('offline scoring')) ? 6000 : 3500);
     }
 
     // 9. Keyboard Shortcuts (F, H, Esc)
@@ -844,6 +892,7 @@
 
     function parseJwt(token) {
       try {
+        console.warn('Security Warning: JWT signature is NOT verified client-side. The backend/Flutter app MUST verify this token via Firebase Auth before trusting it.');
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
@@ -883,7 +932,7 @@
           window.dispatchEvent(new CustomEvent('cric-auth-changed', { detail: user }));
           try {
             if (window.parent && window.parent !== window) {
-              window.parent.postMessage({ type: 'CRIC_AUTH_SUCCESS', user: user }, '*');
+              window.parent.postMessage({ type: 'CRIC_AUTH_SUCCESS', user: user }, window.location.origin);
             }
           } catch (e) {}
         }
@@ -966,7 +1015,7 @@
         window.dispatchEvent(new CustomEvent('cric-auth-changed', { detail: null }));
         try {
           if (window.parent && window.parent !== window) {
-            window.parent.postMessage({ type: 'CRIC_AUTH_LOGOUT' }, '*');
+            window.parent.postMessage({ type: 'CRIC_AUTH_LOGOUT' }, window.location.origin);
           }
         } catch (e) {}
         resolve(true);
@@ -1125,7 +1174,7 @@
         window.dispatchEvent(new CustomEvent('cric-auth-changed', { detail: user }));
         try {
           if (window.parent && window.parent !== window) {
-            window.parent.postMessage({ type: 'CRIC_AUTH_SUCCESS', user: user }, '*');
+            window.parent.postMessage({ type: 'CRIC_AUTH_SUCCESS', user: user }, window.location.origin);
           }
         } catch (e) {}
       }

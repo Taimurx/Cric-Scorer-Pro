@@ -19,7 +19,7 @@ const os = require('os');
 
 const PORT = parseInt(process.env.PORT || '3000', 10);
 const HOST = process.env.HOST || '0.0.0.0';
-const PUBLIC_DIR = path.resolve(__dirname);
+const PUBLIC_DIR = path.resolve(__dirname, '..');
 const APP_VERSION = '2.0.11';
 const APK_FILENAME = 'cricket_pro.apk';
 const APK_PATH = path.join(PUBLIC_DIR, APK_FILENAME);

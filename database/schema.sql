@@ -140,9 +140,11 @@ CREATE TABLE IF NOT EXISTS fact_match_innings (
   leg_bye_runs INT NOT NULL DEFAULT 0 CHECK (leg_bye_runs >= 0),
   penalty_runs INT NOT NULL DEFAULT 0,
   is_completed BOOLEAN NOT NULL DEFAULT FALSE,
+  revised_overs INT,
   created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE(match_id, innings_number)
+  UNIQUE(match_id, innings_number),
+  CONSTRAINT chk_innings_teams CHECK (batting_team_id <> bowling_team_id)
 );
 
 -- Ball Events (Event-Sourcing Ledger: Append-only, Immutable)
@@ -150,7 +152,7 @@ CREATE TABLE IF NOT EXISTS fact_ball_events (
   ball_event_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   innings_id UUID NOT NULL REFERENCES fact_match_innings(innings_id) ON DELETE CASCADE,
   over_number INT NOT NULL CHECK (over_number >= 0),
-  ball_in_over INT NOT NULL CHECK (ball_in_over BETWEEN 1 AND 20),
+  ball_in_over INT NOT NULL CHECK (ball_in_over >= 1),
   is_legal_delivery BOOLEAN NOT NULL DEFAULT TRUE,
   bowler_id UUID NOT NULL REFERENCES dim_players(player_id),
   striker_id UUID NOT NULL REFERENCES dim_players(player_id),
@@ -264,9 +266,9 @@ WITH match_stats AS (
     SUM(CASE WHEN m.winner_team_id IS NOT NULL AND m.winner_team_id <> inn.batting_team_id AND m.match_status = 'COMPLETED' THEN 1 ELSE 0 END) AS lost,
     SUM(CASE WHEN m.match_status = 'TIED' THEN 1 ELSE 0 END) AS tied,
     SUM(inn.total_runs) AS runs_scored,
-    SUM(inn.legal_balls_bowled) AS balls_faced,
+    SUM(CASE WHEN inn.total_wickets = 10 THEN COALESCE(inn.revised_overs, m.scheduled_overs) * 6 ELSE inn.legal_balls_bowled END) AS balls_faced,
     SUM(opp.total_runs) AS runs_conceded,
-    SUM(opp.legal_balls_bowled) AS balls_bowled
+    SUM(CASE WHEN opp.total_wickets = 10 THEN COALESCE(opp.revised_overs, m.scheduled_overs) * 6 ELSE opp.legal_balls_bowled END) AS balls_bowled
   FROM fact_matches m
   JOIN fact_match_innings inn ON m.match_id = inn.match_id
   LEFT JOIN fact_match_innings opp ON m.match_id = opp.match_id AND opp.innings_id <> inn.innings_id
