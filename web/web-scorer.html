@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Cric Scorer Pro - Sunlight Keypad</title>
+  <script src="js/cricket-engine.js"></script>
+  <style>
+    :root {
+      --bg: #000;
+      --text: #fff;
+      --btn-bg: #222;
+      --btn-active: #444;
+      --primary: #FF3B30; /* Wicket */
+      --undo: #FF9500;
+      --accent: #0A84FF;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overscroll-behavior-y: contain; /* prevent pull-to-refresh */
+    }
+    .header {
+      padding: 10px;
+      border-bottom: 1px solid #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .scoreboard {
+      padding: 15px;
+      font-size: 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid #333;
+    }
+    .scoreboard .score { font-size: 2.5rem; font-weight: bold; }
+    .details {
+      flex: 1;
+      padding: 15px;
+      font-size: 1.1rem;
+      line-height: 1.6;
+    }
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      padding: 15px;
+      padding-bottom: max(15px, env(safe-area-inset-bottom));
+      background: #111;
+    }
+    button {
+      background: var(--btn-bg);
+      color: var(--text);
+      border: 2px solid #333;
+      border-radius: 8px;
+      font-size: 1.8rem;
+      font-weight: bold;
+      padding: 20px 0;
+      touch-action: manipulation; /* disable double-tap zoom */
+      cursor: pointer;
+    }
+    button:active { background: var(--btn-active); }
+    button.wicket { background: var(--primary); border-color: var(--primary); }
+    button.undo { background: var(--undo); border-color: var(--undo); color: #000; }
+    button.span-2 { grid-column: span 2; }
+    .bottom-sheet {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      background: #222;
+      padding: 20px;
+      border-top-left-radius: 15px;
+      border-top-right-radius: 15px;
+      transform: translateY(100%);
+      transition: transform 0.3s ease-out;
+    }
+    .bottom-sheet.open { transform: translateY(0); }
+    .bottom-sheet button { font-size: 1.2rem; padding: 15px; margin-top: 10px; width: 100%; border:none; }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <span>☰ Menu</span>
+    <span>Taimur XI vs Opponent XI</span>
+    <span>⚙️</span>
+  </div>
+
+  <div class="scoreboard" id="scoreboard">
+    <div class="score">0/0 (0.0 ov)</div>
+    <div style="color:#aaa; font-size:1rem; margin-top:5px;">CRR: 0.00</div>
+  </div>
+
+  <div class="details" id="details">
+    <!-- Active info -->
+    <div>Striker: *Batsman A (0 off 0)</div>
+    <div>Non-Str: Batsman B (0 off 0)</div>
+    <div style="margin-top:10px;">Bowler: Bowler X (0.0-0-0-0)</div>
+    <div style="margin-top:10px; color:#aaa;" id="thisOver">This Over: </div>
+  </div>
+
+  <div class="keypad">
+    <button onclick="scoreRun(0)">0</button>
+    <button onclick="scoreRun(1)">1</button>
+    <button onclick="scoreRun(2)">2</button>
+    <button onclick="scoreRun(3)">3</button>
+    
+    <button onclick="scoreRun(4)">4</button>
+    <button onclick="scoreRun(6)">6</button>
+    <button onclick="scoreExtra('WIDE')">Wd</button>
+    <button onclick="scoreExtra('NO_BALL')">Nb</button>
+    
+    <button onclick="scoreExtra('LEG_BYE')">Lb</button>
+    <button onclick="scoreExtra('BYE')">B</button>
+    <button class="wicket" onclick="openWicketSheet()">WICKET</button>
+    <button class="undo" onclick="undoLast()">UNDO</button>
+    <button class="wicket span-2" onclick="openEditBallModal()" style="background:#0A84FF; border-color:#0A84FF">EDIT BALL</button>
+  </div>
+
+  <div class="bottom-sheet" id="wicketSheet">
+    <h3 style="margin-top:0;">Select Dismissal Type</h3>
+    <button style="background:var(--primary)" onclick="confirmWicket('BOWLED')">Bowled</button>
+    <button style="background:var(--primary)" onclick="confirmWicket('CAUGHT')">Caught</button>
+    <button style="background:var(--primary)" onclick="confirmWicket('RUN_OUT')">Run Out</button>
+    <button style="background:#555" onclick="closeWicketSheet()">Cancel</button>
+  </div>
+
+  <div class="bottom-sheet" id="editSheet">
+    <h3 style="margin-top:0;">Edit Specific Ball</h3>
+    <div id="editBallList" style="max-height: 200px; overflow-y: auto;"></div>
+    <div id="editBallForm" style="display:none;">
+      <h4 id="editingLabel"></h4>
+      <div>
+        <label>Runs: <input type="number" id="editRunsInput" style="font-size:1.5rem; width:50px"></label>
+      </div>
+      <button style="background:green" onclick="applyEdit()">Apply Edit</button>
+    </div>
+    <button style="background:#555" onclick="closeEditBallModal()">Close</button>
+  </div>
+
+  <script>
+    // Initialize Event-Sourced Engine
+    const store = new CricketEngine.IndexedDBEventStore();
+    const engine = new CricketEngine.MatchEngine();
+    let currentMatchId = 'match_' + Date.now();
+    let eventCounter = 1;
+    let currentlyEditingEvent = null;
+    let currentlyEditingPayload = null;
+
+    async function init() {
+      await store.init();
+      const storedEvents = await store.getEventsForMatch(currentMatchId);
+      
+      if (storedEvents.length === 0) {
+        // Bootstrap new match
+        await emitEvent({ type: CricketEngine.EventType.MATCH_STARTED });
+        await emitEvent({ type: CricketEngine.EventType.INNINGS_STARTED });
+      } else {
+        storedEvents.forEach(ev => engine.applyEvent(ev));
+      }
+      render();
+    }
+
+    async function emitEvent(payload) {
+      const ev = {
+        eventId: 'evt_' + Date.now() + '_' + eventCounter++,
+        matchId: currentMatchId,
+        timestamp: Date.now(),
+        version: engine.events.length + 1,
+        actorId: 'scorer_1',
+        ...payload
+      };
+      await store.saveEvent(ev);
+      engine.applyEvent(ev);
+      render();
+    }
+
+    async function scoreRun(runs) {
+      CricketEngine.audio.init();
+      CricketEngine.announcer.announceRuns(runs);
+      const state = engine.projectedState;
+      const inn = state.innings[state.currentInnings - 1];
+      await emitEvent({
+        type: CricketEngine.EventType.BALL_SCORED,
+        payload: {
+          overNumber: inn.overs, ballNumber: inn.balls + 1,
+          strikerId: 'bat_1', nonStrikerId: 'bat_2', bowlerId: 'bwl_1',
+          runsOffBat: runs, extras: [], isFreeHit: false
+        }
+      });
+    }
+
+    async function scoreExtra(extraType) {
+      const state = engine.projectedState;
+      const inn = state.innings[state.currentInnings - 1];
+      await emitEvent({
+        type: CricketEngine.EventType.BALL_SCORED,
+        payload: {
+          overNumber: inn.overs, ballNumber: inn.balls + 1,
+          strikerId: 'bat_1', nonStrikerId: 'bat_2', bowlerId: 'bwl_1',
+          runsOffBat: 0, extras: [{ type: extraType, runs: 1 }], isFreeHit: false
+        }
+      });
+    }
+
+    function openWicketSheet() { document.getElementById('wicketSheet').classList.add('open'); }
+    function closeWicketSheet() { document.getElementById('wicketSheet').classList.remove('open'); }
+
+    function openEditBallModal() {
+      const hist = engine.ballHistory.reverse();
+      const listDiv = document.getElementById('editBallList');
+      listDiv.innerHTML = '';
+      if(hist.length === 0) {
+        listDiv.innerHTML = 'No balls to edit.';
+      } else {
+        hist.forEach(b => {
+          const div = document.createElement('div');
+          div.style = "padding: 10px; border-bottom: 1px solid #444; display:flex; justify-content:space-between;";
+          div.innerHTML = `<span>Ov ${b.overNumber}, Ball ${b.ballNumber} (Score: ${b.description})</span> <button style="font-size:1rem; padding:5px 10px; width:auto; margin:0">Edit</button>`;
+          div.querySelector('button').onclick = () => showEditForm(b);
+          listDiv.appendChild(div);
+        });
+      }
+      document.getElementById('editBallForm').style.display = 'none';
+      document.getElementById('editSheet').classList.add('open');
+    }
+    
+    function closeEditBallModal() { document.getElementById('editSheet').classList.remove('open'); }
+
+    function showEditForm(ballRec) {
+      currentlyEditingEvent = ballRec.eventId;
+      currentlyEditingPayload = ballRec.payload;
+      document.getElementById('editingLabel').innerText = `Editing Ov ${ballRec.overNumber}, Ball ${ballRec.ballNumber}`;
+      document.getElementById('editRunsInput').value = ballRec.payload.runsOffBat;
+      document.getElementById('editBallForm').style.display = 'block';
+    }
+
+    async function applyEdit() {
+      const newRuns = parseInt(document.getElementById('editRunsInput').value);
+      const newPayload = { ...currentlyEditingPayload, runsOffBat: newRuns };
+      await emitEvent({
+        type: CricketEngine.EventType.EDIT_BALL,
+        payload: {
+          targetEventId: currentlyEditingEvent,
+          newPayload: newPayload
+        }
+      });
+      closeEditBallModal();
+    }
+
+    async function confirmWicket(dismissalType) {
+      closeWicketSheet();
+      CricketEngine.announcer.announceWicket(dismissalType);
+      const state = engine.projectedState;
+      const inn = state.innings[state.currentInnings - 1];
+      await emitEvent({
+        type: CricketEngine.EventType.BALL_SCORED,
+        payload: {
+          overNumber: inn.overs, ballNumber: inn.balls + 1,
+          strikerId: 'bat_1', nonStrikerId: 'bat_2', bowlerId: 'bwl_1',
+          runsOffBat: 0, extras: [], isFreeHit: false,
+          dismissal: { type: dismissalType, batsmanOutId: 'bat_1' }
+        }
+      });
+    }
+
+    async function undoLast() {
+      // Find last ball event
+      const balls = engine.events.filter(e => e.type === CricketEngine.EventType.BALL_SCORED);
+      if (balls.length > 0) {
+        const lastBall = balls[balls.length - 1];
+        // Check if already undone
+        const undos = engine.events.filter(e => e.type === CricketEngine.EventType.UNDO_ACTION && e.payload.targetEventId === lastBall.eventId);
+        if (undos.length === 0) {
+          await emitEvent({
+            type: CricketEngine.EventType.UNDO_ACTION,
+            payload: { targetEventId: lastBall.eventId }
+          });
+        }
+      }
+    }
+
+    function render() {
+      const state = engine.projectedState;
+      if (!state || state.innings.length === 0) return;
+      
+      const currentInning = state.innings[state.currentInnings - 1];
+      const runs = currentInning.runs;
+      const wickets = currentInning.wickets;
+      const overs = currentInning.overs;
+      const balls = currentInning.balls;
+      const totalBalls = (overs * 6) + balls;
+      
+      let crr = 0.00;
+      if (totalBalls > 0) {
+        crr = (runs / (totalBalls / 6)).toFixed(2);
+      }
+
+      document.getElementById('scoreboard').innerHTML = `
+        <div class="score">${runs}/${wickets} (${overs}.${balls} ov)</div>
+        <div style="color:#aaa; font-size:1rem; margin-top:5px;">CRR: ${crr}</div>
+      `;
+
+      // Draw 'This Over' text by analyzing last N events
+      let overStr = '';
+      let ballsInOver = 0;
+      for (let i = engine.events.length - 1; i >= 0 && ballsInOver < balls; i--) {
+        const ev = engine.events[i];
+        if (ev.type === CricketEngine.EventType.BALL_SCORED) {
+           // Skip if undone
+           const undone = engine.events.some(e => e.type === CricketEngine.EventType.UNDO_ACTION && e.payload.targetEventId === ev.eventId);
+           if (!undone) {
+             let txt = ev.payload.runsOffBat.toString();
+             if (ev.payload.dismissal) txt = 'W';
+             if (ev.payload.extras.length > 0) {
+               txt = ev.payload.extras[0].type === 'WIDE' ? 'Wd' : (ev.payload.extras[0].type === 'NO_BALL' ? 'Nb' : 'E');
+             }
+             overStr = txt + ' ' + overStr;
+             ballsInOver++;
+           }
+        }
+      }
+      document.getElementById('thisOver').innerText = 'This Over: ' + overStr;
+    }
+
+    window.onload = init;
+  </script>
+</body>
+</html>
