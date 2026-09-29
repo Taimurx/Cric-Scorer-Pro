@@ -251,28 +251,6 @@
     static calculateQuotas(totalInningsOvers, minBowlers = 5) {
       const overs = Math.max(1, Math.floor(totalInningsOvers));
 
-      // Rule: Under 10 overs, each bowler can bowl a maximum of 3 overs
-      if (overs < 10) {
-        const maxLimit = Math.min(3, overs);
-        const fullBowlers = Math.floor(overs / maxLimit);
-        const remainder = overs % maxLimit;
-        let distributionText = '';
-
-        if (remainder === 0) {
-          distributionText = `Matches under 10 overs rule: Each bowler can bowl a maximum of ${maxLimit} overs (${fullBowlers} bowler(s) x ${maxLimit} overs).`;
-        } else {
-          distributionText = `Matches under 10 overs rule: Each bowler can bowl a maximum of ${maxLimit} overs (${fullBowlers} bowler(s) max ${maxLimit} overs, 1 bowler max ${remainder} over(s)).`;
-        }
-
-        return {
-          totalOvers: overs,
-          bowlersWithExtraOver: remainder,
-          maxOverLimit: maxLimit,
-          minOverLimit: remainder > 0 ? remainder : maxLimit,
-          distributionText
-        };
-      }
-
       const baseQuota = Math.floor(overs / minBowlers);
       const remainder = overs % minBowlers;
       const maxOverLimit = Math.max(1, baseQuota + (remainder > 0 ? 1 : 0));

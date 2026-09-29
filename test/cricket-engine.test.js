@@ -76,17 +76,17 @@ test('CricketEngine: Rain-curtailed Bowler Quotas (ICC 20% Rule)', () => {
   assert.equal(q13.minOverLimit, 2);
   assert.equal(q13.bowlersWithExtraOver, 3);
 
-  // 8-over rain-curtailed match: each bowler max 3 overs (2 bowlers x 3 overs, 1 bowler x 2 overs)
+  // 8-over rain-curtailed match: 3 bowlers x 2 overs, 2 bowlers x 1 over
   const q8 = CricketEngine.BowlerQuotaCalculator.calculateQuotas(8, 5);
-  assert.equal(q8.maxOverLimit, 3);
-  assert.equal(q8.minOverLimit, 2);
-  assert.equal(q8.bowlersWithExtraOver, 2);
+  assert.equal(q8.maxOverLimit, 2);
+  assert.equal(q8.minOverLimit, 1);
+  assert.equal(q8.bowlersWithExtraOver, 3);
 
-  // 5-over rain-curtailed match: max 3 overs (1 bowler x 3 overs, 1 bowler x 2 overs)
+  // 5-over rain-curtailed match: 5 bowlers x 1 over
   const q5 = CricketEngine.BowlerQuotaCalculator.calculateQuotas(5, 5);
-  assert.equal(q5.maxOverLimit, 3);
-  assert.equal(q5.minOverLimit, 2);
-  assert.equal(q5.bowlersWithExtraOver, 2);
+  assert.equal(q5.maxOverLimit, 1);
+  assert.equal(q5.minOverLimit, 1);
+  assert.equal(q5.bowlersWithExtraOver, 0);
 });
 
 test('CricketEngine: Net Run Rate (NRR) with All-Out Adjustment and Tournament Aggregation', () => {
