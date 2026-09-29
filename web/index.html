@@ -844,6 +844,7 @@
 
     function parseJwt(token) {
       try {
+        console.warn('Security Warning: JWT signature is NOT verified client-side. The backend/Flutter app MUST verify this token via Firebase Auth before trusting it.');
         const base64Url = token.split('.')[1];
         const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
         const jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
@@ -883,7 +884,7 @@
           window.dispatchEvent(new CustomEvent('cric-auth-changed', { detail: user }));
           try {
             if (window.parent && window.parent !== window) {
-              window.parent.postMessage({ type: 'CRIC_AUTH_SUCCESS', user: user }, '*');
+              window.parent.postMessage({ type: 'CRIC_AUTH_SUCCESS', user: user }, window.location.origin);
             }
           } catch (e) {}
         }
@@ -966,7 +967,7 @@
         window.dispatchEvent(new CustomEvent('cric-auth-changed', { detail: null }));
         try {
           if (window.parent && window.parent !== window) {
-            window.parent.postMessage({ type: 'CRIC_AUTH_LOGOUT' }, '*');
+            window.parent.postMessage({ type: 'CRIC_AUTH_LOGOUT' }, window.location.origin);
           }
         } catch (e) {}
         resolve(true);
@@ -1125,7 +1126,7 @@
         window.dispatchEvent(new CustomEvent('cric-auth-changed', { detail: user }));
         try {
           if (window.parent && window.parent !== window) {
-            window.parent.postMessage({ type: 'CRIC_AUTH_SUCCESS', user: user }, '*');
+            window.parent.postMessage({ type: 'CRIC_AUTH_SUCCESS', user: user }, window.location.origin);
           }
         } catch (e) {}
       }
