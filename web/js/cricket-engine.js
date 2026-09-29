@@ -791,7 +791,7 @@
           localStorage.setItem(this.storageKey, JSON.stringify(matchData));
         }
       } catch (err) {
-        void err;
+        console.warn('[OverlayBridge] localStorage QuotaExceededError - Match data is too large for local storage sync. Continuing via BroadcastChannel.', err);
       }
     },
 
