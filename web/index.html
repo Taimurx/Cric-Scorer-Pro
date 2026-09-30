@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
   <base href="/web/">
+  <!-- Preload engine assets -->
+  <link rel="preload" href="main.dart.js" as="script">
+  <link rel="preload" href="canvaskit/canvaskit.js" as="script">
+  <link rel="preload" href="canvaskit/canvaskit.wasm" as="fetch" crossorigin="anonymous">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -613,7 +617,7 @@
 
     <!-- Fallback Watchdog Box -->
     <div id="loader-watchdog">
-      <p>Initializing CanvasKit engine &amp; local database.</p>
+      <p>Engine failed to load. Please check your connection and retry.</p>
       <div class="watchdog-actions">
         <button class="capsule-btn" onclick="window.location.reload()">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
