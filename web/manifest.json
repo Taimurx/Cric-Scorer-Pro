@@ -1,0 +1,40 @@
+{
+    "name": "Cric Scorer Pro Web — Live Cricket Scoring",
+    "short_name": "Cric Scorer Pro",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#120F1F",
+    "theme_color": "#1E1744",
+    "description": "Professional live cricket scoring, full scoreboards, tournament tables and offline sync right in your browser.",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "categories": [
+        "sports",
+        "utilities",
+        "productivity"
+    ],
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}

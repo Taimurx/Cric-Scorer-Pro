@@ -1,0 +1,32 @@
+{
+  "name": "cric-scorer-pro",
+  "version": "2.0.11",
+  "description": "Cric Scorer Pro — Enterprise live cricket scoring application server and distribution platform",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test": "node --test test/server.test.js test/cricket-engine.test.js && node test/validate-seo.js",
+    "lint": "eslint server.js test/**/*.js web/js/**/*.js"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "prettier": "^3.2.5"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "cricket",
+    "cricket-scorer",
+    "live-scoring",
+    "pwa",
+    "android",
+    "apk-download",
+    "enterprise-server"
+  ],
+  "author": "Taimur ShakiB",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true
+}

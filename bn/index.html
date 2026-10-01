@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cric Scorer Pro — Live Cricket Scoring App for Android &amp; Web</title>
+<meta name="description" content="অ্যান্ড্রয়েড এবং ওয়েবের জন্য সম্পূর্ণ ফ্রি ক্রিকেট স্কোরিং অ্যাপ। বল-বাই-বল লাইভ স্কোর, পিডিএফ স্কোরকার্ড, ডিএলএস, এবং ক্লাউড সিঙ্ক। 100% অফলাইনে কাজ করে।">
+<meta name="keywords" content="cricket scorer, cricket scoring app, live cricket score, cricket scoreboard, cricket tournament manager, offline cricket score, cricket pro, cricket pdf scorecard, cricket scoring desk, dls calculator cricket, cricket obs overlay, ক্রিকেট স্কোরার, লাইভ ক্রিকেট স্কোর, ক্রিকেট স্কোরবোর্ড, ক্রিকেট টুর্নামেন্ট">
+<meta name="author" content="Taimur ShakiB">
+<meta name="theme-color" content="#E0567B">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+<!-- Favicon, Manifest & Mobile Icons -->
+<link rel="icon" type="image/png" href="../favicon.png">
+<link rel="apple-touch-icon" href="../icon.png">
+<link rel="manifest" href="../manifest.json">
+
+<!-- Canonical and Alternate Languages -->
+<link rel="canonical" href="https://cric-scorer-pro.app/bn/">
+<link rel="alternate" hreflang="x-default" href="https://cric-scorer-pro.app/">
+<link rel="alternate" hreflang="en" href="https://cric-scorer-pro.app/">
+<link rel="alternate" hreflang="bn" href="https://cric-scorer-pro.app/bn/">
+
+<!-- Open Graph / Facebook / WhatsApp -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://cric-scorer-pro.app/">
+<meta property="og:title" content="Cric Scorer Pro — Score Every Ball Like a Pro">
+<meta property="og:description" content="Free Android and Web app for ball-by-ball cricket scoring, full scoreboards, tournament leaderboards, DLS calculator, and print-ready PDF export. Scores offline. Sign-in and cloud backup need internet.">
+<meta property="og:image" content="https://cric-scorer-pro.app/icon.png">
+<meta property="og:image:secure_url" content="https://cric-scorer-pro.app/icon.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="512">
+<meta property="og:image:height" content="512">
+<meta property="og:image:alt" content="Cric Scorer Pro App Logo and Cricket Ball Icon">
+<meta property="og:site_name" content="Cric Scorer Pro">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="bn_BD">
+
+<!-- Twitter Cards -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Cric Scorer Pro — Live Cricket Scoring App">
+<meta name="twitter:description" content="Score every ball like a pro. Ball-by-ball live scoring, PDF scorecards, tournament tables &amp; cloud sync.">
+<meta name="twitter:image" content="https://cric-scorer-pro.app/icon.png">
+<meta name="twitter:image:alt" content="Cric Scorer Pro App Interface Preview">
+
+<!-- Google Fonts: Outfit (English) + Anek Bangla & Hind Siliguri (Bangla) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anek+Bangla:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Rich Structured Data / Schema.org (@graph) -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://cric-scorer-pro.app/#website",
+      "url": "https://cric-scorer-pro.app/",
+      "name": "Cric Scorer Pro",
+      "description": "Live cricket scoring app and digital desk for Android and Web",
+      "inLanguage": ["en", "bn"]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://cric-scorer-pro.app/#software",
+      "name": "Cric Scorer Pro",
+      "operatingSystem": "Android 7.0+, Web",
+      "applicationCategory": "SportsApplication",
+      "applicationSubCategory": "Cricket Scoring Desk",
+      "softwareVersion": "2.0.11",
+      "fileSize": "53MB",
+      "downloadUrl": "https://cric-scorer-pro.app/cricket_pro.apk",
+      "installUrl": "https://cric-scorer-pro.app/cricket_pro.apk",
+      "author": {
+        "@type": "Person",
+        "name": "Taimur ShakiB"
+      },
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "ratingCount": "128",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "featureList": [
+        "Offline live ball-by-ball scoring",
+        "Duckworth-Lewis-Stern (DLS) par score calculation",
+        "ICC Free Hit Law 21.19 enforcement",
+        "Print-ready PDF scorecard export",
+        "League and Knockout tournament management with auto Net Run Rate (NRR)",
+        "Google Sign-In cloud sync across Android and Web",
+        "OBS Studio live stream broadcast overlay"
+      ],
+      "description": "Professional ball-by-ball cricket scoring app for Android and Web with PDF scorecards, tournament management and cloud backup."
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://cric-scorer-pro.app/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Cric Scorer Pro completely free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, 100% free with no in-app purchases, no hidden subscriptions, and zero advertisements during live scoring."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it require an active internet connection?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Live scoring, PDF export, player management, and tournaments work completely offline. Internet is only optionally required if you want to back up match archives to Google Drive/Cloud."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if my phone dies or the app closes mid-match?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Never! Every single delivery, run, and wicket is immediately written to local persistent memory. Reopening the app prompts you to immediately resume your ongoing match from the exact ball you stopped at."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I export and share full scorecards via WhatsApp?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! You can export a crisp, print-ready PDF scorecard with detailed batting, bowling, fall of wickets, and extras. It can be shared directly to WhatsApp groups, Facebook, or printed."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which Android versions are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The app supports Android 7.0 (Nougat), 8.0, 9.0, 10, 11, 12, 13, 14 and above, across all phone brands including Samsung, Xiaomi, Realme, Vivo, OnePlus, and Oppo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I run full tournament leagues with Super Overs?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes! You can organize both Knockout and League tournaments with automated standings, Net Run Rate (NRR) computation, and super over tiebreaker handling."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Google Sign-In & Cloud Sync work across Web and Android?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sign in with your Google account to automatically back up your matches, squads, and tournaments to Firebase Cloud. You can score on your Android phone and view or resume matches on your PC or mobile web browser seamlessly."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://cric-scorer-pro.app/#breadcrumbs",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://cric-scorer-pro.app/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body class="bn">
+
+<!-- Top Announcement Banner -->
+<div class="top-banner">
+  <span class="badge">NEW</span>
+  <span>
+    
+    <span class="lang-bn">ক্রিক স্কোরার প্রো v2.0.11 এখন লাইভ — ফ্রি হিট রুলস, বোলার লিমিট ফিক্স ও গুগল সাইন-ইন ক্লাউড সিঙ্ক সহ!</span>
+  </span>
+  <a href="#install"><span class="lang-bn">ফ্রি ইনস্টল করুন &rarr;</span></a>
+</div>
+
+<!-- Main Sticky Nav -->
+<nav>
+  <div class="container nav-inner">
+    <a class="brand" href="#">
+      <img src="../icon.png" alt="Cric Scorer Pro App Icon" width="32" height="32">
+      <span>Cric Scorer</span>
+      <span class="pro-tag">PRO</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="#features"><span class="lang-bn">ফিচারসমূহ</span></a>
+      <a href="#screens"><span class="lang-bn">স্ক্রিনশট</span></a>
+      <a href="#web-demo"><span class="lang-bn">লাইভ ওয়েব</span></a>
+      <a href="#install"><span class="lang-bn">ইনস্টল গাইড</span></a>
+      <a href="#faq"><span class="lang-bn">প্রশ্নোত্তর</span></a>
+      <a href="../privacy.html"><span class="lang-bn">প্রাইভেসি</span></a>
+    </div>
+
+    <div class="nav-actions">
+      <div class="lang-toggle" role="group" aria-label="Language selector">
+        <a href="/" id="btn-en" style="text-decoration:none; padding:4px 8px; color:inherit;">EN</a>
+        <a href="/bn/" id="btn-bn" class="active" style="text-decoration:none; padding:4px 8px; color:inherit;">বাং</a>
+      </div>
+
+      <button class="web-nav-google-btn" id="nav-google-btn" onclick="openSiteGoogleSyncModal()" title="Google Sign-In & Cloud Sync">
+        <svg width="14" height="14" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.02 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+        <span id="nav-google-label"><span class="lang-bn">সিঙ্ক</span></span>
+      </button>
+
+      <a class="btn small" href="../releases.html">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span class="lang-bn">APK নামান</span>
+      </a>
+
+      <button class="hamburger" id="hamburger-btn" aria-label="Toggle Navigation Menu" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobile-drawer">
+    <button class="btn ghost" style="width:100%; margin-bottom:12px; display:flex; align-items:center; justify-content:center; gap:8px;" onclick="closeMobileMenu(); openSiteGoogleSyncModal();">
+      <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.02 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+      <span class="lang-bn">গুগল সাইন-ইন ও সিঙ্ক</span>
+    </button>
+    <a href="#features" onclick="closeMobileMenu()"><span class="lang-bn">ফিচারসমূহ</span> &rarr;</a>
+    <a href="#screens" onclick="closeMobileMenu()"><span class="lang-bn">স্ক্রিন ও থিমসমূহ</span> &rarr;</a>
+    <a href="#web-demo" onclick="closeMobileMenu()"><span class="lang-bn">লাইভ ওয়েব ডেমো</span> &rarr;</a>
+    <a href="#install" onclick="closeMobileMenu()"><span class="lang-bn">ইনস্টলেশন গাইড</span> &rarr;</a>
+    <a href="#faq" onclick="closeMobileMenu()"><span class="lang-bn">সাধারণ প্রশ্নোত্তর</span> &rarr;</a>
+    <a href="../web/" target="_blank" rel="noopener"><span class="lang-bn">ওয়েব অ্যাপ খুলুন</span> ↗</a>
+    <a href="../privacy.html" onclick="closeMobileMenu()"><span class="lang-bn">প্রাইভেসি পলিসি</span> &rarr;</a>
+
+    <div class="mobile-drawer-footer">
+      <a class="btn" style="flex:1" href="../releases.html">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <span class="lang-bn">APK ডাউনলোড (৫৩ MB)</span>
+      </a>
+      <button class="btn ghost" style="padding:12px 16px" onclick="openQrModal()" title="Scan QR">📱</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ── Hero Section ── -->
+<header class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow">
+        <span class="pulse-dot"></span>
+        
+        <span class="lang-bn">ফ্রি অ্যান্ড্রয়েড অ্যাপ · v2.0.11 · স্কোর অফলাইন</span>
+      </div>
+
+      <h1>
+        </span>
+        <span class="lang-bn">প্রতিটি বল স্কোর করুন <span class="grad">একজন প্রো-এর মতো।</span></span>
+      </h1>
+
+      <p class="sub">
+        
+        <span class="lang-bn">ক্রিক স্কোরার প্রো আপনার ফোনকে বানিয়ে দেয় একটি পূর্ণাঙ্গ ডিজিটাল স্কোরিং ডেস্ক — তাৎক্ষণিক বল-বাই-বল আপডেট, ফুল ব্যাটিং-বোলিং কার্ড, PDF এক্সপোর্ট, টুর্নামেন্ট ও ক্লাউড সিংক সহ।</span>
+      </p>
+
+      <div class="cta-row">
+        <a href="https://play.google.com/store/apps/details?id=com.taimur.cricket_pro" target="_blank" rel="noopener" style="display:inline-block; margin-right: 8px;">
+          <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="135" height="52">
+        </a>
+        
+<a class="btn ghost btn-apk" href="../releases.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          
+          <span class="lang-bn">ফ্রি APK ডাউনলোড</span>
+        </a>
+
+        <a class="btn ghost" href="../web/" target="_blank" rel="noopener">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          
+          <span class="lang-bn">ওয়েব ভার্সনে দেখুন</span>
+        </a>
+
+        <button class="btn dark" onclick="openQrModal()" title="Scan QR Code to install on mobile">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          
+          <span class="lang-bn">কিউআর কোড</span>
+        </button>
+      </div>
+
+      <div class="meta-chips">
+        <span>⚡ v2.0.11</span>
+        <span>📦 53 MB</span>
+        <span>📱 Android 7.0+</span>
+        <span>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span class="lang-bn">নিরাপদ সাইডলোড &middot; SHA-256</span>
+        </span>
+      </div>
+
+      <!-- Trust Bar -->
+      <div class="trust-bar">
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>
+          </div>
+          <div class="trust-text">
+            <span class="lang-bn">স্কোর অফলাইন</span>
+            <small><span class="lang-bn">নেট ছাড়াও চলে</span></small>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+          </div>
+          <div class="trust-text">
+            <span class="lang-bn">বিজ্ঞাপনমুক্ত</span>
+            <small><span class="lang-bn">কোনো বিরক্তি নেই</span></small>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+          <div class="trust-text">
+            <span class="lang-bn">PDF এক্সপোর্ট</span>
+            <small><span class="lang-bn">প্রিন্ট ও শেয়ার</span></small>
+          </div>
+        </div>
+
+        <div class="trust-item">
+          <div class="trust-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          </div>
+          <div class="trust-text">
+            <span class="lang-bn">অটো-রিজিউম</span>
+            <small><span class="lang-bn">ম্যাচ ডেটা হারায় না</span></small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Phone Showcase in Hero -->
+    <div class="phone-wrapper reveal">
+      <div class="phone theme-sunrise" id="hero-phone">
+        <div class="notch"><i></i></div>
+        <div class="screen">
+          <div class="app-head">
+            <div class="t">
+              <span>Dhaka Tigers <span class="lang-bn">বনাম</span> Ctg Kings</span>
+              <span><span class="lang-bn">১ম ইনিংস</span></span>
+            </div>
+            <div class="big-score" id="hero-big-score">156/4 <small id="hero-overs-text">15.2 / 20 ov</small></div>
+            <div class="crr" id="hero-crr-text">CRR 10.17 · Target — · Req —</div>
+          </div>
+          <div class="pmc">
+            <div class="prow" id="hero-batsman-1"><span class="nm" id="hero-b1-name"><span class="dot-strike" id="hero-strike-dot"></span><span id="hero-b1-label">Rafi*</span></span><span id="hero-b1-runs">68 (41)</span></div>
+            <div class="prow" id="hero-batsman-2"><span class="nm" id="hero-b2-name"><span id="hero-b2-label">Sabbir</span></span><span id="hero-b2-runs">31 (21)</span></div>
+            <div class="prow"><span class="nm">🎯 Imran</span><span class="st" id="hero-bowler-stat">2.2-0-19-1</span></div>
+            <div class="pill-row">
+              <b class="extra-wd">WD</b>
+              <b class="extra-nb">NB</b>
+              <b class="extra-bye">BYE</b>
+              <b class="extra-wkt">WKT</b>
+            </div>
+            <div class="scoring-runpad" id="hero-runpad">
+              <button class="run-btn run-0" type="button" onclick="handleMockupScore(0)" title="Dot Ball (0 runs)"><span class="run-num">0</span><span class="run-tag">• DOT</span></button>
+              <button class="run-btn run-1" type="button" onclick="handleMockupScore(1)" title="Single (1 run)"><span class="run-num">1</span><span class="run-tag">1 RUN</span></button>
+              <button class="run-btn run-2" type="button" onclick="handleMockupScore(2)" title="Two (2 runs)"><span class="run-num">2</span><span class="run-tag">2 RUNS</span></button>
+              <button class="run-btn run-3" type="button" onclick="handleMockupScore(3)" title="Three (3 runs)"><span class="run-num">3</span><span class="run-tag">3 RUNS</span></button>
+              <button class="run-btn run-4" type="button" onclick="handleMockupScore(4)" title="Boundary Four! (4 runs)"><span class="run-num">4</span><span class="run-tag">FOUR</span></button>
+              <button class="run-btn run-6" type="button" onclick="handleMockupScore(6)" title="Maximum Sixer! (6 runs)"><span class="run-num">6</span><span class="run-tag">MAXIMUM</span></button>
+            </div>
+            <div class="action-split-row">
+              <button class="action-btn action-extras" type="button" onclick="handleMockupPenalty()" title="Add 5 Penalty & Extra Runs">
+                <span class="act-icon">🛡️</span>
+                <div class="act-text">
+                  <strong class="act-title"><span class="lang-bn">পেনাল্টি ও অতিরিক্ত</span></strong>
+                  <span class="act-sub"><span class="lang-bn">+৫ পেনাল্টি ও অতিরিক্ত</span></span>
+                </div>
+              </button>
+              <button class="action-btn action-swap" type="button" onclick="handleMockupSwapStrike()" title="Swipe / Slide to Swap Striker Batsman">
+                <div class="swap-thumb">⇄</div>
+                <div class="act-text">
+                  <strong class="act-title"><span class="lang-bn">ব্যাটসম্যান বদল</span></strong>
+                  <span class="act-sub"><span class="lang-bn">সোয়াইপ টু ব্যাটসম্যান</span></span>
+                </div>
+              </button>
+            </div>
+            <div class="action-sub-row">
+              <div class="sub-btn"><span class="sub-icon">↩</span> <span class="lang-bn">আনডু</span></div>
+              <div class="sub-btn"><span class="sub-icon">🚶</span> <span class="lang-bn">রিটায়ার</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Theme Switcher for Mockup -->
+      <div class="mockup-theme-bar">
+        <button class="mockup-theme-btn active" onclick="setMockupTheme('theme-sunrise', this)">
+          <span>🌅</span> <span class="lang-bn">সানরাইজ</span>
+        </button>
+        <button class="mockup-theme-btn" onclick="setMockupTheme('theme-ocean', this)">
+          <span>🌊</span> <span class="lang-bn">ওশান</span>
+        </button>
+        <button class="mockup-theme-btn" onclick="setMockupTheme('theme-midnight', this)">
+          <span>🌙</span> <span class="lang-bn">মিডনাইট</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── Features Section ── -->
+<section id="features">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="kicker"><span class="lang-bn">ফিচারসমূহ</span></div>
+      <h2>
+        
+        <span class="lang-bn">একজন ক্রিকেট স্কোরারের যা যা দরকার</span>
+      </h2>
+      <p>
+        
+        <span class="lang-bn">গলির ক্রিকেট থেকে শুরু করে ক্লাব লিগ ও পূর্ণাঙ্গ টুর্নামেন্টের জন্য বিশেষভাবে তৈরি।</span>
+      </p>
+    </div>
+
+    <div class="feat-grid">
+      <!-- Feature 1 -->
+      <div class="feat reveal">
+        <div class="ic-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 18h8"/><path d="M3 22h18"/><path d="m14 2-8 8"/><path d="m17 5-8 8"/><path d="m20 8-8 8"/><circle cx="19" cy="19" r="2"/></svg>
+        </div>
+        <h3><span class="lang-bn">বল-বাই-বল লাইভ স্কোরিং</span></h3>
+        <p><span class="lang-bn">রান, ওয়াইড, নো-বল, লেগ-বাই, উইকেট, রিটায়ার্ড হার্ট ও স্ট্রাইকার পরিবর্তন — সাথে সিঙ্গেল ট্যাপে তাৎক্ষণিক আনডু সুবিধা।</span></p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="feat reveal">
+        <div class="ic-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>
+        </div>
+        <h3><span class="lang-bn">স্মার্ট স্কোরিং ইঞ্জিন</span></h3>
+        <p><span class="lang-bn">ওভার শেষে এবং বিজোড় রানে অটো স্ট্রাইক রোটেশন, লিগ্যাল বল ট্র্যাকিং ও অটো মেইডেন ওভার গণনা।</span></p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="feat reveal">
+        <div class="ic-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        </div>
+        <h3><span class="lang-bn">পূর্ণাঙ্গ স্কোরবোর্ড</span></h3>
+        <p><span class="lang-bn">স্ট্রাইক রেট, ইকোনমি রেট, উইকেট পতন ও এক্সট্রা রান সহ সম্পূর্ণ আন্তর্জাতিক মানের ব্যাটিং-বোলিং কার্ড।</span></p>
+      </div>
+
+      <!-- Feature 4 -->
+      <div class="feat reveal">
+        <div class="ic-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <h3><span class="lang-bn">প্রিন্ট-রেডি PDF এক্সপোর্ট</span></h3>
+        <p><span class="lang-bn">ম্যাচ শেষে পুরো স্কোরকার্ডটি এক ক্লিকে দৃষ্টিনন্দন PDF হিসেবে এক্সপোর্ট করে হোয়াটসঅ্যাপে শেয়ার করুন।</span></p>
+      </div>
+
+      <!-- Feature 5 -->
+      <div class="feat reveal">
+        <div class="ic-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.45 1-1 1H7c-.55 0-1-.45-1-1v-2.34"/><path d="M14 14.66V17c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-2.34"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+        </div>
+        <h3><span class="lang-bn">টুর্নামেন্ট ম্যানেজমেন্ট</span></h3>
+        <p><span class="lang-bn">নকআউট ও লিগ ফরম্যাট, অটো পয়েন্ট টেবিল, নেট রান রেট (NRR) হিসাব ও টাই হলে সুপার ওভারের ব্যবস্থা।</span></p>
+      </div>
+
+      <!-- Feature 6 -->
+      <div class="feat reveal">
+        <div class="ic-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3><span class="lang-bn">টিম ও প্লেয়ার প্রোফাইল</span></h3>
+        <p><span class="lang-bn">একবার টিম ও স্কোয়াড তৈরি করে সেভ করে রাখুন; প্রতি ম্যাচে পুনরায় টাইপ না করেই ব্যবহার করুন।</span></p>
+      </div>
+
+      <!-- Feature 7 -->
+      <div class="feat reveal">
+        <div class="ic-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg>
+        </div>
+        <h3><span class="lang-bn">হিস্ট্রি ও ক্লাউড ব্যাকআপ</span></h3>
+        <p><span class="lang-bn">লোকাল মেমরিতে অফলাইন স্কোরিংয়ের পাশাপাশি ওয়েব ও অ্যান্ড্রয়েড উভয়েই গুগল সাইন-ইন দিয়ে ক্লাউডে নিরাপদে ব্যাকআপ রাখুন।</span></p>
+      </div>
+
+      <!-- Feature 8 -->
+      <div class="feat reveal">
+        <div class="ic-box">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
+        </div>
+        <h3><span class="lang-bn">৩টি নান্দনিক থিম</span></h3>
+        <p><span class="lang-bn">সানরাইজ, ওশান ও মিডনাইট ডার্ক মোড — তীব্র রোদ বা রাতের ফ্লাডলাইটে ম্যাচ দেখার জন্য অপ্টিমাইজড।</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Inside the App / Interactive Screen Showcase ── -->
+<section id="screens">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="kicker"><span class="lang-bn">অ্যাপের স্ক্রিনসমূহ</span></div>
+      <h2>
+        
+        <span class="lang-bn">খেলার মাঠের বাস্তব পরিবেশের জন্য তৈরি</span>
+      </h2>
+      <p>
+        
+        <span class="lang-bn">বিশাল স্কোর ডিসপ্লে, বড় বড় বাটন ও হাই-কনট্রাস্ট ইন্টারফেস — বাউন্ডারি লাইন থেকেও স্পষ্ট দেখা যায়।</span>
+      </p>
+    </div>
+
+    <!-- Screen Tabs Navigation -->
+    <div class="screens-tabs-nav reveal">
+      <button class="screen-tab-btn active" onclick="switchScreenTab('all', this)">
+        <span>📱</span> <span class="lang-bn">সবগুলো স্ক্রিন</span>
+      </button>
+      <button class="screen-tab-btn" onclick="switchScreenTab('live', this)">
+        <span>🏏</span> <span class="lang-bn">লাইভ স্কোরিং</span>
+      </button>
+      <button class="screen-tab-btn" onclick="switchScreenTab('scorecard', this)">
+        <span>📋</span> <span class="lang-bn">ফুল স্কোরবোর্ড</span>
+      </button>
+      <button class="screen-tab-btn" onclick="switchScreenTab('leaderboard', this)">
+        <span>🏆</span> <span class="lang-bn">টুর্নামেন্ট টেবিল</span>
+      </button>
+    </div>
+
+    <div class="screens-container">
+      <!-- Screen 1: Live Scoring -->
+      <div class="screen-card reveal" data-screen-type="live">
+        <div class="phone theme-sunrise">
+          <div class="notch"><i></i></div>
+          <div class="screen">
+            <div class="app-head">
+              <div class="t">
+                <span>Tigers <span class="lang-bn">বনাম</span> Kings</span>
+                <span><span class="lang-bn">২য় ইনিংস</span></span>
+              </div>
+              <div class="big-score">98/2 <small>10.4 / 20 ov</small></div>
+              <div class="crr">CRR 9.19 · <span class="lang-bn">দরকার ৫৬ বলে ৬৩ রান</span></div>
+            </div>
+            <div class="pmc">
+              <div class="prow"><span class="nm"><span class="dot-strike"></span>Nayeem*</span><span>44 (26)</span></div>
+              <div class="prow"><span class="nm">Hasan</span><span>31 (28)</span></div>
+              <div class="prow"><span class="nm">🎯 Rocky</span><span class="st">3.4-1-24-2</span></div>
+              <div class="pill-row">
+              <b class="extra-wd">WD</b>
+              <b class="extra-nb">NB</b>
+              <b class="extra-bye">BYE</b>
+              <b class="extra-wkt">WKT</b>
+            </div>
+            <div class="scoring-runpad">
+              <button class="run-btn run-0" type="button" title="Dot Ball"><span class="run-num">0</span><span class="run-tag">• DOT</span></button>
+              <button class="run-btn run-1" type="button" title="Single"><span class="run-num">1</span><span class="run-tag">1 RUN</span></button>
+              <button class="run-btn run-2" type="button" title="Two"><span class="run-num">2</span><span class="run-tag">2 RUNS</span></button>
+              <button class="run-btn run-3" type="button" title="Three"><span class="run-num">3</span><span class="run-tag">3 RUNS</span></button>
+              <button class="run-btn run-4" type="button" title="Boundary Four!"><span class="run-num">4</span><span class="run-tag">FOUR</span></button>
+              <button class="run-btn run-6" type="button" title="Maximum Sixer!"><span class="run-num">6</span><span class="run-tag">MAXIMUM</span></button>
+            </div>
+            <div class="action-split-row">
+              <button class="action-btn action-extras" type="button" title="Extras & Penalty Runs">
+                <span class="act-icon">🛡️</span>
+                <div class="act-text">
+                  <strong class="act-title"><span class="lang-bn">পেনাল্টি ও অতিরিক্ত</span></strong>
+                  <span class="act-sub"><span class="lang-bn">+৫ পেনাল্টি ও অতিরিক্ত</span></span>
+                </div>
+              </button>
+              <button class="action-btn action-swap" type="button" title="Swipe to Batsman">
+                <div class="swap-thumb">⇄</div>
+                <div class="act-text">
+                  <strong class="act-title"><span class="lang-bn">ব্যাটসম্যান বদল</span></strong>
+                  <span class="act-sub"><span class="lang-bn">সোয়াইপ টু ব্যাটসম্যান</span></span>
+                </div>
+              </button>
+            </div>
+            <div class="action-sub-row">
+              <div class="sub-btn"><span class="sub-icon">↩</span> <span class="lang-bn">আনডু</span></div>
+              <div class="sub-btn"><span class="sub-icon">🚶</span> <span class="lang-bn">রিটায়ার</span></div>
+            </div>
+            </div>
+          </div>
+        </div>
+        <div class="cap">
+          <span>🏏</span> <span class="lang-bn">লাইভ ম্যাচ স্কোরিং</span>
+        </div>
+        <div class="cap-desc">
+          
+          <span class="lang-bn">অটো স্ট্রাইকার ট্র্যাকিং ও রিকোয়ার্ড রান রেট</span>
+        </div>
+      </div>
+
+      <!-- Screen 2: Full Scoreboard -->
+      <div class="screen-card reveal" data-screen-type="scorecard">
+        <div class="phone theme-ocean">
+          <div class="notch"><i></i></div>
+          <div class="screen">
+            <div class="mini-table">
+              <div class="mt-head">
+                <span>Tigers — <span class="lang-bn">ব্যাটিং</span></span>
+                <span>161/6 (20 ov)</span>
+              </div>
+              <div class="mt-row hdr">
+                <span><span class="lang-bn">ব্যাটার</span></span>
+                <span>R</span><span>B</span><span>4s</span><span>6s</span><span>SR</span>
+              </div>
+              <div class="mt-row">
+                <div class="batter-cell"><b>Rafi</b><span class="out">c Sami b Imran</span></div>
+                <b>62</b><span>38</span><span>7</span><span>3</span><span>163</span>
+              </div>
+              <div class="mt-row">
+                <div class="batter-cell"><b>Sabbir</b><span class="out">run out (Tamim)</span></div>
+                <b>27</b><span>19</span><span>3</span><span>1</span><span>142</span>
+              </div>
+              <div class="mt-row">
+                <div class="batter-cell"><b>Nayeem</b><span class="out">not out</span></div>
+                <b>34</b><span>22</span><span>4</span><span>1</span><span>154</span>
+              </div>
+              <div class="mt-row">
+                <div class="batter-cell"><b>Hasan</b><span class="out">b Rocky</span></div>
+                <b>18</b><span>14</span><span>2</span><span>0</span><span>128</span>
+              </div>
+              <div class="mt-row">
+                <div class="batter-cell"><b>Tuhin</b><span class="out">lbw b Imran</span></div>
+                <b>9</b><span>8</span><span>1</span><span>0</span><span>113</span>
+              </div>
+              <div class="mt-foot">
+                <span><span class="lang-bn">এক্সট্রা</span>: 11 (w 6, nb 2)</span>
+                <span><span class="lang-bn">মোট</span>: 161/6</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cap">
+          <span>📋</span> <span class="lang-bn">ফুল স্কোরবোর্ড ও PDF</span>
+        </div>
+        <div class="cap-desc">
+          
+          <span class="lang-bn">এক ক্লিকে PDF তৈরি ও সোশ্যাল মিডিয়ায় শেয়ার</span>
+        </div>
+      </div>
+
+      <!-- Screen 3: Tournament Leaderboard -->
+      <div class="screen-card reveal" data-screen-type="leaderboard">
+        <div class="phone theme-midnight">
+          <div class="notch"><i></i></div>
+          <div class="screen">
+            <div class="mini-table">
+              <div class="mt-head" style="background:var(--navy-2)">
+                <span>🏆 <span class="lang-bn">প্রিমিয়ার কাপ</span></span>
+                <span><span class="lang-bn">পয়েন্ট টেবিল</span></span>
+              </div>
+              <div class="lb-row hdr">
+                <span>#</span><span><span class="lang-bn">টিম</span></span><span>P</span><span>W</span><span>L</span><span>Pts</span>
+              </div>
+              <div class="lb-row"><span class="pos">1</span><b>Tigers</b><span>5</span><span>4</span><span>1</span><b class="pts">8</b></div>
+              <div class="lb-row"><span class="pos">2</span><b>Kings</b><span>5</span><span>3</span><span>2</span><b class="pts">6</b></div>
+              <div class="lb-row"><span class="pos">3</span><b>Riders</b><span>5</span><span>3</span><span>2</span><b class="pts">6</b></div>
+              <div class="lb-row"><span class="pos">4</span><b>Vikings</b><span>5</span><span>2</span><span>3</span><b class="pts">4</b></div>
+              <div class="lb-row"><span class="pos">5</span><b>Titans</b><span>5</span><span>1</span><span>4</span><b class="pts">2</b></div>
+              <div class="mt-foot">
+                <span><span class="lang-bn">ফরম্যাট: লিগ</span></span>
+                <span><span class="lang-bn">NRR: স্বয়ংক্রিয়</span></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="cap">
+          <span>🏆</span> <span class="lang-bn">টুর্নামেন্ট লিডারবোর্ড</span>
+        </div>
+        <div class="cap-desc">
+          
+          <span class="lang-bn">পয়েন্ট ও নেট রান রেট অনুযায়ী স্বয়ংক্রিয় র‍্যাঙ্কিং</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Interactive Live Web Test-Drive Section ── -->
+<section id="web-demo" class="web-demo-sec">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="kicker"><span class="lang-bn">ব্রাউজারেই সরাসরি ব্যবহার</span></div>
+      <h2>
+        </span>
+        <span class="lang-bn">কোনো ইনস্টলেশন ছাড়াই <span class="grad">ব্রাউজারেই সরাসরি ট্রাই করুন</span></span>
+      </h2>
+      <p>
+        
+        <span class="lang-bn">ফোনে ইনস্টল করার আগেই সম্পূর্ণ স্কোরিং ডেস্ক ব্রাউজারেই সরাসরি ব্যবহার করে দেখুন। বল-বাই-বল লাইভ স্কোরিং, ফুল ব্যাটিং-বোলিং কার্ড, অটো স্ট্রাইকার ট্র্যাকিং ও টুর্নামেন্ট টেবিল।</span>
+      </p>
+    </div>
+
+    <!-- Studio Mockup Browser Window -->
+    <div class="web-demo-window reveal">
+      <!-- Mock Window Toolbar -->
+      <div class="demo-toolbar">
+        <div class="window-dots">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+
+        <div class="demo-address-bar">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span class="url">https://cric-scorer-pro.app/web/live-scoring</span>
+          <span class="badge-pwa">PWA READY</span>
+        </div>
+
+        <div class="demo-controls">
+          <!-- View Mode Switcher -->
+          <div class="demo-view-toggles" role="group" aria-label="Demo View Switcher">
+            <button class="view-toggle-btn active" onclick="setDemoView('phone')" title="Mobile View (380px)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              <span class="toggle-text"><span class="lang-bn">মোবাইল</span></span>
+            </button>
+            <button class="view-toggle-btn" onclick="setDemoView('tablet')" title="Tablet View (620px)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              <span class="toggle-text"><span class="lang-bn">ট্যাবলেট</span></span>
+            </button>
+            <button class="view-toggle-btn" onclick="setDemoView('wide')" title="Full Width View">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              <span class="toggle-text"><span class="lang-bn">ফুল স্ক্রিন</span></span>
+            </button>
+          </div>
+
+          <!-- Open in New Tab -->
+          <a class="demo-act-btn" href="../web/" target="_blank" rel="noopener" title="Open Full Web App in New Tab">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Frame Body with Canvas / Iframe -->
+      <div class="demo-screen-stage" id="demo-stage">
+        <div class="demo-frame-container phone-view" id="demo-frame-wrap">
+          <div class="mock-scoreboard" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; background: #120F1F; color: white; padding: 20px; text-align: center; border-radius: inherit;">
+              <img src="../icon.png" alt="Logo" style="width: 64px; height: 64px; margin-bottom: 24px; border-radius: 12px; opacity: 0.9;">
+              <h3 style="margin-bottom: 8px; font-size: 1.5rem; font-weight: 700;">Live Match</h3>
+              <div style="font-size: 2.5rem; font-weight: 800; color: #E0567B; margin-bottom: 4px; letter-spacing: -1px;">145<span style="color: #fff;">/2</span></div>
+              <div style="font-size: 1.1rem; color: #9CA3AF; margin-bottom: 32px;">Overs: 18.4 &nbsp;&middot;&nbsp; CRR: 7.8</div>
+              <a href="../web/" target="_blank" style="background: #E0567B; color: white; text-decoration: none; padding: 12px 24px; border-radius: 30px; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 14px rgba(224, 86, 123, 0.4); transition: transform 0.2s;">Open Full App</a>
+              <p style="margin-top: 16px; font-size: 0.85rem; color: #6B7280;">Experience full ball-by-ball scoring</p>
+            </div>
+        </div>
+      </div>
+
+      <!-- Demo Stage Footer Info -->
+      <div class="demo-status-bar">
+        <div class="demo-features-row">
+          <span>⚡ <strong class="lang-en">Instant In-Browser Scoring</strong><strong class="lang-bn">ব্রাউজারেই লাইভ স্কোরিং</strong></span>
+          <button class="demo-feature-pill active-sync-trigger" id="demo-sync-pill" type="button" onclick="openSiteGoogleSyncModal()" title="Google Sign-In &amp; Cloud Sync Status">
+            <span>☁️ <strong class="lang-en">Google Sign-In &amp; Sync</strong><strong class="lang-bn">গুগল সাইন-ইন ও ক্লাউড সিঙ্ক</strong></span>
+          </button>
+          <span>📱 <strong class="lang-en">PWA Ready for PC &amp; Mobile</strong><strong class="lang-bn">কম্পিউটার ও ফোনে PWA ইনস্টলেশন</strong></span>
+        </div>
+
+        <div class="demo-cta-row">
+          <a class="btn small" href="../web/" target="_blank" rel="noopener">
+            
+            <span class="lang-bn">পূর্ণ স্ক্রিনে খুলুন ↗</span>
+          </a>
+          <a class="btn ghost small" href="../releases.html">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            
+            <span class="lang-bn">APK ডাউনলোড</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Installation Steps ── -->
+<section id="install">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="kicker"><span class="lang-bn">ইনস্টলেশন</span></div>
+      <h2>
+        
+        <span class="lang-bn">এক মিনিটেই ইনস্টল করুন</span>
+      </h2>
+      <p>
+        
+        <span class="lang-bn">মাত্র ৪টি সহজ ধাপে অ্যাপটি আপনার ফোনে ইনস্টল করে নিন।</span>
+      </p>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="num">1</div>
+        <h3><span class="lang-bn">APK ডাউনলোড</span></h3>
+        <p><span class="lang-bn">এই পেজের ডাউনলোড বাটনে ট্যাপ করে APK ফাইলটি নামিয়ে নিন (মাত্র ৫৩ MB)।</span></p>
+      </div>
+
+      <div class="step reveal">
+        <div class="num">2</div>
+        <h3><span class="lang-bn">অনুমতি দিন</span></h3>
+        <p><span class="lang-bn">ফাইলটি ওপেন করুন। ব্রাউজার পারমিশন চাইলে "Install unknown apps" অন করুন।</span></p>
+      </div>
+
+      <div class="step reveal">
+        <div class="num">3</div>
+        <h3><span class="lang-bn">ইনস্টল করে ওপেন করুন</span></h3>
+        <p><span class="lang-bn">ইনস্টল বাটনে ট্যাপ করুন। কয়েক সেকেন্ডেই অ্যাপটি ইনস্টল হয়ে যাবে।</span></p>
+      </div>
+
+      <div class="step reveal">
+        <div class="num">4</div>
+        <h3><span class="lang-bn">স্কোরিং শুরু করুন!</span></h3>
+        <p><span class="lang-bn">দলের নাম, ওভার ও টস সিলেক্ট করুন — ব্যস, প্রথম বল থেকেই শুরু করুন স্কোরিং!</span></p>
+      </div>
+    </div>
+
+    <div class="note reveal">
+      <div class="icon-note">💡</div>
+      <div>
+        <strong class="lang-en">Note on Google Play Protect Warning:</strong>
+        <strong class="lang-bn">Google Play Protect সংক্রান্ত তথ্য:</strong>
+        
+        <span class="lang-bn">প্লে স্টোরের বাইরে সরাসরি অফিসিয়াল APK ইনস্টল করায় অ্যান্ড্রয়েড একটি সাধারণ কনফার্মেশন চাইতে পারে। অ্যাপটি নিরাপদ সাইডলোড &middot; SHA-256, ভাইরাস-মুক্ত ও বিজ্ঞাপনহীন। এটি Android 7.0 বা এর নতুন সব ভার্সনে চলে।</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FAQ Section ── -->
+<section id="faq">
+  <div class="container">
+    <div class="sec-head reveal">
+      <div class="kicker">FAQ</div>
+      <h2>
+        
+        <span class="lang-bn">সাধারণ প্রশ্নোত্তর</span>
+      </h2>
+      <p>
+        
+        <span class="lang-bn">আপনার যেকোনো প্রশ্নের উত্তর জেনে নিন এখান থেকেই।</span>
+      </p>
+    </div>
+
+    <div class="faq reveal">
+      <details open>
+        <summary>
+          
+          <span class="lang-bn">ক্রিক স্কোরার প্রো কি সম্পূর্ণ ফ্রি?</span>
+        </summary>
+        <div class="ans">
+          
+          <span class="lang-bn">হ্যাঁ, এটি ১০০% ফ্রি। এতে কোনো হিডেন চার্জ, সাবস্ক্রিপশন ফি বা বিরক্তিকর বিজ্ঞাপন নেই।</span>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          
+          <span class="lang-bn">অ্যাপটি চালাতে কি ইন্টারনেটের প্রয়োজন আছে?</span>
+        </summary>
+        <div class="ans">
+          
+          <span class="lang-bn">না, কোনো ইন্টারনেটের প্রয়োজন নেই। স্কোরিং, PDF এক্সপোর্ট ও টুর্নামেন্ট টেবিল সম্পূর্ণ অফলাইনে চলে। শুধুমাত্র গুগল ক্লাউড ব্যাকআপের জন্য ইচ্ছামাফিক ইন্টারনেট ব্যবহার করতে পারেন।</span>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          
+          <span class="lang-bn">ম্যাচের মাঝে ফোন বন্ধ হয়ে গেলে বা অ্যাপ কেটে গেলে কি ডেটা মুছে যাবে?</span>
+        </summary>
+        <div class="ans">
+          
+          <span class="lang-bn">একদমই না! প্রতিটি বল সাথে সাথে ফোনের ইন্টারনাল মেমরিতে সুরক্ষিত থাকে। অ্যাপ পুনরায় খুললেই আপনাকে তাৎক্ষণিকভাবে যে বলটিতে ছিলেন সেখান থেকেই ম্যাচ চালিয়ে যাওয়ার সুযোগ দেওয়া হবে।</span>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          
+          <span class="lang-bn">আমি কি সম্পূর্ণ স্কোরবোর্ড হোয়াটসঅ্যাপে শেয়ার করতে পারব?</span>
+        </summary>
+        <div class="ans">
+          
+          <span class="lang-bn">অবশ্যই! ম্যাচ শেষে এক ক্লিকেই সম্পূর্ণ স্কোরবোর্ডের একটি আন্তর্জাতিক মানের PDF তৈরি হয়ে যাবে, যা আপনি সরাসরি যেকোনো হোয়াটসঅ্যাপ গ্রুপ বা মেসেঞ্জারে পাঠিয়ে দিতে পারবেন।</span>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          
+          <span class="lang-bn">কোন কোন অ্যান্ড্রয়েড ভার্সনে এটি চলবে?</span>
+        </summary>
+        <div class="ans">
+          
+          <span class="lang-bn">Android 7.0 (Nougat) থেকে শুরু করে Android 14 ও তার নতুন সব ভার্সনে এটি অনায়াসে চলবে (Samsung, Xiaomi, Realme, Vivo, Oppo সহ সব ফোনে)।</span>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          
+          <span class="lang-bn">আমি কি সুপার ওভার সহ সম্পূর্ণ টুর্নামেন্ট চালাতে পারব?</span>
+        </summary>
+        <div class="ans">
+          
+          <span class="lang-bn">হ্যাঁ! নকআউট এবং লিগ টুর্নামেন্ট তৈরি করতে পারবেন, যেখানে অটোমেটিক পয়েন্ট টেবিল, নেট রান রেট (NRR) এবং ম্যাচ টাই হলে সুপার ওভারের অপশন রয়েছে।</span>
+        </div>
+      </details>
+
+      <details>
+        <summary>
+          
+          <span class="lang-bn">ওয়েব ও অ্যান্ড্রয়েডে গুগল সাইন-ইন এবং ক্লাউড সিঙ্ক কীভাবে কাজ করে?</span>
+        </summary>
+        <div class="ans">
+          
+          <span class="lang-bn">গুগল অ্যাকাউন্ট দিয়ে সাইন-ইন করলেই আপনার সব ম্যাচ, টিম ও টুর্নামেন্ট ডেটা সরাসরি Firebase ক্লাউডে সুরক্ষিত থাকবে। ফোনে ম্যাচ স্কোর করে পরবর্তীতে পিসি বা যেকোনো ব্রাউজারে তা সিঙ্ক করে দেখতে পারবেন।</span>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ── Download Call to Action Band ── -->
+<section>
+  <div class="container">
+    <div class="dl-band reveal">
+      <h2>
+        
+        <span class="lang-bn">পরের ম্যাচের জন্য প্রস্তুত তো?</span>
+      </h2>
+      <p>
+        
+        <span class="lang-bn">এখনই ক্রিক স্কোরার প্রো ডাউনলোড করে নিন — খাতায় স্কোর লেখার ঝামেলা থেকে চিরতরে মুক্তি পান।</span>
+      </p>
+
+      <div class="btn-wrap">
+        <a href="https://play.google.com/store/apps/details?id=com.taimur.cricket_pro" target="_blank" rel="noopener" style="display:inline-block; margin-right: 8px;">
+          <img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="135" height="52">
+        </a>
+        
+        <a class="btn ghost white btn-apk" href="../releases.html">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          
+          <span class="lang-bn">APK ডাউনলোড (v2.0.11)</span>
+        </a>
+
+        <a class="btn ghost-white" href="../web/" target="_blank" rel="noopener">
+          
+          <span class="lang-bn">ওয়েবে ট্রাই করুন</span>
+        </a>
+
+        <button class="btn ghost-white" onclick="openQrModal()">
+          
+          <span class="lang-bn">📱 কিউআর কোড স্ক্যান</span>
+        </button>
+      </div>
+
+      <div class="metas">
+        v2.0.11 · 53 MB · Android 7.0+ · 100% Free
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── QR Code Modal ── -->
+<div class="modal-overlay" id="qr-modal" onclick="handleModalBackdropClick(event)">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeQrModal()" aria-label="Close modal">&times;</button>
+    <h3><span class="lang-bn">মোবাইলে স্ক্যান করুন</span></h3>
+    <p><span class="lang-bn">আপনার ফোনের ক্যামেরা দিয়ে এই QR কোডটি স্ক্যান করে সরাসরি ফোনে APK ডাউনলোড করুন।</span></p>
+
+    <div class="qr-frame">
+      <!-- High-resolution clean SVG QR code pointing to cricket_pro.apk -->
+      <svg viewBox="0 0 148 148" width="180" height="180">
+        <rect width="148" height="148" fill="#ffffff"/>
+        <!-- Standard QR Pattern SVG -->
+        <path fill="#1E1744" d="M10,10 h32 v32 h-32 Z M14,14 v24 h24 v-24 Z M20,20 h12 v12 h-12 Z M106,10 h32 v32 h-32 Z M110,14 v24 h24 v-24 Z M116,20 h12 v12 h-12 Z M10,106 h32 v32 h-32 Z M14,110 v24 h24 v-24 Z M20,116 h12 v12 h-12 Z M50,14 h6 v6 h-6 Z M64,14 h6 v6 h-6 Z M78,14 h6 v6 h-6 Z M50,28 h12 v6 h-12 Z M70,28 h6 v6 h-6 Z M84,28 h12 v6 h-12 Z M50,42 h6 v6 h-6 Z M64,42 h12 v6 h-12 Z M84,42 h6 v6 h-6 Z M14,50 h6 v6 h-6 Z M28,50 h12 v6 h-12 Z M50,56 h6 v6 h-6 Z M70,56 h12 v6 h-12 Z M92,56 h6 v6 h-6 Z M14,64 h12 v6 h-12 Z M34,64 h6 v6 h-6 Z M58,64 h6 v6 h-6 Z M78,64 h6 v6 h-6 Z M98,64 h12 v6 h-12 Z M120,64 h6 v6 h-6 Z M14,78 h6 v6 h-6 Z M28,78 h6 v6 h-6 Z M42,78 h6 v6 h-6 Z M56,78 h12 v6 h-12 Z M76,78 h6 v6 h-6 Z M90,78 h12 v6 h-12 Z M110,78 h6 v6 h-6 Z M124,78 h12 v6 h-12 Z M14,92 h12 v6 h-12 Z M34,92 h6 v6 h-6 Z M50,92 h6 v6 h-6 Z M70,92 h12 v6 h-12 Z M92,92 h6 v6 h-6 Z M110,92 h12 v6 h-12 Z M50,106 h12 v6 h-12 Z M70,106 h6 v6 h-6 Z M84,106 h12 v6 h-12 Z M104,106 h6 v6 h-6 Z M118,106 h12 v6 h-12 Z M50,120 h6 v6 h-6 Z M64,120 h12 v6 h-12 Z M84,120 h6 v6 h-6 Z M98,120 h12 v6 h-12 Z M118,120 h6 v6 h-6 Z M50,134 h12 v6 h-12 Z M70,134 h6 v6 h-6 Z M84,134 h12 v6 h-12 Z M104,134 h12 v6 h-12 Z M124,134 h6 v6 h-6 Z"/>
+      </svg>
+    </div>
+
+    <div class="modal-foot">
+      <span>cricket_pro.apk · v2.0.11</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Google Cloud Sync Modal on Main Website ── -->
+<div class="modal-overlay" id="site-sync-modal" onclick="handleSiteSyncModalBackdrop(event)">
+  <div class="modal-card" style="max-width: 440px; text-align: center;">
+    <button class="modal-close" onclick="closeSiteGoogleSyncModal()" aria-label="Close modal">&times;</button>
+    <div style="width: 52px; height: 52px; border-radius: 50%; background: rgba(224, 86, 123, 0.15); border: 1px solid rgba(224, 86, 123, 0.3); display: inline-flex; align-items: center; justify-content: center; font-size: 26px; margin-bottom: 12px;">☁️</div>
+    <h3 style="margin-bottom: 6px;">
+      
+      <span class="lang-bn">গুগল ক্লাউড ব্যাকআপ ও সিঙ্ক</span>
+    </h3>
+    <div id="site-sync-modal-body">
+      <!-- Injected dynamically -->
+    </div>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="container foot-inner">
+    <div class="foot-brand">
+      <img src="../icon.png" alt="Cric Scorer Pro">
+      <span>Cric Scorer Pro</span>
+    </div>
+
+    <div class="foot-links">
+      <a href="#features"><span class="lang-bn">ফিচার</span></a>
+      <a href="#install"><span class="lang-bn">ইনস্টল</span></a>
+      <a href="#faq"><span class="lang-bn">প্রশ্নোত্তর</span></a>
+      <a href="../privacy.html"><span class="lang-bn">প্রাইভেসি পলিসি</span></a>
+      <a href="../terms.html"><span class="lang-bn">ব্যবহারের শর্তাবলী</span></a>
+      <a href="../web/" target="_blank" rel="noopener"><span class="lang-bn">ওয়েব ভার্সন</span></a>
+      <a href="https://wa.me/8801934000086" target="_blank" rel="noopener"><span class="lang-bn">সাপোর্ট</span></a>
+    </div>
+
+    <div>
+      
+      <span class="lang-bn">&copy; ২০২৬ তাইমুর শাকিব। সর্বস্বত্ব সংরক্ষিত।</span>
+    </div>
+
+    <div class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+      <span>&uarr;</span> <span class="lang-bn">উপরে উঠুন</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ── Interactive JavaScript ── -->
+<script>
+// Language Management
+function setLang(lang) {
+  document.body.className = lang;
+  document.documentElement.lang = lang === 'bn' ? 'bn' : 'en';
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-bn').classList.toggle('active', lang === 'bn');
+  
+  if (lang === 'bn') {
+    document.title = 'ক্রিক স্কোরার প্রো — প্রফেশনাল লাইভ ক্রিকেট স্কোরিং অ্যাপ';
+  } else {
+    document.title = 'Cric Scorer Pro — Live Cricket Scoring App for Android';
+  }
+  
+  try {
+    localStorage.setItem('cric_scorer_lang', lang);
+  } catch (e) {}
+}
+
+// Restore saved language preference
+try {
+  var savedLang = localStorage.getItem('cric_scorer_lang');
+  if (savedLang === 'bn' || savedLang === 'en') {
+    setLang(savedLang);
+  }
+} catch (e) {}
+
+// Mobile Drawer Controls
+function toggleMobileMenu() {
+  var drawer = document.getElementById('mobile-drawer');
+  var btn = document.getElementById('hamburger-btn');
+  var isOpen = drawer.classList.contains('open');
+  
+  if (isOpen) {
+    closeMobileMenu();
+  } else {
+    drawer.classList.add('open');
+    btn.classList.add('open');
+  }
+}
+
+function closeMobileMenu() {
+  var drawer = document.getElementById('mobile-drawer');
+  var btn = document.getElementById('hamburger-btn');
+  drawer.classList.remove('open');
+  btn.classList.remove('open');
+}
+
+// Phone Theme Previewer
+function setMockupTheme(themeClass, btnElement) {
+  var phone = document.getElementById('hero-phone');
+  phone.className = 'phone ' + themeClass;
+  
+  var buttons = document.querySelectorAll('.mockup-theme-btn');
+  buttons.forEach(function(btn) { btn.classList.remove('active'); });
+  if (btnElement) {
+    btnElement.classList.add('active');
+  }
+}
+
+// Screen Tab Switching in "Inside the App"
+function switchScreenTab(type, btnElement) {
+  var buttons = document.querySelectorAll('.screen-tab-btn');
+  buttons.forEach(function(btn) { btn.classList.remove('active'); });
+  btnElement.classList.add('active');
+
+  var cards = document.querySelectorAll('.screens-container .screen-card');
+  cards.forEach(function(card) {
+    if (type === 'all' || card.getAttribute('data-screen-type') === type) {
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+
+// QR Code Modal Controls
+function openQrModal() {
+  document.getElementById('qr-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeQrModal() {
+  document.getElementById('qr-modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function handleModalBackdropClick(e) {
+  if (e.target.id === 'qr-modal') {
+    closeQrModal();
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeQrModal();
+    closeMobileMenu();
+  }
+});
+
+// Scroll Reveal Intersection Observer
+// Scroll Reveal Intersection Observer with Stagger & Instant Viewport Check
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('vis');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08 });
+
+document.querySelectorAll('.reveal').forEach(function(element) {
+  observer.observe(element);
+});
+
+// Immediate check for above-the-fold elements
+window.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    var rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add('vis');
+    }
+  });
+  syncSiteAuthState();
+});
+
+// Web Demo View Switcher & Controls
+function setDemoView(mode) {
+  const wrap = document.getElementById('demo-frame-wrap');
+  if (!wrap) return;
+  wrap.classList.remove('phone-view', 'tablet-view', 'wide-view');
+  wrap.classList.add(mode + '-view');
+
+  document.querySelectorAll('.view-toggle-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  if (window.event && window.event.target) {
+    const btn = window.event.target.closest('.view-toggle-btn');
+    if (btn) btn.classList.add('active');
+  }
+}
+
+// ── Interactive Live Match Mockup Simulation ──
+let mockupState = {
+  score: 156,
+  wickets: 4,
+  overs: 15,
+  balls: 2,
+  b1: { name: 'Rafi', runs: 68, balls: 41, isStrike: true },
+  b2: { name: 'Sabbir', runs: 31, balls: 21, isStrike: false },
+  bowler: { name: 'Imran', overs: 2, balls: 2, maidens: 0, runs: 19, wickets: 1 }
+};
+
+let audioCtx = null;
+function playScoreSound(runs) {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return;
+    if (!audioCtx) audioCtx = new AudioContext();
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    
+    const now = audioCtx.currentTime;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+
+    if (runs === 6) {
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(440, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.14);
+      osc.frequency.exponentialRampToValueAtTime(1320, now + 0.32);
+      gain.gain.setValueAtTime(0.28, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+      osc.start(now);
+      osc.stop(now + 0.45);
+    } else if (runs === 4) {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(392, now);
+      osc.frequency.exponentialRampToValueAtTime(659.25, now + 0.12);
+      osc.frequency.exponentialRampToValueAtTime(783.99, now + 0.28);
+      gain.gain.setValueAtTime(0.24, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.35);
+      osc.start(now);
+      osc.stop(now + 0.35);
+    } else if (runs > 0) {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25 + runs * 55, now);
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.16);
+      osc.start(now);
+      osc.stop(now + 0.16);
+    } else {
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(220, now);
+      gain.gain.setValueAtTime(0.12, now);
+      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
+      osc.start(now);
+      osc.stop(now + 0.1);
+    }
+  } catch (e) {}
+}
+
+function updateMockupUi(popAnim) {
+  const scoreEl = document.getElementById('hero-big-score');
+  const oversEl = document.getElementById('hero-overs-text');
+  const crrEl = document.getElementById('hero-crr-text');
+  const b1Label = document.getElementById('hero-b1-label');
+  const b1Runs = document.getElementById('hero-b1-runs');
+  const b2Label = document.getElementById('hero-b2-label');
+  const b2Runs = document.getElementById('hero-b2-runs');
+  const bowlerEl = document.getElementById('hero-bowler-stat');
+
+  if (scoreEl) {
+    scoreEl.innerHTML = mockupState.score + '/' + mockupState.wickets + ' <small id="hero-overs-text">' + mockupState.overs + '.' + mockupState.balls + ' / 20 ov</small>';
+    if (popAnim) {
+      scoreEl.classList.remove('score-pop');
+      void scoreEl.offsetWidth;
+      scoreEl.classList.add('score-pop');
+    }
+  }
+
+  const totalBalls = mockupState.overs * 6 + mockupState.balls;
+  const crr = totalBalls > 0 ? ((mockupState.score / totalBalls) * 6).toFixed(2) : '0.00';
+  if (crrEl) crrEl.textContent = 'CRR ' + crr + ' · Target — · Req —';
+
+  const strikeDot = '<span class="dot-strike" id="hero-strike-dot"></span>';
+  if (b1Label) b1Label.innerHTML = (mockupState.b1.isStrike ? strikeDot : '') + mockupState.b1.name + (mockupState.b1.isStrike ? '*' : '');
+  if (b1Runs) b1Runs.textContent = mockupState.b1.runs + ' (' + mockupState.b1.balls + ')';
+
+  if (b2Label) b2Label.innerHTML = (mockupState.b2.isStrike ? strikeDot : '') + mockupState.b2.name + (mockupState.b2.isStrike ? '*' : '');
+  if (b2Runs) b2Runs.textContent = mockupState.b2.runs + ' (' + mockupState.b2.balls + ')';
+
+  if (bowlerEl) {
+    bowlerEl.textContent = mockupState.bowler.overs + '.' + mockupState.bowler.balls + '-' + mockupState.bowler.maidens + '-' + mockupState.bowler.runs + '-' + mockupState.bowler.wickets;
+  }
+}
+
+function handleMockupScore(runs) {
+  playScoreSound(runs);
+  mockupState.score += runs;
+  
+  const striker = mockupState.b1.isStrike ? mockupState.b1 : mockupState.b2;
+  striker.runs += runs;
+  striker.balls += 1;
+
+  mockupState.bowler.runs += runs;
+  mockupState.bowler.balls += 1;
+  mockupState.balls += 1;
+
+  if (mockupState.balls >= 6) {
+    mockupState.overs += 1;
+    mockupState.balls = 0;
+    mockupState.bowler.overs += 1;
+    mockupState.bowler.balls = 0;
+    // Over complete: rotate strike
+    mockupState.b1.isStrike = !mockupState.b1.isStrike;
+    mockupState.b2.isStrike = !mockupState.b2.isStrike;
+  } else if (runs % 2 !== 0) {
+    // Odd runs: rotate strike
+    mockupState.b1.isStrike = !mockupState.b1.isStrike;
+    mockupState.b2.isStrike = !mockupState.b2.isStrike;
+  }
+
+  updateMockupUi(true);
+}
+
+function handleMockupPenalty() {
+  playScoreSound(4);
+  mockupState.score += 5;
+  const scoreEl = document.getElementById('hero-big-score');
+  if (scoreEl) {
+    scoreEl.classList.remove('penalty-flash');
+    void scoreEl.offsetWidth;
+    scoreEl.classList.add('penalty-flash');
+  }
+  updateMockupUi(false);
+}
+
+function handleMockupSwapStrike() {
+  playScoreSound(1);
+  mockupState.b1.isStrike = !mockupState.b1.isStrike;
+  mockupState.b2.isStrike = !mockupState.b2.isStrike;
+  
+  const b1Row = document.getElementById('hero-batsman-1');
+  const b2Row = document.getElementById('hero-batsman-2');
+  if (b1Row) {
+    b1Row.classList.remove('strike-rotate-fx');
+    void b1Row.offsetWidth;
+    b1Row.classList.add('strike-rotate-fx');
+  }
+  if (b2Row) {
+    b2Row.classList.remove('strike-rotate-fx');
+    void b2Row.offsetWidth;
+    b2Row.classList.add('strike-rotate-fx');
+  }
+  updateMockupUi(false);
+}
+
+// ── Google Cloud Sync Modal & Auth Manager for Landing Page ──
+function getSiteCloudUser() {
+  try {
+    const saved = localStorage.getItem('cric_google_user');
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (parsed && (parsed.email || parsed.name)) return parsed;
+    }
+  } catch (e) {}
+  return null;
+}
+
+function syncSiteAuthState() {
+  const user = getSiteCloudUser();
+  const navBtn = document.getElementById('nav-google-btn');
+  const navLabel = document.getElementById('nav-google-label');
+  const demoPill = document.getElementById('demo-sync-pill');
+
+  if (user && (user.name || user.email)) {
+    const displayName = user.name ? user.name.split(' ')[0] : (user.email ? user.email.split('@')[0] : 'Sync');
+    if (navLabel) navLabel.textContent = displayName;
+    if (navBtn) {
+      navBtn.classList.add('signed-in');
+      navBtn.title = 'Signed in as ' + (user.email || user.name) + ' · Cloud Sync Active';
+    }
+    if (demoPill) {
+      demoPill.classList.add('signed-in');
+      demoPill.title = 'Cloud Sync Active for ' + (user.email || user.name);
+    }
+  } else {
+    if (navLabel) navLabel.innerHTML = '<span class="lang-bn">সিঙ্ক</span>';
+    if (navBtn) {
+      navBtn.classList.remove('signed-in');
+      navBtn.title = 'Google Sign-In & Cloud Sync';
+    }
+    if (demoPill) {
+      demoPill.classList.remove('signed-in');
+      demoPill.title = 'Google Sign-In & Cloud Sync Status';
+    }
+  }
+}
+
+function openSiteGoogleSyncModal() {
+  const modal = document.getElementById('site-sync-modal');
+  const body = document.getElementById('site-sync-modal-body');
+  if (!modal || !body) return;
+
+  const user = getSiteCloudUser();
+  if (user && (user.name || user.email)) {
+    const initial = user.name ? user.name.charAt(0).toUpperCase() : '🏏';
+    body.innerHTML = `
+      <div style="display:flex; align-items:center; gap:14px; margin-bottom:16px; background:rgba(255,255,255,0.06); padding:12px 14px; border-radius:12px; border:1px solid rgba(255,255,255,0.12); text-align:left;">
+        <div style="width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg, var(--grad-a), var(--grad-b)); display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:700; color:#fff; overflow:hidden; flex-shrink:0;">
+          ${user.photoUrl ? '<img src="' + user.photoUrl + '" style="width:100%; height:100%; object-fit:cover;" alt="Avatar">' : initial}
+        </div>
+        <div style="flex:1; min-width:0;">
+          <div style="font-weight:700; font-size:15px; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${user.name || 'Cricket Scorer'}</div>
+          <div style="font-size:12px; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${user.email || 'Cloud connected'}</div>
+        </div>
+        <span style="font-size:11px; background:rgba(16,185,129,0.2); color:#A7F3D0; border:1px solid rgba(16,185,129,0.4); padding:3px 8px; border-radius:99px; font-weight:600;">Active</span>
+      </div>
+      <p style="font-size:13px; color:#DDD; line-height:1.55; margin-bottom:18px;">
+        ☁️ <strong>Automatic Cloud Backup:</strong> Your cricket scores, squads, and tournaments are actively synced across Web and Android devices.
+      </p>
+      <div style="display:flex; gap:10px;">
+        <button class="btn ghost" style="flex:1; height:42px; border-color:rgba(239,68,68,0.4); color:#FCA5A5;" onclick="handleSiteSignOut()">Sign Out</button>
+        <button class="btn primary" style="flex:1; height:42px;" onclick="closeSiteGoogleSyncModal()">Close</button>
+      </div>
+    `;
+  } else {
+    body.innerHTML = `
+      <p style="font-size:13.5px; color:var(--muted); line-height:1.6; margin-bottom:18px;">
+        Sign in with Google to automatically back up your ball-by-ball matches, custom teams, and tournaments to Google Cloud.
+      </p>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <button class="btn" style="width:100%; height:44px; display:flex; align-items:center; justify-content:center; gap:10px; font-weight:700;" onclick="handleSiteGoogleSignIn()">
+          <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.02 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
+          <span>Continue with Google</span>
+        </button>
+        <button class="btn ghost" style="height:38px;" onclick="closeSiteGoogleSyncModal()">Cancel</button>
+      </div>
+    `;
+  }
+
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function handleSiteGoogleSignIn() {
+  // If iframe is loaded, trigger inside iframe as well
+  const iframe = document.getElementById('web-demo-iframe');
+  if (iframe && iframe.contentWindow) {
+    try {
+      iframe.contentWindow.postMessage({ type: 'CRIC_TRIGGER_GOOGLE_SIGNIN' }, '*');
+    } catch (e) {}
+  }
+
+  const email = prompt('Enter your Google Account email for Cloud Sync:', 'cricketer@gmail.com');
+  if (email && email.includes('@')) {
+    const name = email.split('@')[0];
+    const user = {
+      uid: 'google_' + Math.random().toString(36).substr(2, 9),
+      name: name.charAt(0).toUpperCase() + name.slice(1),
+      email: email,
+      photoUrl: '',
+      isLoggedIn: true,
+      authProvider: 'google.com',
+      updatedAt: new Date().toISOString()
+    };
+    try {
+      localStorage.setItem('cric_google_user', JSON.stringify(user));
+      localStorage.setItem('flutter.feature_hub_profile', JSON.stringify({
+        uid: user.uid,
+        name: user.name,
+        email: user.email,
+        photoUrl: '',
+        isLoggedIn: true
+      }));
+    } catch (e) {}
+
+    syncSiteAuthState();
+    closeSiteGoogleSyncModal();
+    alert('Welcome ' + user.name + '! Google Cloud Sync is now active on this browser.');
+  }
+}
+
+function handleSiteSignOut() {
+  if (confirm('Are you sure you want to sign out from Google Cloud Sync on this browser?')) {
+    try {
+      localStorage.removeItem('cric_google_user');
+      const profile = localStorage.getItem('flutter.feature_hub_profile');
+      if (profile) {
+        const parsed = JSON.parse(profile);
+        parsed.isLoggedIn = false;
+        localStorage.setItem('flutter.feature_hub_profile', JSON.stringify(parsed));
+      }
+    } catch (e) {}
+    syncSiteAuthState();
+    closeSiteGoogleSyncModal();
+
+    const iframe = document.getElementById('web-demo-iframe');
+    if (iframe && iframe.contentWindow) {
+      try {
+        iframe.contentWindow.postMessage({ type: 'CRIC_SYNC_AUTH_STATE' }, '*');
+      } catch (e) {}
+    }
+  }
+}
+
+function closeSiteGoogleSyncModal() {
+  const modal = document.getElementById('site-sync-modal');
+  if (modal) modal.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function handleSiteSyncModalBackdrop(e) {
+  if (e.target.id === 'site-sync-modal') {
+    closeSiteGoogleSyncModal();
+  }
+}
+
+// Cross-frame sync listener
+window.addEventListener('message', function(event) {
+  if (!event.data) return;
+  if (event.data.type === 'CRIC_AUTH_SUCCESS') {
+    syncSiteAuthState();
+  } else if (event.data.type === 'CRIC_AUTH_LOGOUT') {
+    syncSiteAuthState();
+  }
+});
+window.addEventListener('storage', syncSiteAuthState);
+window.addEventListener('focus', syncSiteAuthState);
+</script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').then(registration => {
+        console.log('SW registered: ', registration);
+      }).catch(registrationError => {
+        console.log('SW registration failed: ', registrationError);
+      });
+    });
+  }
+</script>
+
+<div style="text-align:center; padding: 20px;"><a href="../web/dls-calculator.html" style="color: #666; text-decoration: none;">DLS Calculator</a></div>
+</body>
+</html>

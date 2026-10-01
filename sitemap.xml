@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://cric-scorer-pro.app/</loc>
+    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cric-scorer-pro.app/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://cric-scorer-pro.app/bn/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cric-scorer-pro.app/"/>
+  </url>
+  <url>
+    <loc>https://cric-scorer-pro.app/bn/</loc>
+    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" hreflang="en" href="https://cric-scorer-pro.app/"/>
+    <xhtml:link rel="alternate" hreflang="bn" href="https://cric-scorer-pro.app/bn/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://cric-scorer-pro.app/"/>
+  </url>
+  <url>
+    <loc>https://cric-scorer-pro.app/web/dls-calculator.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://cric-scorer-pro.app/releases.html</loc>
+    <priority>0.7</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+</urlset>
