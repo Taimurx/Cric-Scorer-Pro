@@ -53,26 +53,106 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <script src="js/cricket-engine.js"></script>
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('cps_theme') || 'sunrise';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch(e) {}
+    })();
+  </script>
+  <script src="js/ThemeManager.js"></script>
   <style>
-    :root {
-      --bg: #120F1F;
-      --card-bg: #1A1430;
-      --card-border: rgba(255, 255, 255, 0.12);
+    :root, [data-theme="sunrise"] {
+      --bg: #1F1424;
+      --body-grad: radial-gradient(circle at top center, #3A203F 0%, #1F1424 100%);
+      --card-bg: #2B1832;
+      --card-border: rgba(224, 86, 123, 0.25);
       --accent-a: #FF9A76;
       --accent-b: #E0567B;
       --accent-glow: rgba(224, 86, 123, 0.35);
       --cyan: #38BDF8;
       --emerald: #10B981;
       --gold: #F59E0B;
-      --text: #F8FAFC;
-      --text-muted: #A59EBA;
+      --text: #FFF5F7;
+      --text-muted: #D5BCC3;
       --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    [data-theme="ocean"] {
+      --bg: #0C192E;
+      --body-grad: radial-gradient(circle at top center, #1E3A8A 0%, #0C192E 100%);
+      --card-bg: #132747;
+      --card-border: rgba(56, 189, 248, 0.25);
+      --accent-a: #38BDF8;
+      --accent-b: #2563EB;
+      --accent-glow: rgba(37, 99, 235, 0.35);
+      --cyan: #38BDF8;
+      --emerald: #10B981;
+      --gold: #F59E0B;
+      --text: #F8FAFC;
+      --text-muted: #93C5FD;
+    }
+    [data-theme="midnight"] {
+      --bg: #0B0F19;
+      --body-grad: radial-gradient(circle at top center, #1E293B 0%, #0B0F19 100%);
+      --card-bg: #162033;
+      --card-border: rgba(16, 185, 129, 0.25);
+      --accent-a: #34D399;
+      --accent-b: #059669;
+      --accent-glow: rgba(16, 185, 129, 0.35);
+      --cyan: #38BDF8;
+      --emerald: #10B981;
+      --gold: #F59E0B;
+      --text: #F1F5F9;
+      --text-muted: #94A3B8;
+    }
+    [data-theme="stadium"] {
+      --bg: #081C15;
+      --body-grad: radial-gradient(circle at top center, #1B4332 0%, #081C15 100%);
+      --card-bg: #113324;
+      --card-border: rgba(16, 185, 129, 0.25);
+      --accent-a: #10B981;
+      --accent-b: #F59E0B;
+      --accent-glow: rgba(16, 185, 129, 0.35);
+      --cyan: #38BDF8;
+      --emerald: #10B981;
+      --gold: #F59E0B;
+      --text: #F0FDF4;
+      --text-muted: #86EFAC;
+    }
+    [data-theme="sunlight"] {
+      --bg: #FFFFFF;
+      --body-grad: #FFFFFF;
+      --card-bg: #F8FAFC;
+      --card-border: #111111;
+      --accent-a: #F59E0B;
+      --accent-b: #B45309;
+      --accent-glow: rgba(217, 119, 6, 0.35);
+      --cyan: #0284C7;
+      --emerald: #059669;
+      --gold: #D97706;
+      --text: #000000;
+      --text-muted: #1F2937;
+    }
+    [data-theme="royal"] {
+      --bg: #120F1F;
+      --body-grad: radial-gradient(circle at top center, #241A44 0%, #120F1F 100%);
+      --card-bg: #1A1430;
+      --card-border: rgba(139, 92, 246, 0.25);
+      --accent-a: #8B5CF6;
+      --accent-b: #EC4899;
+      --accent-glow: rgba(236, 72, 153, 0.35);
+      --cyan: #38BDF8;
+      --emerald: #10B981;
+      --gold: #F59E0B;
+      --text: #FAF5FF;
+      --text-muted: #C4B5FD;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
     
     body {
-      background: radial-gradient(circle at top center, #241A44 0%, #120F1F 100%);
+      background: var(--body-grad, radial-gradient(circle at top center, #241A44 0%, #120F1F 100%));
       color: var(--text);
       font-family: var(--font-main);
       min-height: 100vh;
@@ -352,12 +432,102 @@
     tbody tr:hover {
       background: rgba(255, 255, 255, 0.04);
     }
+
+    /* Top Navigation Bar with Theme Switcher */
+    .top-nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+    .top-nav-bar .back-nav {
+      margin-bottom: 0;
+    }
+    .theme-dropdown-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+    }
+    .theme-picker-toggle {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--card-border);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: inherit;
+    }
+    .theme-picker-toggle:hover {
+      background: rgba(255, 255, 255, 0.18);
+    }
+    #theme-menu {
+      display: none;
+      position: absolute;
+      top: calc(100% + 6px);
+      right: 0;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 6px;
+      min-width: 165px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      z-index: 9999;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .theme-menu-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      padding: 7px 10px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+      transition: background 0.15s ease;
+    }
+    .theme-menu-item:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .theme-menu-item.active {
+      background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+      color: #fff;
+    }
   </style>
 </head>
 <body>
 
   <div class="container">
-    <a href="./" class="back-nav">&larr; Back to App</a>
+    <div class="top-nav-bar">
+      <a href="./" class="back-nav">&larr; Back to App</a>
+      <div class="theme-dropdown-wrap">
+        <button class="theme-picker-toggle" id="theme-btn" onclick="toggleThemeMenu(event)" title="Choose Theme (6 Themes)">
+          <span id="theme-icon">🎨</span>
+          <span id="theme-name">Theme</span>
+          <span style="font-size:10px; opacity:0.7;">▼</span>
+        </button>
+        <div id="theme-menu">
+          <button class="theme-menu-item" data-theme="sunrise" onclick="selectTheme('sunrise')"><span>🌅</span> Sunrise</button>
+          <button class="theme-menu-item" data-theme="ocean" onclick="selectTheme('ocean')"><span>🌊</span> Ocean</button>
+          <button class="theme-menu-item" data-theme="midnight" onclick="selectTheme('midnight')"><span>🌙</span> Midnight</button>
+          <button class="theme-menu-item" data-theme="stadium" onclick="selectTheme('stadium')"><span>🌿</span> Stadium</button>
+          <button class="theme-menu-item" data-theme="sunlight" onclick="selectTheme('sunlight')"><span>☀️</span> Sunlight</button>
+          <button class="theme-menu-item" data-theme="royal" onclick="selectTheme('royal')"><span>👑</span> Royal</button>
+        </div>
+      </div>
+    </div>
 
     <header>
       <h1>🌧️ DLS Target &amp; Par Score Calculator</h1>
@@ -549,6 +719,62 @@
         alert('Par sheet copied to clipboard!');
       });
     }
+
+    // Unified Theme Switcher Handlers
+    function toggleThemeMenu(e) {
+      if (e) e.stopPropagation();
+      var m = document.getElementById('theme-menu');
+      if (m) m.style.display = (m.style.display === 'flex' ? 'none' : 'flex');
+    }
+
+    function selectTheme(themeId) {
+      if (window.CpsThemeManager) {
+        window.CpsThemeManager.setTheme(themeId, 'dls');
+      }
+      updateThemeUi(themeId);
+      var m = document.getElementById('theme-menu');
+      if (m) m.style.display = 'none';
+    }
+
+    function updateThemeUi(themeId) {
+      var activeTheme = (window.CpsThemeManager && window.CpsThemeManager.themes)
+        ? window.CpsThemeManager.themes.find(function(t) { return t.id === themeId; })
+        : null;
+      if (activeTheme) {
+        var icon = document.getElementById('theme-icon');
+        var name = document.getElementById('theme-name');
+        if (icon) icon.textContent = activeTheme.icon;
+        if (name) name.textContent = activeTheme.nameEn;
+      }
+      var items = document.querySelectorAll('.theme-menu-item');
+      items.forEach(function(el) {
+        if (el.getAttribute('data-theme') === themeId) {
+          el.classList.add('active');
+        } else {
+          el.classList.remove('active');
+        }
+      });
+    }
+
+    document.addEventListener('click', function(e) {
+      var m = document.getElementById('theme-menu');
+      var btn = document.getElementById('theme-btn');
+      if (m && (!btn || !btn.contains(e.target))) {
+        m.style.display = 'none';
+      }
+    });
+
+    window.addEventListener('cps-theme-changed', function(e) {
+      if (e.detail && e.detail.theme) {
+        updateThemeUi(e.detail.theme);
+      }
+    });
+
+    // Sync theme UI on startup
+    (function syncInitialTheme() {
+      var cur = (window.CpsThemeManager && window.CpsThemeManager.getTheme()) || localStorage.getItem('cps_theme') || 'sunrise';
+      updateThemeUi(cur);
+    })();
 
     // Initial calculation
     recalculate();

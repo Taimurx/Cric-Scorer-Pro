@@ -80,6 +80,15 @@
   <meta name="google-signin-client_id" content="889324711628-h52akp3rti8rffg4r1mhre14ahmgubq7.apps.googleusercontent.com">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="js/cricket-engine.js"></script>
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('cps_theme') || 'sunrise';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch(e) {}
+    })();
+  </script>
+  <script src="js/ThemeManager.js"></script>
 
   <!-- Google Fonts: Outfit -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -87,16 +96,98 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-    :root {
-      --bar-bg: rgba(26, 20, 52, 0.92);
-      --bar-border: rgba(255, 255, 255, 0.14);
+    :root, [data-theme="sunrise"] {
+      --web-bg: #1F1424;
+      --bar-bg: rgba(55, 29, 43, 0.94);
+      --bar-border: rgba(224, 86, 123, 0.25);
       --accent-a: #FF9A76;
       --accent-b: #E0567B;
       --accent-glow: rgba(224, 86, 123, 0.35);
       --text: #FFFFFF;
-      --text-muted: #B8AEC5;
+      --text-muted: #FDE8E9;
       --success: #10B981;
       --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    [data-theme="ocean"] {
+      --web-bg: #0C192E;
+      --bar-bg: rgba(15, 23, 42, 0.94);
+      --bar-border: rgba(56, 189, 248, 0.25);
+      --accent-a: #38BDF8;
+      --accent-b: #2563EB;
+      --accent-glow: rgba(37, 99, 235, 0.35);
+      --text: #FFFFFF;
+      --text-muted: #BAE6FD;
+      --success: #10B981;
+    }
+    [data-theme="midnight"] {
+      --web-bg: #0B0F19;
+      --bar-bg: rgba(17, 24, 39, 0.94);
+      --bar-border: rgba(16, 185, 129, 0.25);
+      --accent-a: #34D399;
+      --accent-b: #059669;
+      --accent-glow: rgba(16, 185, 129, 0.35);
+      --text: #FFFFFF;
+      --text-muted: #94A3B8;
+      --success: #10B981;
+    }
+    [data-theme="stadium"] {
+      --web-bg: #081C15;
+      --bar-bg: rgba(8, 28, 21, 0.94);
+      --bar-border: rgba(16, 185, 129, 0.3);
+      --accent-a: #10B981;
+      --accent-b: #F59E0B;
+      --accent-glow: rgba(16, 185, 129, 0.35);
+      --text: #FFFFFF;
+      --text-muted: #86EFAC;
+      --success: #10B981;
+    }
+    [data-theme="sunlight"] {
+      --web-bg: #1A1408;
+      --bar-bg: rgba(217, 119, 6, 0.95);
+      --bar-border: rgba(254, 243, 199, 0.35);
+      --accent-a: #F59E0B;
+      --accent-b: #B45309;
+      --accent-glow: rgba(217, 119, 6, 0.35);
+      --text: #FFFFFF;
+      --text-muted: #FEF3C7;
+      --success: #10B981;
+    }
+    [data-theme="royal"] {
+      --web-bg: #120F1F;
+      --bar-bg: rgba(26, 20, 52, 0.94);
+      --bar-border: rgba(139, 92, 246, 0.3);
+      --accent-a: #8B5CF6;
+      --accent-b: #EC4899;
+      --accent-glow: rgba(236, 72, 153, 0.35);
+      --text: #FFFFFF;
+      --text-muted: #C4B5FD;
+      --success: #10B981;
+    }
+
+    /* Dock Theme Menu Items */
+    .dock-theme-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+      transition: background 0.15s ease;
+    }
+    .dock-theme-item:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+    .dock-theme-item.active {
+      background: linear-gradient(135deg, var(--accent-a), var(--accent-b));
+      color: #fff;
     }
 
     * {
@@ -111,11 +202,12 @@
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background: #120F1F;
+      background: var(--web-bg, #120F1F);
       color: var(--text);
       font-family: var(--font-main);
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      transition: background 0.3s ease;
     }
 
     /* Sunlight High-Contrast Mode */
@@ -155,15 +247,15 @@
       border: 0;
       background: transparent;
       box-shadow: none;
-      opacity: 0;
-      pointer-events: none;
-      transform: translateY(-10px) scale(0.95);
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
     }
     #web-dock.minimized .dock-content {
       display: none;
     }
     #web-dock.minimized .dock-trigger-btn {
-      display: none;
+      display: flex;
     }
 
     .dock-content {
@@ -520,8 +612,12 @@
         gap: 5px;
         background: rgba(26, 20, 52, 0.96);
       }
-      .capsule-btn span {
+      .capsule-btn:not(.icon-only) span {
         display: none !important; /* Icon-only on mobile eliminates all text overflow and overlap */
+      }
+      .capsule-btn.icon-only span,
+      .dock-theme-item span {
+        display: inline-block !important;
       }
       .capsule-btn {
         width: 34px;
@@ -535,7 +631,7 @@
 <body>
 
   <!-- Floating Non-Obtrusive Web Dock (Positioned at Top-Right Corner) -->
-  <div id="web-dock" class="minimized">
+  <div id="web-dock">
     <div class="dock-content">
       <a class="capsule-btn" href="../index.html" title="Back to Website">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m15 18-6-6 6-6"/></svg>
@@ -560,6 +656,11 @@
         <span id="google-user-label">Google Sync</span>
       </button>
 
+      <!-- Standalone Match Desk Scorer -->
+      <a class="capsule-btn" href="web-scorer.html" title="HTML Match Desk & Keypad Scorer" aria-label="Match Desk">
+        <span>🏏 Match Desk</span>
+      </a>
+
       <!-- DLS Rain Target Calculator -->
       <a class="capsule-btn" href="dls-calculator.html" title="DLS Rain Target Calculator" aria-label="DLS Calculator">
         <span>🌧️ DLS</span>
@@ -579,6 +680,21 @@
       <button class="capsule-btn icon-only" id="sunlight-toggle-btn" onclick="toggleSunlightMode()" title="Outdoor Sunlight Mode" aria-label="Toggle Sunlight Mode">
         <span>☀️</span>
       </button>
+
+      <!-- Theme Switcher in Dock -->
+      <div class="dock-theme-container" style="position:relative; display:inline-flex;">
+        <button class="capsule-btn icon-only" id="dock-theme-btn" onclick="toggleDockThemeMenu(event)" title="Choose Theme (6 Themes)" aria-label="Theme Selector">
+          <span id="dock-theme-icon">🎨</span>
+        </button>
+        <div id="dock-theme-menu" style="display:none; position:absolute; top:calc(100% + 8px); right:0; background:var(--bar-bg); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border:1px solid var(--bar-border); border-radius:12px; padding:6px; min-width:145px; box-shadow:0 8px 24px rgba(0,0,0,0.5); z-index:9999; flex-direction:column; gap:4px;">
+          <button class="dock-theme-item active" data-theme="sunrise" onclick="selectDockTheme('sunrise')"><span>🌅</span> Sunrise</button>
+          <button class="dock-theme-item" data-theme="ocean" onclick="selectDockTheme('ocean')"><span>🌊</span> Ocean</button>
+          <button class="dock-theme-item" data-theme="midnight" onclick="selectDockTheme('midnight')"><span>🌙</span> Midnight</button>
+          <button class="dock-theme-item" data-theme="stadium" onclick="selectDockTheme('stadium')"><span>🌿</span> Stadium</button>
+          <button class="dock-theme-item" data-theme="sunlight" onclick="selectDockTheme('sunlight')"><span>☀️</span> Sunlight</button>
+          <button class="dock-theme-item" data-theme="royal" onclick="selectDockTheme('royal')"><span>👑</span> Royal</button>
+        </div>
+      </div>
 
       <!-- Fullscreen Toggle -->
       <button class="capsule-btn icon-only" id="fs-btn" title="Fullscreen (F)">
@@ -1242,6 +1358,27 @@
         lastKnownUserEmail = null;
       }
     }
+
+    // Unified Dock Theme Controls
+    function toggleDockThemeMenu(e) {
+      if (e) e.stopPropagation();
+      var m = document.getElementById('dock-theme-menu');
+      if (m) m.style.display = (m.style.display === 'flex' ? 'none' : 'flex');
+    }
+    function selectDockTheme(themeId) {
+      if (window.CpsThemeManager) {
+        window.CpsThemeManager.setTheme(themeId, 'dock');
+      }
+      var m = document.getElementById('dock-theme-menu');
+      if (m) m.style.display = 'none';
+    }
+    document.addEventListener('click', function(e) {
+      var m = document.getElementById('dock-theme-menu');
+      var btn = document.getElementById('dock-theme-btn');
+      if (m && (!btn || !btn.contains(e.target))) {
+        m.style.display = 'none';
+      }
+    });
 
     // Sound & Audio Commentary Control
     function toggleAudioState() {

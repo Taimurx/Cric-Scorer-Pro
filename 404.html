@@ -9,16 +9,78 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@500;700&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('cps_theme') || 'sunrise';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch(e) {}
+    })();
+  </script>
+  <script src="/core/ThemeManager.js"></script>
+
   <style>
-    :root {
+    :root, [data-theme="sunrise"] {
       --accent: #E0567B;
       --accent-grad: linear-gradient(135deg, #FF9A76, #E0567B);
       --bg: #FFF8F3;
+      --surface: #FFFFFF;
+      --divider: #F0D7CB;
       --navy: #1E1744;
       --text: #371D2B;
       --muted: #5C4350;
       --radius: 16px;
       --radius-pill: 9999px;
+    }
+    [data-theme="ocean"] {
+      --accent: #0284C7;
+      --accent-grad: linear-gradient(135deg, #38BDF8, #2563EB);
+      --bg: #F0F7FF;
+      --surface: #FFFFFF;
+      --divider: #BAE6FD;
+      --navy: #0F172A;
+      --text: #0F172A;
+      --muted: #475569;
+    }
+    [data-theme="midnight"] {
+      --accent: #10B981;
+      --accent-grad: linear-gradient(135deg, #34D399, #059669);
+      --bg: #0B0F19;
+      --surface: #1E293B;
+      --divider: #334155;
+      --navy: #020617;
+      --text: #F1F5F9;
+      --muted: #94A3B8;
+    }
+    [data-theme="stadium"] {
+      --accent: #10B981;
+      --accent-grad: linear-gradient(135deg, #10B981, #F59E0B);
+      --bg: #081C15;
+      --surface: #1B4332;
+      --divider: #2D6A4F;
+      --navy: #051B11;
+      --text: #F0FDF4;
+      --muted: #86EFAC;
+    }
+    [data-theme="sunlight"] {
+      --accent: #D97706;
+      --accent-grad: linear-gradient(135deg, #F59E0B, #B45309);
+      --bg: #FFFFFF;
+      --surface: #FFFFFF;
+      --divider: #CBD5E1;
+      --navy: #111827;
+      --text: #000000;
+      --muted: #1F2937;
+    }
+    [data-theme="royal"] {
+      --accent: #8B5CF6;
+      --accent-grad: linear-gradient(135deg, #8B5CF6, #EC4899);
+      --bg: #120F1F;
+      --surface: #241D42;
+      --divider: #3B2D6B;
+      --navy: #0A0812;
+      --text: #FAF5FF;
+      --muted: #C4B5FD;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -32,15 +94,16 @@
       min-height: 100vh;
       padding: 24px;
       text-align: center;
+      transition: background 0.3s ease, color 0.3s ease;
     }
     .card {
-      background: #FFFFFF;
+      background: var(--surface);
       max-width: 520px;
       width: 100%;
       padding: 44px 32px;
       border-radius: var(--radius);
-      box-shadow: 0 16px 40px rgba(224, 86, 123, 0.12);
-      border: 1px solid #F0D7CB;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+      border: 1px solid var(--divider);
     }
     .cricket-icon {
       font-size: 56px;

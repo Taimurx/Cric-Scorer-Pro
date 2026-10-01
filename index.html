@@ -178,6 +178,15 @@
 </script>
 
 <link rel="stylesheet" href="css/style.css">
+<script>
+  (function() {
+    try {
+      var t = localStorage.getItem('cps_theme') || 'sunrise';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch(e) {}
+  })();
+</script>
+<script src="core/ThemeManager.js"></script>
 </head>
 <body class="en">
 
@@ -215,6 +224,22 @@
         <a href="/bn/" id="btn-bn" style="text-decoration:none; padding:4px 8px; color:inherit;">বাং</a>
       </div>
 
+      <!-- Theme Selector Dropdown -->
+      <div class="theme-picker-container" id="nav-theme-picker">
+        <button class="theme-picker-trigger" type="button" onclick="toggleNavThemeMenu(event)" aria-label="Select Theme" title="Choose Theme">
+          <span class="theme-icon" id="nav-theme-current-icon">🌅</span>
+          <span class="theme-arrow">▼</span>
+        </button>
+        <div class="theme-picker-menu" id="nav-theme-menu">
+          <button class="theme-picker-item active" data-theme="sunrise" onclick="selectAppTheme('sunrise')"><span class="item-icon">🌅</span> Sunrise</button>
+          <button class="theme-picker-item" data-theme="ocean" onclick="selectAppTheme('ocean')"><span class="item-icon">🌊</span> Ocean</button>
+          <button class="theme-picker-item" data-theme="midnight" onclick="selectAppTheme('midnight')"><span class="item-icon">🌙</span> Midnight</button>
+          <button class="theme-picker-item" data-theme="stadium" onclick="selectAppTheme('stadium')"><span class="item-icon">🌿</span> Stadium Green</button>
+          <button class="theme-picker-item" data-theme="sunlight" onclick="selectAppTheme('sunlight')"><span class="item-icon">☀️</span> Sunlight</button>
+          <button class="theme-picker-item" data-theme="royal" onclick="selectAppTheme('royal')"><span class="item-icon">👑</span> Royal Violet</button>
+        </div>
+      </div>
+
       <button class="web-nav-google-btn" id="nav-google-btn" onclick="openSiteGoogleSyncModal()" title="Google Sign-In & Cloud Sync">
         <svg width="14" height="14" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.02 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
         <span id="nav-google-label"><span class="lang-en">Sync</span></span>
@@ -235,6 +260,17 @@
 
   <!-- Mobile Drawer -->
   <div class="mobile-drawer" id="mobile-drawer">
+    <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 0; border-bottom:1px solid var(--divider);">
+      <span style="font-weight:700; color:var(--text); font-size:0.95rem;">🎨 <span class="lang-en">Themes</span></span>
+      <div style="display:flex; gap:4px; flex-wrap:wrap;">
+        <button class="mockup-theme-btn" style="padding:4px 8px; font-size:12px;" data-theme-id="sunrise" onclick="selectAppTheme('sunrise')">🌅</button>
+        <button class="mockup-theme-btn" style="padding:4px 8px; font-size:12px;" data-theme-id="ocean" onclick="selectAppTheme('ocean')">🌊</button>
+        <button class="mockup-theme-btn" style="padding:4px 8px; font-size:12px;" data-theme-id="midnight" onclick="selectAppTheme('midnight')">🌙</button>
+        <button class="mockup-theme-btn" style="padding:4px 8px; font-size:12px;" data-theme-id="stadium" onclick="selectAppTheme('stadium')">🌿</button>
+        <button class="mockup-theme-btn" style="padding:4px 8px; font-size:12px;" data-theme-id="sunlight" onclick="selectAppTheme('sunlight')">☀️</button>
+        <button class="mockup-theme-btn" style="padding:4px 8px; font-size:12px;" data-theme-id="royal" onclick="selectAppTheme('royal')">👑</button>
+      </div>
+    </div>
     <button class="btn ghost" style="width:100%; margin-bottom:12px; display:flex; align-items:center; justify-content:center; gap:8px;" onclick="closeMobileMenu(); openSiteGoogleSyncModal();">
       <svg width="15" height="15" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.52-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-9.17z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.12 0-5.77-2.1-6.72-4.93H1.25v3.15C3.26 21.36 7.33 24 12 24z"/><path fill="#FBBC05" d="M5.28 14.27c-.25-.72-.38-1.49-.38-2.27s.13-1.55.38-2.27V6.58H1.25C.45 8.18 0 10.02 0 12s.45 3.82 1.25 5.42l4.03-3.15z"/><path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.33 0 3.26 2.64 1.25 6.58l4.03 3.15c.95-2.83 3.6-4.98 6.72-4.98z"/></svg>
       <span class="lang-en">Google Sign-In &amp; Sync</span>
@@ -410,16 +446,25 @@
         </div>
       </div>
 
-      <!-- Live Theme Switcher for Mockup -->
+      <!-- Live Theme Switcher for Mockup & Full Site -->
       <div class="mockup-theme-bar">
-        <button class="mockup-theme-btn active" onclick="setMockupTheme('theme-sunrise', this)">
+        <button class="mockup-theme-btn active" data-theme-id="sunrise" onclick="setMockupTheme('theme-sunrise', this)" title="Sunrise Theme">
           <span>🌅</span> <span class="lang-en">Sunrise</span>
         </button>
-        <button class="mockup-theme-btn" onclick="setMockupTheme('theme-ocean', this)">
+        <button class="mockup-theme-btn" data-theme-id="ocean" onclick="setMockupTheme('theme-ocean', this)" title="Ocean Theme">
           <span>🌊</span> <span class="lang-en">Ocean</span>
         </button>
-        <button class="mockup-theme-btn" onclick="setMockupTheme('theme-midnight', this)">
+        <button class="mockup-theme-btn" data-theme-id="midnight" onclick="setMockupTheme('theme-midnight', this)" title="Midnight Theme">
           <span>🌙</span> <span class="lang-en">Midnight</span>
+        </button>
+        <button class="mockup-theme-btn" data-theme-id="stadium" onclick="setMockupTheme('theme-stadium', this)" title="Stadium Green Theme">
+          <span>🌿</span> <span class="lang-en">Stadium</span>
+        </button>
+        <button class="mockup-theme-btn" data-theme-id="sunlight" onclick="setMockupTheme('theme-sunlight', this)" title="Sunlight Contrast Theme">
+          <span>☀️</span> <span class="lang-en">Sunlight</span>
+        </button>
+        <button class="mockup-theme-btn" data-theme-id="royal" onclick="setMockupTheme('theme-royal', this)" title="Royal Violet Theme">
+          <span>👑</span> <span class="lang-en">Royal</span>
         </button>
       </div>
     </div>
@@ -510,8 +555,8 @@
         <div class="ic-box">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></svg>
         </div>
-        <h3><span class="lang-en">3 Beautiful Themes</span></h3>
-        <p><span class="lang-en">Sunrise, Ocean, and Midnight — tailored with light &amp; dark contrast modes and 120Hz high-refresh display support.</span></p>
+        <h3><span class="lang-en">6 Pro Themes &amp; Dark Modes</span></h3>
+        <p><span class="lang-en">Sunrise, Ocean, Midnight, Stadium Green, Sunlight Contrast, and Royal Violet — tailored with full cross-site sync and 120Hz display support.</span></p>
       </div>
     </div>
   </div>
@@ -757,13 +802,13 @@
       <!-- Frame Body with Canvas / Iframe -->
       <div class="demo-screen-stage" id="demo-stage">
         <div class="demo-frame-container phone-view" id="demo-frame-wrap">
-          <div class="mock-scoreboard" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; background: #120F1F; color: white; padding: 20px; text-align: center; border-radius: inherit;">
+          <div class="mock-scoreboard" style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; width: 100%; background: var(--bg, #120F1F); color: var(--text, white); padding: 20px; text-align: center; border-radius: inherit; transition: background 0.3s ease;">
               <img src="icon.png" alt="Logo" style="width: 64px; height: 64px; margin-bottom: 24px; border-radius: 12px; opacity: 0.9;">
               <h3 style="margin-bottom: 8px; font-size: 1.5rem; font-weight: 700;">Live Match</h3>
-              <div style="font-size: 2.5rem; font-weight: 800; color: #E0567B; margin-bottom: 4px; letter-spacing: -1px;">145<span style="color: #fff;">/2</span></div>
-              <div style="font-size: 1.1rem; color: #9CA3AF; margin-bottom: 32px;">Overs: 18.4 &nbsp;&middot;&nbsp; CRR: 7.8</div>
-              <a href="./web/" target="_blank" style="background: #E0567B; color: white; text-decoration: none; padding: 12px 24px; border-radius: 30px; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 14px rgba(224, 86, 123, 0.4); transition: transform 0.2s;">Open Full App</a>
-              <p style="margin-top: 16px; font-size: 0.85rem; color: #6B7280;">Experience full ball-by-ball scoring</p>
+              <div style="font-size: 2.5rem; font-weight: 800; color: var(--accent, #E0567B); margin-bottom: 4px; letter-spacing: -1px; transition: color 0.3s ease;">145<span style="color: var(--text, #fff);">/2</span></div>
+              <div style="font-size: 1.1rem; color: var(--text, #9CA3AF); margin-bottom: 32px; opacity: 0.8;">Overs: 18.4 &nbsp;&middot;&nbsp; CRR: 7.8</div>
+              <a href="./web/" target="_blank" style="background: var(--primary, linear-gradient(135deg, #FF9A76, #E0567B)); color: #fff; text-decoration: none; padding: 12px 24px; border-radius: 30px; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 14px var(--border-color, rgba(224, 86, 123, 0.4)); transition: all 0.2s;">Open Full App</a>
+              <p style="margin-top: 16px; font-size: 0.85rem; color: #9CA3AF;">Experience full ball-by-ball scoring</p>
             </div>
         </div>
       </div>
@@ -1100,17 +1145,43 @@ function closeMobileMenu() {
   btn.classList.remove('open');
 }
 
-// Phone Theme Previewer
+// Phone Theme & Global Unified Theme Controller
 function setMockupTheme(themeClass, btnElement) {
-  var phone = document.getElementById('hero-phone');
-  phone.className = 'phone ' + themeClass;
-  
-  var buttons = document.querySelectorAll('.mockup-theme-btn');
-  buttons.forEach(function(btn) { btn.classList.remove('active'); });
-  if (btnElement) {
-    btnElement.classList.add('active');
+  var themeId = themeClass.replace(/^theme-/, '');
+  if (window.CpsThemeManager) {
+    window.CpsThemeManager.setTheme(themeId, 'mockup');
+  } else {
+    var phone = document.getElementById('hero-phone');
+    if (phone) phone.className = 'phone ' + themeClass;
+    document.documentElement.setAttribute('data-theme', themeId);
+    var buttons = document.querySelectorAll('.mockup-theme-btn');
+    buttons.forEach(function(btn) { btn.classList.remove('active'); });
+    if (btnElement) btnElement.classList.add('active');
   }
 }
+
+function toggleNavThemeMenu(e) {
+  if (e) e.stopPropagation();
+  var p = document.getElementById('nav-theme-picker');
+  if (p) p.classList.toggle('open');
+}
+
+function selectAppTheme(themeId) {
+  if (window.CpsThemeManager) {
+    window.CpsThemeManager.setTheme(themeId, 'nav');
+  } else {
+    setMockupTheme('theme-' + themeId);
+  }
+  var p = document.getElementById('nav-theme-picker');
+  if (p) p.classList.remove('open');
+}
+
+document.addEventListener('click', function(e) {
+  var p = document.getElementById('nav-theme-picker');
+  if (p && !p.contains(e.target)) {
+    p.classList.remove('open');
+  }
+});
 
 // Screen Tab Switching in "Inside the App"
 function switchScreenTab(type, btnElement) {
@@ -1523,6 +1594,27 @@ window.addEventListener('message', function(event) {
 });
 window.addEventListener('storage', syncSiteAuthState);
 window.addEventListener('focus', syncSiteAuthState);
+window.addEventListener('cps-theme-changed', function(e) {
+  if (!e.detail || !e.detail.theme) return;
+  var themeId = e.detail.theme;
+  var themeClass = 'theme-' + themeId;
+  var phones = document.querySelectorAll('.phone');
+  phones.forEach(function(phone) {
+    phone.className = 'phone ' + themeClass;
+  });
+  
+  var buttons = document.querySelectorAll('.mockup-theme-btn');
+  buttons.forEach(function(btn) { btn.classList.remove('active'); });
+  var activeBtn = document.querySelector('.mockup-theme-btn[data-theme-id="' + themeId + '"]');
+  if (activeBtn) activeBtn.classList.add('active');
+
+  var iframe = document.getElementById('web-demo-iframe');
+  if (iframe && iframe.contentWindow) {
+    try {
+      iframe.contentWindow.location.reload();
+    } catch(err) {}
+  }
+});
 </script>
 
 <script>

@@ -26,17 +26,78 @@
 <meta name="twitter:description" content="Download Cric Scorer Pro APKs securely.">
 <meta name="twitter:image" content="https://cric-scorer-pro.app/icon.png">
 
+<script>
+  (function() {
+    try {
+      var t = localStorage.getItem('cps_theme') || 'sunrise';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch(e) {}
+  })();
+</script>
+<script src="core/ThemeManager.js"></script>
+
 <style>
-  :root {
-    --bg: #F9FAFB;
+  :root, [data-theme="sunrise"] {
+    --bg: #FFF8F3;
     --surface: #FFFFFF;
-    --text: #1F2937;
-    --text-muted: #4B5563;
+    --card-bg: #FFFFFF;
+    --text: #371D2B;
+    --text-muted: #5C4350;
     --primary: #E0567B;
     --primary-dark: #C0395D;
-    --divider: #E5E7EB;
+    --divider: #F0D7CB;
     --radius: 12px;
     --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+  [data-theme="ocean"] {
+    --bg: #F0F7FF;
+    --surface: #FFFFFF;
+    --card-bg: #FFFFFF;
+    --text: #0F172A;
+    --text-muted: #475569;
+    --primary: #0284C7;
+    --primary-dark: #0369A1;
+    --divider: #BAE6FD;
+  }
+  [data-theme="midnight"] {
+    --bg: #0B0F19;
+    --surface: #1E293B;
+    --card-bg: #161F30;
+    --text: #F1F5F9;
+    --text-muted: #94A3B8;
+    --primary: #10B981;
+    --primary-dark: #059669;
+    --divider: #334155;
+  }
+  [data-theme="stadium"] {
+    --bg: #081C15;
+    --surface: #1B4332;
+    --card-bg: #143728;
+    --text: #F0FDF4;
+    --text-muted: #86EFAC;
+    --primary: #10B981;
+    --primary-dark: #047857;
+    --divider: #2D6A4F;
+  }
+  [data-theme="sunlight"] {
+    --bg: #FFFFFF;
+    --surface: #FFFFFF;
+    --card-bg: #F8FAFC;
+    --text: #000000;
+    --text-muted: #1F2937;
+    --primary: #D97706;
+    --primary-dark: #B45309;
+    --divider: #CBD5E1;
+  }
+  [data-theme="royal"] {
+    --bg: #120F1F;
+    --surface: #241D42;
+    --card-bg: #1D1735;
+    --text: #FAF5FF;
+    --text-muted: #C4B5FD;
+    --primary: #8B5CF6;
+    --primary-dark: #7C3AED;
+    --divider: #3B2D6B;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
@@ -44,6 +105,7 @@
     background-color: var(--bg);
     color: var(--text);
     line-height: 1.6;
+    transition: background 0.3s ease, color 0.3s ease;
   }
   .container {
     max-width: 800px;
@@ -52,13 +114,14 @@
     padding: 40px 48px;
     border-radius: var(--radius);
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid var(--divider);
   }
   @media (max-width: 768px) {
     .container { margin: 16px; padding: 24px; }
   }
   header { margin-bottom: 40px; text-align: center; }
   .logo { width: 80px; height: 80px; border-radius: 20px; margin-bottom: 16px; }
-  h1 { font-size: 2rem; font-weight: 800; color: #1E1744; margin-bottom: 8px; }
+  h1 { font-size: 2rem; font-weight: 800; color: var(--text); margin-bottom: 8px; }
   .meta { color: var(--text-muted); font-size: 0.95rem; }
   
   .release-card {
@@ -66,7 +129,7 @@
     border-radius: var(--radius);
     padding: 24px;
     margin-bottom: 24px;
-    background: #FAFAFA;
+    background: var(--card-bg);
   }
   .release-header {
     display: flex;
@@ -79,7 +142,7 @@
   .release-title {
     font-size: 1.25rem;
     font-weight: 700;
-    color: #1E1744;
+    color: var(--text);
   }
   .release-badge {
     background: #E0567B;

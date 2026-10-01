@@ -53,8 +53,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
 
   <script src="js/cricket-engine.js"></script>
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('cps_theme') || 'sunrise';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch(e) {}
+    })();
+  </script>
+  <script src="js/ThemeManager.js"></script>
   <style>
-    :root {
+    :root, [data-theme="sunrise"] {
       --navy: #0D0A1A;
       --navy-card: rgba(22, 16, 40, 0.96);
       --accent-a: #FF9A76;
@@ -66,6 +75,41 @@
       --white: #FFFFFF;
       --text-muted: #B4A9C4;
       --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    [data-theme="ocean"] {
+      --navy: #0A1120;
+      --navy-card: rgba(15, 23, 42, 0.96);
+      --accent-a: #38BDF8;
+      --accent-b: #2563EB;
+      --text-muted: #93C5FD;
+    }
+    [data-theme="midnight"] {
+      --navy: #06090F;
+      --navy-card: rgba(17, 24, 39, 0.96);
+      --accent-a: #34D399;
+      --accent-b: #059669;
+      --text-muted: #94A3B8;
+    }
+    [data-theme="stadium"] {
+      --navy: #040F0B;
+      --navy-card: rgba(8, 28, 21, 0.96);
+      --accent-a: #10B981;
+      --accent-b: #F59E0B;
+      --text-muted: #86EFAC;
+    }
+    [data-theme="sunlight"] {
+      --navy: #1C1204;
+      --navy-card: rgba(26, 18, 5, 0.98);
+      --accent-a: #F59E0B;
+      --accent-b: #B45309;
+      --text-muted: #FEF3C7;
+    }
+    [data-theme="royal"] {
+      --navy: #0D0A1A;
+      --navy-card: rgba(26, 20, 52, 0.96);
+      --accent-a: #8B5CF6;
+      --accent-b: #EC4899;
+      --text-muted: #C4B5FD;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-main); }
@@ -431,6 +475,14 @@
   <!-- OBS Test & Simulation Bar -->
   <div id="test-controls">
     <span style="font-weight: 800; color: var(--accent-a);">📺 Broadcast Overlay</span>
+    <select id="overlay-theme-select" class="ctl-btn" onchange="selectOverlayTheme(this.value)" style="background:rgba(20,15,35,0.9); outline:none; cursor:pointer;" title="Choose Theme (6 Themes)">
+      <option value="sunrise">🌅 Sunrise</option>
+      <option value="ocean">🌊 Ocean</option>
+      <option value="midnight">🌙 Midnight</option>
+      <option value="stadium">🌿 Stadium</option>
+      <option value="sunlight">☀️ Sunlight</option>
+      <option value="royal">👑 Royal</option>
+    </select>
     <button class="ctl-btn" onclick="triggerEvent('FOUR!')">4 Four</button>
     <button class="ctl-btn emerald" onclick="triggerEvent('SIX!')">6 Six</button>
     <button class="ctl-btn red" onclick="triggerEvent('WICKET!')">W Wicket</button>
@@ -520,6 +572,37 @@
     function toggleControls() {
       document.getElementById('test-controls').classList.toggle('hidden');
     }
+
+    // Unified Theme Management for Broadcast Overlay
+    function selectOverlayTheme(themeId) {
+      if (window.CpsThemeManager) {
+        window.CpsThemeManager.setTheme(themeId, 'overlay');
+      }
+      const select = document.getElementById('overlay-theme-select');
+      if (select) select.value = themeId;
+    }
+
+    // Support URL param ?theme=stadium or ?theme=royal for OBS Browser Source
+    (function checkThemeUrlParam() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const urlTheme = params.get('theme');
+        if (urlTheme && ['sunrise', 'ocean', 'midnight', 'stadium', 'sunlight', 'royal'].includes(urlTheme)) {
+          selectOverlayTheme(urlTheme);
+        } else {
+          const cur = (window.CpsThemeManager && window.CpsThemeManager.getTheme()) || localStorage.getItem('cps_theme') || 'sunrise';
+          const select = document.getElementById('overlay-theme-select');
+          if (select) select.value = cur;
+        }
+      } catch (e) {}
+    })();
+
+    window.addEventListener('cps-theme-changed', (e) => {
+      if (e.detail && e.detail.theme) {
+        const select = document.getElementById('overlay-theme-select');
+        if (select) select.value = e.detail.theme;
+      }
+    });
 
     function toggleFreeHit() {
       const tag = document.getElementById('free-hit-tag');

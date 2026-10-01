@@ -6,7 +6,7 @@
   "type": "commonjs",
   "scripts": {
     "start": "npx serve -p 8080",
-    "test": "node --test test/cricket-engine.test.js test/EventSourcedEngine.test.js test/IndexedDBEventStore.test.js test/server.test.js test/MatchEngine.test.js && node test/validate-seo.js",
+    "test": "node --test test/cricket-engine.test.js test/EventSourcedEngine.test.js test/IndexedDBEventStore.test.js test/server.test.js test/MatchEngine.test.js test/ThemeManager.test.js && node test/validate-seo.js",
     "test:engine": "node --test test/cricket-engine.test.js",
     "test:seo": "node test/validate-seo.js"
   },
