@@ -1,7 +1,6 @@
 User-agent: *
 Allow: /
 Disallow: /web/web-scorer.html
-Disallow: /web/overlay.html
 Disallow: /web/flutter_service_worker.js
 
 Sitemap: https://cric-scorer-pro.app/sitemap.xml

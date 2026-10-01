@@ -123,4 +123,8 @@ class IndexedDBEventStore extends EventStore {
   }
 }
 
-module.exports = { IndexedDBEventStore };
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { IndexedDBEventStore };
+} else if (typeof window !== 'undefined') {
+  window.IndexedDBEventStore = IndexedDBEventStore;
+}

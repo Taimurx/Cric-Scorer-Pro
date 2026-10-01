@@ -1,10 +1,15 @@
-const CACHE_NAME = 'cric-scorer-pro-v2.0.12-landing';
+const CACHE_NAME = 'cric-scorer-pro-v2.0.13-landing';
 const ASSETS_TO_CACHE = [
   '/',
   '/index.html',
+  '/bn/',
+  '/bn/index.html',
   '/css/style.css',
   '/icon.png',
   '/favicon.png',
+  '/privacy.html',
+  '/terms.html',
+  '/releases.html',
   '/404.html'
 ];
 
@@ -60,7 +65,14 @@ self.addEventListener('fetch', event => {
           }
           return response;
         })
-        .catch(() => caches.match(event.request).then(cached => cached || caches.match('/index.html')))
+        .catch(async () => {
+          const cached = await caches.match(event.request);
+          if (cached) return cached;
+          if (url.pathname.startsWith('/bn')) {
+            return (await caches.match('/bn/index.html')) || (await caches.match('/index.html'));
+          }
+          return caches.match('/index.html');
+        })
     );
     return;
   }

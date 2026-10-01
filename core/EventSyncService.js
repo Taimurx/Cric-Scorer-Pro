@@ -51,4 +51,8 @@ class EventSyncService {
   }
 }
 
-module.exports = { EventSyncService };
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { EventSyncService };
+} else if (typeof window !== 'undefined') {
+  window.EventSyncService = EventSyncService;
+}

@@ -119,7 +119,9 @@ class MatchEngine {
   }
 }
 
-module.exports = {
-  EventType,
-  MatchEngine
-};
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { EventType, MatchEngine };
+} else if (typeof window !== 'undefined') {
+  window.EventType = EventType;
+  window.MatchEngine = MatchEngine;
+}

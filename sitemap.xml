@@ -22,8 +22,23 @@
     <changefreq>monthly</changefreq>
   </url>
   <url>
+    <loc>https://cric-scorer-pro.app/web/overlay.html</loc>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://cric-scorer-pro.app/releases.html</loc>
     <priority>0.7</priority>
     <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://cric-scorer-pro.app/privacy.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://cric-scorer-pro.app/terms.html</loc>
+    <priority>0.6</priority>
+    <changefreq>monthly</changefreq>
   </url>
 </urlset>

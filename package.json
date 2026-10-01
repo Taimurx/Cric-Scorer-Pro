@@ -1,0 +1,28 @@
+{
+  "name": "cric-scorer-pro",
+  "version": "2.0.12",
+  "description": "Cric Scorer Pro — Professional live cricket scoring app, digital scoring desk, and PWA",
+  "main": "web/js/cricket-engine.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "npx serve -p 8080",
+    "test": "node --test test/cricket-engine.test.js test/EventSourcedEngine.test.js test/IndexedDBEventStore.test.js test/server.test.js test/MatchEngine.test.js && node test/validate-seo.js",
+    "test:engine": "node --test test/cricket-engine.test.js",
+    "test:seo": "node test/validate-seo.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "cricket",
+    "cricket-scorer",
+    "live-scoring",
+    "pwa",
+    "android",
+    "dls-calculator",
+    "obs-overlay"
+  ],
+  "author": "Taimur ShakiB",
+  "license": "SEE LICENSE IN LICENSE",
+  "private": true
+}

@@ -2,7 +2,9 @@
   "name": "Cric Scorer Pro — Live Cricket Scoring",
   "short_name": "Cric Scorer Pro",
   "description": "Professional ball-by-ball cricket scoring app for Android and Web. Live scoreboards, PDF export, tournaments, and cloud sync.",
+  "id": "/",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#120F1F",
   "theme_color": "#E0567B",
@@ -25,6 +27,29 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Web Scorer",
+      "short_name": "Scorer",
+      "description": "Open live digital scoring keypad",
+      "url": "/web/web-scorer.html",
+      "icons": [{ "src": "/icon.png", "sizes": "512x512" }]
+    },
+    {
+      "name": "DLS Calculator",
+      "short_name": "DLS",
+      "description": "Calculate revised rain target and par score",
+      "url": "/web/dls-calculator.html",
+      "icons": [{ "src": "/icon.png", "sizes": "512x512" }]
+    },
+    {
+      "name": "Live OBS Overlay",
+      "short_name": "Overlay",
+      "description": "Broadcast live stream scoreboard graphics",
+      "url": "/web/overlay.html",
+      "icons": [{ "src": "/icon.png", "sizes": "512x512" }]
     }
   ]
 }

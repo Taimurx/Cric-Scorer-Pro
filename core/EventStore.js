@@ -32,4 +32,8 @@ class EventStore {
   }
 }
 
-module.exports = { EventStore };
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = { EventStore };
+} else if (typeof window !== 'undefined') {
+  window.EventStore = EventStore;
+}

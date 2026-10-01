@@ -27,6 +27,26 @@
       "destination": "/privacy.html"
     },
     {
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/releases",
+      "destination": "/releases.html"
+    },
+    {
+      "source": "/dls",
+      "destination": "/web/dls-calculator.html"
+    },
+    {
+      "source": "/overlay",
+      "destination": "/web/overlay.html"
+    },
+    {
+      "source": "/scorer",
+      "destination": "/web/web-scorer.html"
+    },
+    {
       "source": "/web/([^.]*)",
       "destination": "/web/index.html"
     }
