@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Cric Scorer Pro - Sunlight Keypad</title>
+  <link rel="manifest" href="../manifest.json">
   <script src="js/cricket-engine.js"></script>
   <script>
     (function() {
@@ -95,6 +96,28 @@
       align-items: center;
       font-size: 1.2rem;
       font-weight: bold;
+      flex-wrap: wrap;
+    }
+    .sync-indicator {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      margin-top: 5px;
+      width: 100%;
+      justify-content: space-between;
+      padding: 5px;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 6px;
+    }
+    .sync-btn {
+      background: var(--btn-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text);
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.8rem;
     }
     .scoreboard {
       padding: 15px;
@@ -249,6 +272,10 @@
         <button class="theme-menu-item" data-theme="royal" onclick="selectTheme('royal')"><span>👑</span> Royal</button>
       </div>
     </div>
+    <div class="sync-indicator" id="syncIndicator">
+      <span id="syncStatusText">● Online</span>
+      <button class="sync-btn" onclick="triggerManualSync()">Sync Now</button>
+    </div>
   </div>
 
   <div class="scoreboard" id="scoreboard">
@@ -312,8 +339,82 @@
     let currentlyEditingEvent = null;
     let currentlyEditingPayload = null;
 
+    // --- PWA & Sync Logic ---
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('../sw.js')
+          .then(reg => console.log('SW registered:', reg.scope))
+          .catch(err => console.error('SW registration failed:', err));
+      });
+    }
+
+    const mockApiClient = {
+      pushEvents: async (events) => {
+        // Simulate network request to backend /api/sync/match-events
+        if (!navigator.onLine) throw new Error("Offline");
+        console.log(`Pushing ${events.length} events to /api/sync/match-events...`);
+        // Fake network latency
+        await new Promise(r => setTimeout(r, 600));
+        return { syncedIds: events.map(e => e.eventId) };
+      }
+    };
+
+    const syncService = new CricketEngine.EventSyncService(store, mockApiClient);
+    syncService.onSyncComplete = (successCount, failCount) => updateSyncUI();
+
+    function updateSyncUI(forceState) {
+      const statusText = document.getElementById('syncStatusText');
+      if (!statusText) return;
+
+      if (forceState === 'offline' || !navigator.onLine) {
+        statusText.innerHTML = '● Offline - Local Save';
+        statusText.style.color = '#ff4d4d';
+        return;
+      }
+      
+      if (syncService.syncInProgress) {
+        statusText.innerHTML = '↻ Syncing...';
+        statusText.style.color = '#38BDF8';
+        return;
+      }
+
+      store.getUnsyncedEvents().then(unsynced => {
+        if (unsynced.length > 0) {
+          statusText.innerHTML = `● Pending Sync (${unsynced.length})`;
+          statusText.style.color = '#F59E0B';
+        } else {
+          statusText.innerHTML = '✓ Synced';
+          statusText.style.color = '#10B981';
+        }
+      });
+    }
+
+    window.addEventListener('online', () => {
+      updateSyncUI();
+      syncService.syncOfflineEvents();
+    });
+    window.addEventListener('offline', () => updateSyncUI('offline'));
+
+    function triggerManualSync() {
+      if (navigator.onLine) {
+        updateSyncUI();
+        syncService.syncOfflineEvents();
+      } else {
+        alert("You are currently offline. Data is saved locally and will sync when connection is restored.");
+      }
+    }
+
+    // Attempt to recover previous match ID from URL or localStorage
+    const savedMatchId = localStorage.getItem('currentScoringMatchId');
+    if (savedMatchId) {
+      currentMatchId = savedMatchId;
+    } else {
+      localStorage.setItem('currentScoringMatchId', currentMatchId);
+    }
+
     async function init() {
       await store.init();
+      
       const storedEvents = await store.getEventsForMatch(currentMatchId);
       
       if (storedEvents.length === 0) {
@@ -323,7 +424,14 @@
       } else {
         storedEvents.forEach(ev => engine.applyEvent(ev));
       }
+      
       render();
+      updateSyncUI();
+      
+      // Auto-sync on startup if online
+      if (navigator.onLine) syncService.syncOfflineEvents();
+      // Periodically sync every 10 seconds just in case
+      syncService.startPeriodicSync(10000);
     }
 
     async function emitEvent(payload) {
@@ -338,6 +446,10 @@
       await store.saveEvent(ev);
       engine.applyEvent(ev);
       render();
+      updateSyncUI();
+      
+      // Attempt background sync immediately after saving
+      if (navigator.onLine) syncService.syncOfflineEvents();
     }
 
     async function scoreRun(runs) {

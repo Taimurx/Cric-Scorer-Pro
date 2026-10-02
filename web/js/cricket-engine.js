@@ -723,7 +723,7 @@
     init() {
       if (typeof window === 'undefined') return;
 
-      window.addEventListener('keydown', (e) => {
+      this._handleKeyDown = (e) => {
         if (!this.active) return;
         // Skip typing in inputs/textareas
         const tag = (e.target.tagName || '').toLowerCase();
@@ -759,7 +759,16 @@
           e.preventDefault();
           this.dispatch('cricket:action', { action: 'SWAP_STRIKER' });
         }
-      });
+      };
+
+      window.addEventListener('keydown', this._handleKeyDown);
+    }
+
+    destroy() {
+      if (this._handleKeyDown) {
+        window.removeEventListener('keydown', this._handleKeyDown);
+        this._handleKeyDown = null;
+      }
     }
 
     dispatch(eventName, detail) {
@@ -798,18 +807,12 @@
     listen(callback) {
       if (typeof window === 'undefined' || typeof callback !== 'function') return;
 
-      try {
-        if ('BroadcastChannel' in window) {
-          const channel = new BroadcastChannel(this.channelName);
-          channel.onmessage = (event) => {
-            if (event.data) callback(event.data);
-          };
-        }
-      } catch (err) {
-        void err;
-      }
-
-      window.addEventListener('storage', (e) => {
+      let channel = null;
+      const handleMessage = (event) => {
+        if (event.data) callback(event.data);
+      };
+      
+      const handleStorage = (e) => {
         if (e.key === this.storageKey && e.newValue) {
           try {
             callback(JSON.parse(e.newValue));
@@ -817,7 +820,23 @@
             void err;
           }
         }
-      });
+      };
+
+      try {
+        if ('BroadcastChannel' in window) {
+          channel = new BroadcastChannel(this.channelName);
+          channel.onmessage = handleMessage;
+        }
+      } catch (err) {
+        void err;
+      }
+
+      window.addEventListener('storage', handleStorage);
+
+      return function unsubscribe() {
+        if (channel) channel.close();
+        window.removeEventListener('storage', handleStorage);
+      };
     }
   };
 
@@ -965,6 +984,105 @@
         request.onerror = (e) => reject(e.target.error);
       });
     }
+    
+    async getUnsyncedEvents() {
+      if (this.isNode) {
+        return Promise.resolve(this.memoryEvents.filter(e => !e.synced));
+      }
+      return new Promise((resolve, reject) => {
+        const tx = this.db.transaction('events', 'readonly');
+        const store = tx.objectStore('events');
+        const index = store.index('synced');
+        const request = index.getAll(false);
+        request.onsuccess = (e) => resolve(e.target.result || []);
+        request.onerror = (e) => reject(e.target.error);
+      });
+    }
+
+    async markEventSynced(eventId) {
+      if (this.isNode) {
+        const ev = this.memoryEvents.find(e => e.eventId === eventId);
+        if (ev) ev.synced = true;
+        return Promise.resolve();
+      }
+      return new Promise((resolve, reject) => {
+        const tx = this.db.transaction('events', 'readwrite');
+        const store = tx.objectStore('events');
+        const getReq = store.get(eventId);
+        getReq.onsuccess = (e) => {
+          const data = e.target.result;
+          if (data) {
+            data.synced = true;
+            store.put(data);
+          }
+          resolve();
+        };
+        getReq.onerror = (e) => reject(e.target.error);
+      });
+    }
+
+    close() {
+      if (this.db) {
+        this.db.close();
+        this.db = null;
+      }
+    }
+  }
+
+  // =========================================================================
+  // 10. OFFLINE SYNC SERVICE
+  // =========================================================================
+  class EventSyncService {
+    constructor(eventStore, apiClient) {
+      this.eventStore = eventStore;
+      this.apiClient = apiClient;
+      this.syncInProgress = false;
+      this.onSyncComplete = null;
+    }
+
+    async syncOfflineEvents() {
+      if (this.syncInProgress) return;
+      this.syncInProgress = true;
+      try {
+        const unsynced = await this.eventStore.getUnsyncedEvents();
+        if (unsynced.length === 0) {
+          if (this.onSyncComplete) this.onSyncComplete(0, 0);
+          this.syncInProgress = false;
+          return;
+        }
+
+        const result = await this.apiClient.pushEvents(unsynced);
+        const syncedIds = result?.syncedIds || unsynced.map(e => e.eventId);
+
+        for (const event of unsynced) {
+          if (syncedIds.includes(event.eventId)) {
+            await this.eventStore.markEventSynced(event.eventId);
+          }
+        }
+        if (this.onSyncComplete) this.onSyncComplete(syncedIds.length, unsynced.length - syncedIds.length);
+      } catch (e) {
+        console.warn('Sync failed, will retry later', e);
+        if (this.onSyncComplete) this.onSyncComplete(0, -1);
+      } finally {
+        this.syncInProgress = false;
+      }
+    }
+
+    startPeriodicSync(intervalMs = 5000) {
+      if (this.intervalId) {
+        this.stopPeriodicSync();
+      }
+      if (typeof window !== 'undefined') {
+        this.intervalId = window.setInterval(() => this.syncOfflineEvents(), intervalMs);
+      }
+    }
+
+    stopPeriodicSync() {
+      if (this.intervalId) {
+        if (typeof window !== 'undefined') window.clearInterval(this.intervalId);
+        this.intervalId = null;
+      }
+    }
   }
 
   // =========================================================================
@@ -978,7 +1096,7 @@
   const shortcutsInstance = new KeyboardShortcutsManager();
 
   const CricketEngine = {
-    version: '2.0.13',
+    version: '2.0.14',
     FreeHitManager,
     DLSEngine,
     BowlerQuotaCalculator,
@@ -986,6 +1104,7 @@
     EventType,
     MatchEngine,
     IndexedDBEventStore,
+    EventSyncService,
     audio: audioInstance,
     announcer: announcerInstance,
     shortcuts: shortcutsInstance,

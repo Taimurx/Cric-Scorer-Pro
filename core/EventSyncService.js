@@ -35,6 +35,9 @@ class EventSyncService {
   }
 
   startPeriodicSync(intervalMs = 5000) {
+    if (this.intervalId) {
+      this.stopPeriodicSync();
+    }
     if (typeof window !== 'undefined') {
       this.intervalId = window.setInterval(() => this.syncOfflineEvents(), intervalMs);
     } else {

@@ -1,5 +1,5 @@
 /**
- * Cric Scorer Pro — Unified Cross-Site Theme Manager
+ * Cric Scorer Pro — Unified Cross-Site Theme Manager (Web Suite Asset)
  * Supports: Sunrise, Ocean, Midnight, Stadium Green, Sunlight Contrast, Royal Violet
  * Handles persistence, cross-tab synchronization, browser theme-color meta tags, and hero mockup syncing.
  */
@@ -7,13 +7,13 @@
   'use strict';
 
   var THEMES = [
-    { id: 'sunrise', nameEn: 'Sunrise', nameBn: 'সানরাইজ', icon: '🌅', color: '#E0567B', metaColor: '#E0567B' },
-    { id: 'ocean', nameEn: 'Ocean', nameBn: 'ওশান', icon: '🌊', color: '#0284C7', metaColor: '#0284C7' },
-    { id: 'midnight', nameEn: 'Midnight', nameBn: 'মিডনাইট', icon: '🌙', color: '#10B981', metaColor: '#0B0F19' },
-    { id: 'stadium', nameEn: 'Stadium Green', nameBn: 'স্টেডিয়াম গ্রিন', icon: '🌿', color: '#10B981', metaColor: '#081C15' },
-    { id: 'sunlight', nameEn: 'Sunlight Contrast', nameBn: 'সানলাইট ফিল্ড', icon: '☀️', color: '#D97706', metaColor: '#FFFFFF' },
-    { id: 'royal', nameEn: 'Royal Violet', nameBn: 'রয়্যাল ভায়োলেট', icon: '👑', color: '#8B5CF6', metaColor: '#120F1F' }
-  ];
+  { id: 'sunrise', nameEn: 'Sunrise', nameBn: 'সূর্যোদয়', icon: '🌅', color: '#E0567B', metaColor: '#E0567B', vars: {'--bg':'#FFFAF0', '--text':'#333333', '--primary':'#FF5722', '--accent':'#FF9800', '--btn-bg':'#FFE0B2', '--btn-active':'#FFCC80', '--border-color':'rgba(255, 152, 0, 0.4)'} },
+  { id: 'ocean', nameEn: 'Ocean', nameBn: 'সাগর', icon: '🌊', color: '#0284C7', metaColor: '#0284C7', vars: {'--bg':'#F0F8FF', '--text':'#0F172A', '--primary':'#0284C7', '--accent':'#38BDF8', '--btn-bg':'#E0F2FE', '--btn-active':'#BAE6FD', '--border-color':'rgba(2, 132, 199, 0.3)'} },
+  { id: 'midnight', nameEn: 'Midnight', nameBn: 'মাঝরাত', icon: '🌌', color: '#10B981', metaColor: '#0B0F19', vars: {'--bg':'#0B0F19', '--text':'#F8FAFC', '--primary':'#10B981', '--accent':'#34D399', '--btn-bg':'#1E293B', '--btn-active':'#334155', '--border-color':'rgba(16, 185, 129, 0.3)'} },
+  { id: 'stadium', nameEn: 'Stadium Green', nameBn: 'স্টেডিয়াম', icon: '🏟️', color: '#10B981', metaColor: '#081C15', vars: {'--bg':'#081C15', '--text':'#E2E8F0', '--primary':'#10B981', '--accent':'#F59E0B', '--btn-bg':'#1B4332', '--btn-active':'#2D6A4F', '--border-color':'rgba(16, 185, 129, 0.3)'} },
+  { id: 'sunlight', nameEn: 'Sunlight Contrast', nameBn: 'সূর্যালোক', icon: '☀️', color: '#D97706', metaColor: '#FFFFFF', vars: {'--bg':'#FFFFFF', '--text':'#000000', '--primary':'#D97706', '--accent':'#F59E0B', '--btn-bg':'#FEF3C7', '--btn-active':'#FDE68A', '--border-color':'rgba(217, 119, 6, 0.3)'} },
+  { id: 'royal', nameEn: 'Royal Violet', nameBn: 'রাজকীয়', icon: '👑', color: '#8B5CF6', metaColor: '#120F1F', vars: {'--bg':'#120F1F', '--text':'#F3E8FF', '--primary':'#8B5CF6', '--accent':'#EC4899', '--btn-bg':'#2E1065', '--btn-active':'#4C1D95', '--border-color':'rgba(139, 92, 246, 0.3)'} }
+];
 
   var STORAGE_KEY = 'cps_theme';
   var DEFAULT_THEME = 'sunrise';
@@ -43,18 +43,23 @@
         var storage = (window && window.localStorage) ? window.localStorage : (typeof localStorage !== 'undefined' ? localStorage : null);
         if (storage) {
           storage.setItem(STORAGE_KEY, themeId);
-          storage.setItem('flutter.cricket_theme_v3', themeId);
-          storage.setItem('flutter.selected_theme', themeId);
+          storage.setItem('flutter.cricket_theme_v3', '"' + themeId + '"');
+          storage.setItem('flutter.selected_theme', '"' + themeId + '"');
         }
-      } catch (e) {}
+      } catch (e) { /* ignore */ }
 
       var doc = (typeof document !== 'undefined') ? document : (window && window.document);
       var activeThemeObj = THEMES.find(function(t) { return t.id === themeId; });
 
       if (doc) {
-        // Apply data-theme on documentElement (HTML root) and body
+        // Apply data-theme and variables on documentElement (HTML root)
         if (doc.documentElement && doc.documentElement.setAttribute) {
           doc.documentElement.setAttribute('data-theme', themeId);
+          if (activeThemeObj && activeThemeObj.vars) {
+            for (var key in activeThemeObj.vars) {
+              doc.documentElement.style.setProperty(key, activeThemeObj.vars[key]);
+            }
+          }
         }
         if (doc.body && doc.body.setAttribute) {
           doc.body.setAttribute('data-theme', themeId);
@@ -117,7 +122,7 @@
             detail: { theme: themeId, themeObj: activeThemeObj, source: triggerSource || 'direct' }
           }));
         }
-      } catch (e) {}
+      } catch (e) { /* ignore */ }
 
       return themeId;
     },
@@ -154,7 +159,7 @@
   // Attach to window if available
   if (window) {
     window.CpsThemeManager = ThemeManager;
-    window.setMockupTheme = function(themeClassOrId, btnElement) {
+    window.setMockupTheme = function(themeClassOrId) {
       var themeId = themeClassOrId.replace(/^theme-/, '');
       ThemeManager.setTheme(themeId, 'mockup');
     };

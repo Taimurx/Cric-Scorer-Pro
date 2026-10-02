@@ -46,7 +46,7 @@
           storage.setItem('flutter.cricket_theme_v3', '"' + themeId + '"');
           storage.setItem('flutter.selected_theme', '"' + themeId + '"');
         }
-      } catch (e) {}
+      } catch (e) { /* ignore */ }
 
       var doc = (typeof document !== 'undefined') ? document : (window && window.document);
       var activeThemeObj = THEMES.find(function(t) { return t.id === themeId; });
@@ -122,7 +122,7 @@
             detail: { theme: themeId, themeObj: activeThemeObj, source: triggerSource || 'direct' }
           }));
         }
-      } catch (e) {}
+      } catch (e) { /* ignore */ }
 
       return themeId;
     },
@@ -159,7 +159,7 @@
   // Attach to window if available
   if (window) {
     window.CpsThemeManager = ThemeManager;
-    window.setMockupTheme = function(themeClassOrId, btnElement) {
+    window.setMockupTheme = function(themeClassOrId) {
       var themeId = themeClassOrId.replace(/^theme-/, '');
       ThemeManager.setTheme(themeId, 'mockup');
     };

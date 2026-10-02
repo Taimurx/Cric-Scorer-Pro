@@ -1,18 +1,13 @@
 {
-    "name": "Cric Scorer Pro Web — Live Cricket Scoring",
-    "short_name": "Cric Scorer Pro",
+    "name": "cricket",
+    "short_name": "cricket",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#120F1F",
-    "theme_color": "#1E1744",
-    "description": "Professional live cricket scoring, full scoreboards, tournament tables and offline sync right in your browser.",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "A new Flutter project.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
-    "categories": [
-        "sports",
-        "utilities",
-        "productivity"
-    ],
     "icons": [
         {
             "src": "icons/Icon-192.png",

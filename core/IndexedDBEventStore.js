@@ -121,6 +121,13 @@ class IndexedDBEventStore extends EventStore {
       getReq.onerror = (e) => reject(e.target.error);
     });
   }
+
+  close() {
+    if (this.db) {
+      this.db.close();
+      this.db = null;
+    }
+  }
 }
 
 if (typeof module !== 'undefined' && module.exports) {
