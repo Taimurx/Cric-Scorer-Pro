@@ -17,9 +17,9 @@ const path = require('path');
 const zlib = require('zlib');
 const os = require('os');
 
-const PORT = parseInt(process.env.PORT || '3000', 10);
+const PORT = parseInt(process.env.PORT || '8080', 10);
 const HOST = process.env.HOST || '0.0.0.0';
-const PUBLIC_DIR = path.resolve(__dirname, '..');
+const PUBLIC_DIR = fs.existsSync(path.join(__dirname, 'index.html')) ? __dirname : path.resolve(__dirname, '..');
 const APP_VERSION = '2.0.11';
 const APK_FILENAME = 'cricket_pro.apk';
 const APK_PATH = path.join(PUBLIC_DIR, APK_FILENAME);
@@ -61,11 +61,13 @@ const COMPRESSIBLE_EXTENSIONS = new Set([
 function applySecurityHeaders(res) {
   res.setHeader('X-Content-Type-Options', 'nosniff');
   res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://accounts.google.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://accounts.google.com; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://accounts.google.com https://*.googleapis.com https://*.firebaseio.com https://securetoken.googleapis.com https://identitytoolkit.googleapis.com https://www.gstatic.com; img-src 'self' data: blob: https://*.googleusercontent.com https://*.gstatic.com https://*.googleapis.com; frame-src 'self' https://accounts.google.com https://*.firebaseapp.com; media-src 'self' blob:; object-src 'none'; frame-ancestors 'self';");
   res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
   res.setHeader('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
   res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
-  res.setHeader('Server', 'CricScorerPro-Enterprise/2.0.11');
+  res.setHeader('Server', 'CricScorerPro-Enterprise/2.0.12');
 }
 
 /**
@@ -226,6 +228,8 @@ function serveStaticFile(req, res, filePath) {
           if (!res.headersSent) res.statusCode = 500;
           res.end();
         });
+        // Fix file descriptor leak on premature client disconnect
+        res.on('close', () => stream.destroy());
         stream.pipe(res);
         return;
       }
@@ -286,18 +290,26 @@ function serveStaticFile(req, res, filePath) {
       stream.pipe(res);
     };
 
+    const rawStream = fs.createReadStream(normalizedPath);
+    rawStream.on('error', () => {
+      if (!res.headersSent) res.statusCode = 500;
+      res.end();
+    });
+    // Fix file descriptor leak on premature client disconnect
+    res.on('close', () => rawStream.destroy());
+
     if (encodingType === 'br') {
-      const stream = fs.createReadStream(normalizedPath).pipe(zlib.createBrotliCompress());
+      const stream = rawStream.pipe(zlib.createBrotliCompress());
       sendAndCache(stream, res, 'br');
       return;
     }
     if (encodingType === 'gzip') {
-      const stream = fs.createReadStream(normalizedPath).pipe(zlib.createGzip({ level: 6 }));
+      const stream = rawStream.pipe(zlib.createGzip({ level: 6 }));
       sendAndCache(stream, res, 'gzip');
       return;
     }
     if (encodingType === 'deflate') {
-      const stream = fs.createReadStream(normalizedPath).pipe(zlib.createDeflate({ level: 6 }));
+      const stream = rawStream.pipe(zlib.createDeflate({ level: 6 }));
       sendAndCache(stream, res, 'deflate');
       return;
     }
@@ -305,12 +317,7 @@ function serveStaticFile(req, res, filePath) {
     // Standard Full-file stream
     res.statusCode = 200;
     res.setHeader('Content-Length', stat.size);
-    const stream = fs.createReadStream(normalizedPath);
-    stream.on('error', () => {
-      if (!res.headersSent) res.statusCode = 500;
-      res.end();
-    });
-    sendAndCache(stream, res, 'none');
+    sendAndCache(rawStream, res, 'none');
   });
 }
 
@@ -374,6 +381,17 @@ function serveHealthz(req, res) {
  * Simple In-Memory Rate Limiter for APK Downloads
  */
 const rateLimitMap = new Map();
+
+// Periodic cleanup of expired rate limit entries to prevent memory leaks
+setInterval(() => {
+  const now = Date.now();
+  for (const [ip, record] of rateLimitMap.entries()) {
+    if (now > record.resetTime) {
+      rateLimitMap.delete(ip);
+    }
+  }
+}, 10 * 60 * 1000).unref();
+
 function isRateLimited(ip) {
   if (ip === '127.0.0.1' || ip === '::ffff:127.0.0.1' || ip === '::1' || ip === 'localhost') return false;
   
@@ -400,6 +418,26 @@ function isRateLimited(ip) {
 
 // Memory cache for small static files to avoid disk I/O
 const memoryCache = new Map();
+const MAX_CACHE_ITEMS = 100;
+
+function getFromCache(key) {
+  if (!memoryCache.has(key)) return null;
+  const val = memoryCache.get(key);
+  memoryCache.delete(key); // Re-insert to refresh order
+  memoryCache.set(key, val);
+  return val;
+}
+
+function setToCache(key, val) {
+  if (memoryCache.has(key)) {
+    memoryCache.delete(key);
+  } else if (memoryCache.size >= MAX_CACHE_ITEMS) {
+    // Evict oldest (first) item
+    const firstKey = memoryCache.keys().next().value;
+    memoryCache.delete(firstKey);
+  }
+  memoryCache.set(key, val);
+}
 
 /**
  * Main HTTP Request Dispatcher
@@ -409,7 +447,10 @@ function handleRequest(req, res) {
   const parsedUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
   let pathname = decodeURIComponent(parsedUrl.pathname);
 
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '-';
+  let ip = req.socket.remoteAddress || '-';
+  if (process.env.TRUST_PROXY === 'true' && req.headers['x-forwarded-for']) {
+    ip = req.headers['x-forwarded-for'].split(',')[0].trim();
+  }
 
   // Enterprise Access Logging (JSON Structured format)
   res.on('finish', () => {
@@ -541,10 +582,19 @@ function gracefulShutdown(signal) {
   }
 
   setTimeout(() => {
-    console.error('[Cric Scorer Pro] Forcefully shutting down after timeout.');
+    console.error(JSON.stringify({ level: 'ERROR', message: '[Cric Scorer Pro] Forcefully shutting down after timeout.' }));
     process.exit(1);
   }, 10000).unref();
 }
+
+process.on('uncaughtException', (err) => {
+  console.error(JSON.stringify({ level: 'FATAL', type: 'uncaughtException', message: err.message, stack: err.stack }));
+  gracefulShutdown('SIGTERM');
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error(JSON.stringify({ level: 'ERROR', type: 'unhandledRejection', reason: reason instanceof Error ? reason.message : reason, stack: reason instanceof Error ? reason.stack : undefined }));
+});
 
 process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
 process.on('SIGINT', () => gracefulShutdown('SIGINT'));

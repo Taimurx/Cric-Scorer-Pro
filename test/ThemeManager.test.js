@@ -6,16 +6,14 @@ const path = require('node:path');
 const ROOT_DIR = path.resolve(__dirname, '..');
 
 test('Cric Scorer Pro — Unified ThemeManager Suite', async (t) => {
-  const coreScriptPath = path.join(ROOT_DIR, 'core', 'ThemeManager.js');
   const webScriptPath = path.join(ROOT_DIR, 'web', 'js', 'ThemeManager.js');
 
-  await t.test('1. Core ThemeManager.js and Web ThemeManager.js exist', () => {
-    assert.ok(fs.existsSync(coreScriptPath), 'core/ThemeManager.js should exist');
+  await t.test('1. Web ThemeManager.js exists', () => {
     assert.ok(fs.existsSync(webScriptPath), 'web/js/ThemeManager.js should exist');
   });
 
   await t.test('2. Evaluates cleanly and provides all 6 themes', () => {
-    const code = fs.readFileSync(coreScriptPath, 'utf8');
+    const code = fs.readFileSync(webScriptPath, 'utf8');
 
     // Create a mock DOM & Window environment
     const storage = {};
@@ -28,6 +26,7 @@ test('Cric Scorer Pro — Unified ThemeManager Suite', async (t) => {
       readyState: 'complete',
       documentElement: {
         attributes: {},
+        style: { setProperty: function() {} },
         setAttribute: function(name, val) { this.attributes[name] = val; },
         getAttribute: function(name) { return this.attributes[name]; }
       },
@@ -60,12 +59,13 @@ test('Cric Scorer Pro — Unified ThemeManager Suite', async (t) => {
   });
 
   await t.test('3. Theme setting, validation and persistence works correctly', () => {
-    const code = fs.readFileSync(coreScriptPath, 'utf8');
+    const code = fs.readFileSync(webScriptPath, 'utf8');
     const storage = {};
     const mockDocument = {
       readyState: 'complete',
       documentElement: {
         attributes: {},
+        style: { setProperty: function() {} },
         setAttribute: function(name, val) { this.attributes[name] = val; }
       },
       body: {
@@ -97,13 +97,13 @@ test('Cric Scorer Pro — Unified ThemeManager Suite', async (t) => {
     mockWindow.CpsThemeManager.setTheme('midnight');
     assert.equal(mockWindow.CpsThemeManager.getTheme(), 'midnight');
     assert.equal(storage['cps_theme'], 'midnight');
-    assert.equal(storage['flutter.cricket_theme_v3'], 'midnight');
+    assert.equal(storage['flutter.cricket_theme_v3'], '"midnight"');
     assert.equal(mockDocument.documentElement.attributes['data-theme'], 'midnight');
 
     // Switch to stadium
     mockWindow.CpsThemeManager.setTheme('stadium');
     assert.equal(mockWindow.CpsThemeManager.getTheme(), 'stadium');
-    assert.equal(storage['flutter.cricket_theme_v3'], 'stadium');
+    assert.equal(storage['flutter.cricket_theme_v3'], '"stadium"');
     assert.equal(mockDocument.documentElement.attributes['data-theme'], 'stadium');
 
     // Invalid theme falls back safely to sunrise

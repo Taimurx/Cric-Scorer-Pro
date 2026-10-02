@@ -1,11 +1,11 @@
 {
-    "name": "cricket",
-    "short_name": "cricket",
+    "name": "Cric Scorer Pro - Live Cricket Scoring",
+    "short_name": "Cric Scorer Pro",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#1E1744",
+    "theme_color": "#1E1744",
+    "description": "Professional ball-by-ball cricket scoring app for Android and Web.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

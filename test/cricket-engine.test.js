@@ -1,5 +1,6 @@
 const test = require('node:test');
 const assert = require('node:assert/strict');
+const CricketUI = require('../web/js/cricket-ui.js');
 const CricketEngine = require('../web/js/cricket-engine.js');
 
 test('CricketEngine: Free Hit Law 21.19 Enforcement', () => {

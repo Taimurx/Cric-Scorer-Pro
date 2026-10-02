@@ -79,6 +79,7 @@
   <!-- Google Sign-In Web Client ID & Identity Services -->
   <meta name="google-signin-client_id" content="889324711628-h52akp3rti8rffg4r1mhre14ahmgubq7.apps.googleusercontent.com">
   <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="js/cricket-ui.js"></script>
   <script src="js/cricket-engine.js"></script>
   <script>
     (function() {
@@ -216,12 +217,12 @@
     }
 
     /* ── Non-Obtrusive Floating Action Dock (Never Covers Flutter AppBar) ── */
-    #web-dock {
-      position: fixed;
-      top: 12px;
-      right: 12px;
-      z-index: 9998;
-      display: inline-flex;
+    #web-dock, .dock-trigger-btn {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
       align-items: center;
       gap: 7px;
       padding: 5px 8px;
@@ -630,8 +631,7 @@
 </head>
 <body>
 
-    </button>
-  </div>
+
 
   <!-- Dynamic Interactive Cricket Loader -->
   <div id="cricket-loader">
